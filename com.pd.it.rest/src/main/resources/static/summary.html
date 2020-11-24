@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AI系统</title>
+
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/icon.css">
+<script data-main="summary.js" src="require.js" charset="utf-8"></script>
+</head>
+<form id="formEconomic" method="post">
+	<div>
+		<label for="month">月份:</label> <input type="combobox"
+			class="easyui-combobox" id="summaryYear" name="year"
+			data-options="valueField:'value',textField:'text',url:'common/ra/list/year'">
+	</div>
+</form>
+
+<div id="dSummary" class="easyui-tabs">
+	<div id="dSuggest" title="VIP建议" style="weight: 100%; height: 700px;">
+		<iframe name="frmTodoSuggest" id="frmTodoWaiting" frameborder="0"
+			align="left" width="100%" height="600px" scrolling="yes"
+			src="commonGrid.html?module=suggest&dimension=vip">
+			<p>你的浏览器不支持iframe标签</p>
+		</iframe>
+	</div>
+	<div id="dSummaryYear" title="月历" style="width: 100%; height: 600px;">
+		<table style="width: 40%;">
+			<tr>
+				<td bgcolor="lightgreen" width="5%">春</td>
+				<td><div id="month1" width="15%" /></td>
+				<td><div id="month2" width="15%" /></td>
+				<td><div id="month3" width="15%" /></td>
+			</tr>
+			<tr>
+				<td bgcolor="yellow">夏</td>
+				<td><div id="month4" /></td>
+				<td><div id="month5" /></td>
+				<td><div id="month6" /></td>
+			</tr>
+			<tr>
+				<td bgcolor="red">秋</td>
+				<td><div id="month7" /></td>
+				<td><div id="month8" /></td>
+				<td><div id="month9" /></td>
+			</tr>
+			<tr>
+				<td bgcolor="white">冬</td>
+				<td><div id="month10" /></td>
+				<td><div id="month11" /></td>
+				<td><div id="month12" /></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="dSummaryYear$sun" title="年太阳图"
+		style="overflow: auto; padding: 10px;">
+		<div id="chartSummaryYear$sun" style="height: 100%; height: 550px;"></div>
+	</div>
+</div>
+</html>

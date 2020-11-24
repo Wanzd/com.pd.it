@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/icon.css" />
+<script data-main="todo" src="require.js" charset="utf-8"></script>
+
+<div id="dTodo" class="easyui-tabs">
+	<div id="dTodoDescription" title="描述"
+		style="weight: 100%; height: 3000px;">
+		<table>
+			<tr>
+				<td bgcolor="lightgreen">0，分析建议</td>
+			</tr>
+			<tr>
+				<td>1,待我处理</td>
+			</tr>
+			<tr>
+				<td>2，我发起的</td>
+			</tr>
+			<tr>
+				<td>3，我参与的</td>
+			</tr>
+		</table>
+	</div>
+	<div id="dTodoSuggest" title="建议"
+		style="weight: 100%; height: 700px;">
+		<iframe name="frmTodoSuggest" id="frmTodoWaiting" frameborder="0"
+			align="left" width="100%" height="600px" scrolling="yes"
+			src="commonGrid.html?module=todo&dimension=Suggest">
+			<p>你的浏览器不支持iframe标签</p>
+		</iframe>
+	</div>
+	<div id="dTodoWaiting" title="待我处理"
+		style="weight: 100%; height: 700px;">
+		<iframe name="frmTodoWaiting" id="frmTodoWaiting" frameborder="0"
+			align="left" width="100%" height="600px" scrolling="yes"
+			src="commonGrid.html?module=todo&dimension=waiting">
+			<p>你的浏览器不支持iframe标签</p>
+		</iframe>
+	</div>
+	<div id="dTodoCreated" title="我发起的"
+		style="weight: 100%; height: 700px;">
+		<iframe name="frmTodoCreated" id="frmTodoCreated" frameborder="0"
+			align="left" width="100%" height="600px" scrolling="yes"
+			src="commonGrid.html?module=todo&dimension=created">
+			<p>你的浏览器不支持iframe标签</p>
+		</iframe>
+	</div>
+	<div id="dTodoJoin" title="我参与的" style="weight: 100%; height: 700px;">
+		<iframe name="frmTodoJoin" id="frmTodoJoin" frameborder="0"
+			align="left" width="100%" height="600px" scrolling="yes"
+			src="commonGrid.html?module=todo&dimension=join">
+			<p>你的浏览器不支持iframe标签</p>
+		</iframe>
+	</div>
+</div>
+</html>

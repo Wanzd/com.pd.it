@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.ISysChartDao">
+	<select id="queryJson" resultType="string">
+select json_data "jsonData"
+from sys_chart_t
+where id=#{fo.id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="queryInfo" resultType="MapVO">
+select id "id",
+	datasource_id "dataSourceId",
+	chart_type "chartType",
+	title "title",
+	x_title "xTitle",
+	x_col "xCol",
+	y_title "yTitle",
+	y_col "yCol",
+	z_title "zTitle",
+	z_col "zCol"
+from sys_chart_t
+where id=#{fo.id,jdbcType=VARCHAR}
+	</select>
+	<select id="queryList" resultType="MapVO">
+select id "id",
+	datasource_id "dataSourceId",
+	chart_type "chartType",
+	title "title",
+	x_title "xTitle",
+	x_col "xCol",
+	y_title "yTitle",
+	y_col "yCol",
+	z_title "zTitle",
+	z_col "zCol"
+from sys_chart_t
+	</select>
+	
+	<select id="queryPagedList" resultType="SysChartBO">
+select id "id",
+	json_data "jsonData"
+from sys_chart_t
+order by id
+	</select>
+	
+	<update id="updateList">
+begin
+	
+		<foreach item="it" collection="list" >
+	update sys_chart_t
+	set json_data=#{it.jsonData}
+	where id=#{it.id};
+		</foreach>
+	commit;
+end;
+	</update>
+</mapper>  

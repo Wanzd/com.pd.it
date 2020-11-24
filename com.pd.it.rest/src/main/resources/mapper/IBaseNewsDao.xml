@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.IBaseNewsDao">
+	<update id="initTable">
+create table base_news_t(
+	type varchar2(30),
+	creation_date date,
+	value clob
+)
+	</update>
+	
+	<update id="initData">
+delete from base_news_t
+	</update>
+	
+	<select id="queryList" resultType="MapVO">
+select creation_date "creationDate",
+	value "value",
+	parse_bean "parseBean"
+from base_news_t
+where type=#{fo.type,jdbcType=VARCHAR}
+		<if test='fo.creationDate != null'> and creation_date =trunc(#{fo.creationDate,jdbcType=DATE})</if>
+	</select>
+	
+	<update id="insertList" >
+declare
+begin
+		<foreach item="it" collection="list" >
+	insert into base_news_t(
+		type,
+		parse_bean,
+		value,
+		creation_date
+	)
+	values
+	(
+		#{it.type,jdbcType=VARCHAR},
+		#{it.parseBean,jdbcType=VARCHAR},
+		#{it.value,jdbcType=VARCHAR},
+		trunc(#{it.creationDate,jdbcType=DATE})
+	);
+		</foreach>
+	commit;
+end;
+	</update>
+	
+	<delete id="delete">
+delete from base_news_t
+where type=#{fo.type,jdbcType=VARCHAR}
+		<if test='fo.creationDate != null'> and creation_date =trunc(#{fo.creationDate,jdbcType=DATE})</if>
+	</delete>
+</mapper>  

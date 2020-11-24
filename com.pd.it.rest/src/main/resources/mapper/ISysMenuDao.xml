@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.ISysMenuDao">
+	<select id="queryList" resultType="SysMenuBO">
+select id as "id",
+	pid as "pid",
+	name as "name",
+	url as "url",
+  	sort_id as "sortId",
+	detail as "detail"
+from sys_Menu_t
+where 1=1
+		<choose>
+			<when test='fo!=null and fo.pid!=null and fo.pid!=""'> and pid =#{fo.pid,jdbcType=VARCHAR}</when>
+			<otherwise>and pid is null </otherwise>
+		</choose> 	
+order by sort_id,id
+	</select>
+	<select id="queryPagedList" resultType="SysMenuBO">
+select SYS_CONNECT_BY_PATH(replace(lpad(sort_id,3),' ','0'),'\')  as "fullPath",
+	id as "id",
+	pid as "pid",
+	name as "name",
+  	url as "url",
+  	sort_id as "sortId",
+  	detail as "detail"
+from sys_Menu_t
+start with pid is null
+connect by prior id=pid
+order by "fullPath"
+	</select>
+</mapper>

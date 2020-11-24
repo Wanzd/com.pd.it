@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.IAppSariDao">
+	<update id="updateList">
+begin
+		<foreach item="it" collection="list" >
+	insert into app_sari_t(
+		nation,
+		province,
+		city,
+		qty_type,
+		qty,
+		creation_date
+	)
+	values
+	(
+		#{it.nation,jdbcType=VARCHAR},
+			<choose>
+				<when test='it.province!=null'>#{it.province,jdbcType=VARCHAR},</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			<choose>
+				<when test='it.province!=null'>#{it.city,jdbcType=VARCHAR},</when>
+				<otherwise>null,</otherwise>
+			</choose>
+		#{it.qtyType,jdbcType=VARCHAR},
+		#{it.qty,jdbcType=INTEGER},
+		trunc(#{it.creationDate,jdbcType=DATE})
+	);
+		</foreach>
+	commit;
+end;
+	</update>
+	
+	<update id="delete">
+delete from app_sari_t
+where creation_date=trunc(#{fo.creationDate,jdbcType=DATE})
+	</update>
+	
+	<update id="initChinaData">
+insert into app_sari_t(nation,qty_type,qty,creation_date)
+select '中国',
+	qty_type,
+	nvl(sum(qty),0),
+	creation_date
+from app_sari_t
+where city is not null
+	and creation_date=trunc(sysdate)
+group by qty_type,creation_date
+	</update>
+	
+</mapper>  

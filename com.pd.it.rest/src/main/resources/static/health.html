@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AI系统</title>
+
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/icon.css">
+<script data-main="health.js" src="require.js" charset="utf-8"></script>
+</head>
+
+<div id="dHealth" class="easyui-accordion"
+	style="width: 100%; height: 500px;">
+
+	<div id="dHealthHeat" title="热力图" iconCls="icon-ok" selected="true"
+		style="overflow: auto; padding: 10px;">
+		<div id="chartHealthHeat" style="height: 100%; height: 550px;"></div>
+	</div>
+	<div id="dHealthPerson" title="人员情况"
+		style="overflow: auto; padding: 10px;">
+		<div id="chartHealthPerson" style="height: 100%; height: 550px;"></div>
+	</div>
+	<div id="dHealthWeight" title="体重"
+		style="overflow: auto; padding: 10px;">
+		<div id="chartHealthWeight" style="height: 100%; height: 550px;"></div>
+	</div>
+</div>
+</html>

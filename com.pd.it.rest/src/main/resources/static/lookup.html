@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AI系统</title>
+
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/icon.css">
+<script data-main="lookup.js" src="require.js" charset="utf-8"></script>
+</head>
+<form id="formEconomic" method="post">
+	<div>
+		<label for="month">Lookup类型:</label> <input type="text"
+			id="lookupType" name="lookupType">
+	</div>
+</form>
+
+<div id="dEconoic" class="easyui-tabs">
+	<div id="tLookupType" title="Lookup类型"
+		style="weight: 100%; height: 700px;">
+
+		<iframe name="frmLookupType" id="frmLookupType" frameborder="0"
+			align="left" width="100%" height="600px" scrolling="yes"
+			src="commonGrid.html?module=lookup&dimension=type">
+			<p>你的浏览器不支持iframe标签</p>
+		</iframe>
+	</div>
+</div>
+</html>

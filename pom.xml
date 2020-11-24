@@ -1,0 +1,15 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.pd</groupId>
+	<artifactId>com.pd.it</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>com.pd.it.rest</name>
+	<packaging>pom</packaging>
+	<modules>
+		<module>com.pd.it.base</module>
+		<module>com.pd.it.common</module>
+		<module>com.pd.it.rest</module>
+		<module>test</module>
+	</modules>
+</project>

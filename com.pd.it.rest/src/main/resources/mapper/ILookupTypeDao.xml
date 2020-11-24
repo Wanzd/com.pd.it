@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.ILookupTypeDao">
+	<select id="queryCombo" resultType="ComboVO">
+select code as "id",
+	name as "text"
+from lookup_type_t
+		<where>
+			<if test='fo!=null and fo.name!=null'> and name like #{fo.name}||'%'</if>
+		</where>
+order by name
+	</select>
+	
+	<select id="queryPagedList" resultType="LookupTypeVO">
+select *
+from (
+	select rs.*,rownum rn 
+	from (
+		select *
+		from lookup_type_t
+		<include refid='filter'/>
+		order by name
+	) rs  
+)
+where #{page.endIdx}>=rn
+	and rn>=#{page.startIdx} 
+	</select>
+	
+	<delete id='deleteById'>
+delete from lookup_type_t
+where code=#{fo.code}
+	</delete>
+	<sql id='filter'>
+		<where>
+			<if test='fo!=null and fo.name!=null'> and name like #{fo.name}||'%'</if>
+		</where>
+	</sql>
+</mapper>  

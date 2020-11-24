@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AI系统</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../jquery-easyui-1.4.1/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../jquery-easyui-1.4.1/themes/icon.css">
+<script data-main="index.js" src="../require.js" charset="utf-8"></script>
+</head>
+<form id="formEconomic" method="post">
+	<div>
+		<label for="month">月份:</label> <input type="text"
+			id="economicDateMonth" name="month" class="easyui-datetimebox">
+	</div>
+</form>
+
+<div id="dEconoic" class="easyui-tabs">
+
+	<div id="tEconoicDtail" title="详细数据"
+		style="weight: 100%; height: 700px;">
+
+		<iframe name="frmEconoicDetail" id="frmEconoicDetail" frameborder="0"
+			align="left" width="100%" height="600px" scrolling="yes"
+			src="../common/grid.html?module=economic&dimension=detail">
+			<p>你的浏览器不支持iframe标签</p>
+		</iframe>
+	</div>
+	<div id="dEconoicConfig" title="参数配置" style="height: 100%;">
+		<iframe name="frmEconoicCfg" id="frmEconoicCfg" frameborder="0"
+			align="left" width="100%" height="600px" scrolling="yes"
+			src="commonGrid.html?module=economic&dimension=config">
+			<p>你的浏览器不支持iframe标签</p>
+		</iframe>
+	</div>
+	<div id="dEconoicReport" title="报表"
+		style="weight: 100%; height: 600px;">
+		<div id="accordionEconomicReport" class="easyui-accordion"
+			style="width: 100%; height: 500px;">
+			<div id="dEconomicReportMonthly" title="月报表" iconCls="icon-ok"
+				style="overflow: auto; padding: 10px;">
+				<iframe name="frmEconoicMonthly" id="frmEconoicMonthly"
+					frameborder="0" align="left" width="100%" height="600px"
+					scrolling="yes"
+					src="commonGrid.html?module=economic&dimension=monthly">
+					<p>你的浏览器不支持iframe标签</p>
+				</iframe>
+			</div>
+		</div>
+	</div>
+	<div id="dEconoicRisk" title="风险预警" style="height: 100%;"></div>
+	<div id="dEconoicDescription" title="描述"
+		style="weight: 100%; height: 3000px;">
+		<table>
+			<tr>
+				<td bgcolor="lightgreen">0，需求标准</td>
+			</tr>
+			<tr>
+				<td bgcolor="lightgreen">1，数据详情</td>
+			</tr>
+			<tr>
+				<td bgcolor="lightgreen">2，参数配置</td>
+			</tr>
+			<tr>
+				<td bgcolor="lightgreen">3，数据统计</td>
+			</tr>
+			<tr>
+				<td>4，数据预警</td>
+			</tr>
+		</table>
+
+	</div>
+</div>
+</html>

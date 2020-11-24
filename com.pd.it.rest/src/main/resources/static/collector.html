@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AI系统</title>
+
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/icon.css">
+<script data-main="index.js" src="require.js" charset="utf-8"></script>
+</head>
+
+<div class="easyui-accordion" style="width: 100%; height: 500px;">
+
+	<div title="健康" iconCls="icon-ok" selected="true"
+		style="overflow: auto; padding: 10px;">
+		<form id="fAll" action="rest/u_weight" method="post" target="nm_iframe">
+			<label>体重：</label><input name="weight" /><input type="submit"
+				value="Submit"></input>
+		</form>
+	</div>
+	<div title="经济" style="padding: 10px;">
+		<form id="fAll" action="rest/us_request" method="post">
+			<label>早餐：</label><input name="eat1.detail" /><br /> <label>午餐：</label><input
+				name="eat2.detail" /><br /> <label>晚餐：</label><input
+				name="eat3.detail" /><input type="submit" value="Submit"></input>
+		</form>
+	</div>
+	<div title="信任"></div>
+	<div title="提交"></div>
+
+</div>
+<iframe id="id_iframe" name="nm_iframe" style="display: none;"></iframe>
+
+</body>
+</html>

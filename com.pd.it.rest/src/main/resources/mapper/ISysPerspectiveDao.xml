@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.ISysPerspectiveDao">
+	<select id="queryList" resultType="MapVO">
+select id "id"
+from sys_rel_t
+where type='perspective-chart'
+	and pid=#{fo.perspectiveId,jdbcType=VARCHAR}
+order by sort_id
+	</select>
+	
+	<select id="queryCombo" resultType="MapVO">
+select * from(
+	select id "id",
+		name "text"
+	from SYS_PERSPECTIVE_T
+	order by nlssort(name,'NLS_SORT=SCHINESE_PINYIN_M')
+)
+where 100>=rownum
+	</select>
+</mapper>  

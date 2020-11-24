@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AI系统</title>
+
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/icon.css">
+<script data-main="userRole.js" src="require.js" charset="utf-8"></script>
+</head>
+<form id="formEconomic" method="post">
+	<div>
+		<label for="name">姓名:</label> <input type="text" id="erName"
+			name="name">
+	</div>
+</form>
+
+<div id="dEconoic" class="easyui-tabs">
+	<div id="dEconoicDescription" title="描述"
+		style="weight: 100%; height: 3000px;">
+		<table>
+			<tr>
+				<td bgcolor="lightgreen">0，需求标准</td>
+			</tr>
+			<tr>
+				<td bgcolor="lightgreen">1，用户信息</td>
+			</tr>
+			<tr>
+				<td>2，角色配置</td>
+			</tr>
+			<tr>
+				<td>3，权限点配置</td>
+			</tr>
+		</table>
+
+	</div>
+	<div id="tUerBase" title="用户信息" style="weight: 100%; height: 700px;">
+
+		<iframe name="frmUserBase" id="frmUserBase" frameborder="0"
+			align="left" width="100%" height="600px" scrolling="yes"
+			src="commonGrid.html?module=user&dimension=base">
+			<p>你的浏览器不支持iframe标签</p>
+		</iframe>
+	</div>
+	<div id="dEconoicConfig" title="参数配置" style="height: 100%;"></div>
+
+</div>
+</html>

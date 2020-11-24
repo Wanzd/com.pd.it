@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<style>
+ pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+ .string { color: green; }
+ .number { color: darkorange; }
+ .boolean { color: blue; }
+ .null { color: magenta; }
+ .key { color: red; }
+			</style>
+			<script data-main="index.js" src="require.js" charset="utf-8"></script>
+			<script type="text/javascript">
+var json={
+a:"a",
+b:"b"
+};
+if (typeof json != 'string') {
+		json = JSON.stringify(json, undefined, 2);
+	}
+		json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+$('#jsonTxt').html(json);
+			</script>
+	</head>
+	<body>
+		<pre id="jsonTxt"/>
+	</body>
+</html>

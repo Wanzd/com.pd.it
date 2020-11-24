@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.IAppJobDao">
+	<update id="delete">
+truncate table app_job_t
+	</update>
+	
+	<update id="insertList" >
+declare
+begin
+		<foreach item="it" collection="list" >
+	insert into app_job_t(
+		id,
+		location,
+		company,
+		job_name,
+		salary,
+		salary_from,
+		salary_to,
+		creation_date,
+		url
+	)
+	values
+	(
+		#{it.id,jdbcType=VARCHAR},
+		#{it.location,jdbcType=VARCHAR},
+		#{it.company,jdbcType=VARCHAR},
+		#{it.jobName,jdbcType=VARCHAR},
+		#{it.salary,jdbcType=VARCHAR},
+		#{it.salaryFrom,jdbcType=NUMERIC},
+		#{it.salaryTo,jdbcType=NUMERIC},
+		trunc(sysdate),
+		#{it.url,jdbcType=VARCHAR}
+	);
+		</foreach>
+	commit;
+end;
+	</update>
+</mapper>  

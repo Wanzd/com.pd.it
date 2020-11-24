@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.4.1/themes/icon.css" />
+<script data-main="treeGrid" src="require.js" charset="utf-8"></script>
+
+<table id="td" title="Folder Browser" class="easyui-treegrid"
+	style="width: 100%; height: 100%" url="dbTree/root?mid=userTree"
+	rownumbers="true" idField="target_id" treeField="id">
+	<thead>
+		<tr>
+			<th field="id" width="160">id</th>
+			<th field="size" width="60" align="right">Size</th>
+			<th field="date" width="100">Modified Date</th>
+		</tr>
+	</thead>
+</table>
+<style type="text/css">
+#fm {
+	margin: 0;
+	padding: 10px 30px;
+}
+
+.ftitle {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 5px 0;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.fitem {
+	margin-bottom: 5px;
+}
+
+.fitem label {
+	display: inline-block;
+	width: 80px;
+}
+
+.fitem input {
+	width: 160px;
+}
+</style>
+</html>

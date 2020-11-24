@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.IUserDao">
+	<select id="queryDetailInfo" resultType="UserVO">
+select t.id,
+	t.name,
+	t.sex,
+	t.tel,
+	t.sort_id "sortId",
+	ft.id as "father.id",
+	ft.name as "father.name",
+	mt.id as "mother.id",
+	mt.name as "mother.name",
+	mt.id as "mate.id",
+	mt.name as "mate.name"
+from user_t t
+left join user_t ft
+	on t.father_id=ft.id
+left join user_t mt
+	on t.mother_id=mt.id
+left join user_t mt2
+	on t.mate_id=mt2.id
+where t.id=#{fo.id}
+order by t.sort_id,t.birthday
+	</select>
+	
+	<select id="queryPagedList" resultType="UserVO">
+select *
+from (
+	select rs.*,rownum rn 
+	from (
+		select t.id,
+			t.name,
+			t.sex,
+			t.tel,
+			t.sort_id "sortId",
+			t.birthday,
+			t.father_id "fatherId",
+			t.mother_id "motherId",
+			t.mate_id "mateId",
+			ft.id as "father.id",
+			ft.name as "father.name",
+			mt.id as "mother.id",
+			mt.name as "mother.name",
+			mt2.id as "mate.id",
+			mt2.name as "mate.name"
+		from user_t t
+		left join user_t ft
+			on t.father_id=ft.id
+		left join user_t mt
+			on t.mother_id=mt.id
+		left join user_t mt2
+			on t.mate_id=mt2.id
+		where 1=1
+		order by t.name,t.birthday,t.sort_id
+	) rs  
+)
+where #{page.endIdx}>=rn
+	and rn>=#{page.startIdx} 
+	</select>
+	
+	<select id="queryList" resultType="UserVO">
+select t.id,
+	t.name,
+	t.sex,
+	t.tel,
+	t.sort_id "sortId",
+	t.birthday,
+	t.father_id "fatherId",
+	t.mother_id "motherId",
+	t.mate_id "mateId",
+	ft.id as "father.id",
+	ft.name as "father.name",
+	mt.id as "mother.id",
+	mt.name as "mother.name",
+	mt2.id as "mate.id",
+	mt2.name as "mate.name"
+from user_t t
+left join user_t ft
+	on t.father_id=ft.id
+left join user_t mt
+	on t.mother_id=mt.id
+left join user_t mt2
+	on t.mate_id=mt2.id
+where 1=1
+order by t.name,t.birthday,t.sort_id
+	</select>
+	
+	<select id="queryCombo" resultType="ComboVO">
+select t.id as "id",
+	t.name as "text"
+from user_t t
+where 1=1
+		<if test='fo.name !=null and fo.name !=""'> and t.name like #{fo.name,jdbcType=VARCHAR}+'%'</if>
+		<if test='fo.sex !=null and fo.sex !=""'> and t.sex =#{fo.sex}</if>
+order by t.name
+	</select>
+	
+</mapper>  
