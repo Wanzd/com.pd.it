@@ -19,7 +19,7 @@ from ${fo.viewName}
 		</where>
 	</select>
 	
-	<select id="queryCombo" resultType="ComboVO">
+	<select id="queryCombo" resultType="com.pd.it.base.vo.ComboVO">
 select view_name "id",
 	view_name "text"
 from user_views

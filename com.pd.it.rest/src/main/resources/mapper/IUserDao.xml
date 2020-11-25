@@ -86,7 +86,7 @@ where 1=1
 order by t.name,t.birthday,t.sort_id
 	</select>
 	
-	<select id="queryCombo" resultType="ComboVO">
+	<select id="queryCombo" resultType="com.pd.it.base.vo.ComboVO">
 select t.id as "id",
 	t.name as "text"
 from user_t t

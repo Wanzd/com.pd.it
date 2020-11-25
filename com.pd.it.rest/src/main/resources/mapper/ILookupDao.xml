@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pd.springboot.dao.ILookupDao">
-	<select id="queryCombo" resultType="ComboVO">
+	<select id="queryCombo" resultType="com.pd.it.base.vo.ComboVO">
 select t.lookup_code as "id",
 	t.lookup_text as "text"
 from lookup_t t

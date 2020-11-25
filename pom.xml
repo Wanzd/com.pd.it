@@ -10,6 +10,5 @@
 		<module>com.pd.it.base</module>
 		<module>com.pd.it.common</module>
 		<module>com.pd.it.rest</module>
-		<module>test</module>
 	</modules>
 </project>
