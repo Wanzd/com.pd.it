@@ -1,5 +1,7 @@
 package com.pd.standard.web;
 
+import static com.pd.common.util.StaticTool.validError;
+
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -29,6 +31,9 @@ public interface IStandardRest<FO, VO> {
 	@RequestMapping("/queryInfo")
 	default Object queryInfo(@RequestBody(required = false) @Validated FO fo, BindingResult bindingResult)
 			throws BusinessException {
+		if (bindingResult.getAllErrors().size() > 0) {
+			return validError(bindingResult.getAllErrors());
+		}
 		return StaticTool.queryInfo(getDefaultField(), fo);
 	}
 

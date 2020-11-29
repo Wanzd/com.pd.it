@@ -1,5 +1,8 @@
 package com.pd.common.util;
 
+import static com.pd.it.base.constant.BaseConst.HTTP_CODE_ERROR;
+import static java.util.stream.Collectors.toList;
+
 import java.sql.Clob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,9 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.validation.ObjectError;
+
 import com.alibaba.fastjson.JSON;
 import com.pd.base.exception.BusinessException;
 import com.pd.businessobject.PageVO;
+import com.pd.it.base.vo.ResultVO;
 import com.pd.it.db.engine.QueryBridge;
 import com.pd.standard.itf.IQueryInfoOperation;
 
@@ -22,6 +28,16 @@ public class StaticTool {
 
 	public static boolean isNull(Object obj) {
 		return obj == null;
+	}
+
+	public static boolean eq(Object in1, Object in2) {
+		if (in1 == null && in2 == null) {
+			return true;
+		}
+		if (in1 == null ^ in2 == null) {
+			return false;
+		}
+		return in1.equals(in2);
 	}
 
 	public static boolean isEmpty(Object obj) {
@@ -144,5 +160,16 @@ public class StaticTool {
 
 	public static <FO, VO> List<VO> queryPagedList(Object field, FO fo, PageVO pageVO) throws BusinessException {
 		return QueryBridge.queryPagedList(field, fo, pageVO);
+	}
+
+	public static Object validError(List<ObjectError> in) {
+		ResultVO<List<String>> rsVO = new ResultVO();
+		rsVO.setCode(HTTP_CODE_ERROR);
+		rsVO.setMsg("valid fail");
+		List<String> list = in.stream().map(error -> {
+			return attr(error, "field", String.class) + error.getDefaultMessage();
+		}).collect(toList());
+		rsVO.setData(list);
+		return rsVO;
 	}
 }
