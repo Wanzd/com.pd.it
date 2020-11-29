@@ -7,7 +7,7 @@
 		<artifactId>com.pd.it</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.pd.it.base</groupId>
+	<groupId>com.pd.it</groupId>
 	<artifactId>com.pd.it.base</artifactId>
 	<properties>
 		<java.version>1.8</java.version>

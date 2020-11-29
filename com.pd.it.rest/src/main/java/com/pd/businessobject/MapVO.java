@@ -1,8 +1,5 @@
 package com.pd.businessobject;
 
-import static com.pd.common.util.StaticTool.clobToStr;
-
-import java.sql.Clob;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pd.common.util.StaticTool;
 
 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 public class MapVO extends HashMap<String, Object> {
@@ -42,8 +40,9 @@ public class MapVO extends HashMap<String, Object> {
 			put(eachKey, jsonObject.get(eachKey));
 		}
 	}
+
 	public MapVO(Object obj) {
-		JSONObject jsonObject = (JSONObject)JSON.toJSON(obj);
+		JSONObject jsonObject = (JSONObject) JSON.toJSON(obj);
 		for (String eachKey : jsonObject.keySet()) {
 			put(eachKey, jsonObject.get(eachKey));
 		}
@@ -104,14 +103,7 @@ public class MapVO extends HashMap<String, Object> {
 	}
 
 	public String str(String key) {
-		Object obj = get(key);
-		if (obj == null) {
-			return "";
-		}
-		if (obj instanceof Clob) {
-			return clobToStr((Clob) obj);
-		}
-		return obj.toString();
+		return StaticTool.str(get(key));
 	}
 
 	public MapVO p(Attr... attrs) {

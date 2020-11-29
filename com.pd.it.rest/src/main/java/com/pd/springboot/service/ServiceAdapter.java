@@ -11,9 +11,10 @@ import com.pd.businessobject.PageVO;
 import com.pd.common.util.CreateBridge;
 import com.pd.common.util.DeleteBridge;
 import com.pd.common.util.ExportUtil;
-import com.pd.common.util.QueryBridge;
+import com.pd.common.util.StaticTool;
 import com.pd.common.util.UpdateBridge;
 import com.pd.it.base.vo.ComboVO;
+import com.pd.it.db.engine.QueryBridge;
 import com.pd.standard.itf.IExportOperation;
 
 public class ServiceAdapter<FO, VO, Dao> extends ServiceImpl<BaseMapper<VO>, VO> implements IExportOperation<FO> {
@@ -21,7 +22,7 @@ public class ServiceAdapter<FO, VO, Dao> extends ServiceImpl<BaseMapper<VO>, VO>
 	protected Dao dao;
 
 	public VO queryInfo(FO fo) throws BusinessException {
-		return QueryBridge.queryInfo(dao, fo);
+		return StaticTool.queryInfo(dao, fo);
 	}
 
 	public String queryJson(FO fo) throws BusinessException {
@@ -33,11 +34,11 @@ public class ServiceAdapter<FO, VO, Dao> extends ServiceImpl<BaseMapper<VO>, VO>
 	}
 
 	public List<VO> queryList(FO fo) throws BusinessException {
-		return QueryBridge.queryList(dao, fo);
+		return StaticTool.queryList(dao, fo);
 	}
 
 	public List<VO> queryPagedList(FO fo, PageVO page) throws BusinessException {
-		return QueryBridge.queryPagedList(dao, fo, page);
+		return StaticTool.queryPagedList(dao, fo, page);
 	}
 
 	public int queryCount(FO fo) throws BusinessException {

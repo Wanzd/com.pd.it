@@ -1,6 +1,6 @@
 package com.pd.springboot.task;
 
-import static com.pd.common.util.StaticTool.objToJsonStr;
+import static com.pd.common.util.StaticTool.str;
 
 import java.util.Date;
 
@@ -16,23 +16,22 @@ import com.pd.standard.itf.ITask;
 
 @Named
 public class SariParseTodayTask implements ITask {
-    public static final String TITLE = "sariParseTodayTask";
-    @Autowired
-    private SariBusiness business;
+	public static final String TITLE = "sariParseTodayTask";
+	@Autowired
+	private SariBusiness business;
 
-    @Override
-    public Object process() {
-        TimerCO timer = new TimerCO(TITLE);
-        MapVO fo = new MapVO();
-        fo.put("creationDate", new Date());
-        try {
-            business.init(fo);
-            business.process(fo);
-        } catch (BusinessException e) {
-            e.printStackTrace();
-        }
-        timer.end();
-        String preStr = objToJsonStr(timer);
-        return preStr;
-    }
+	@Override
+	public Object process() {
+		TimerCO timer = new TimerCO(TITLE);
+		MapVO fo = new MapVO();
+		fo.put("creationDate", new Date());
+		try {
+			business.init(fo);
+			business.process(fo);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		timer.end();
+		return str(timer);
+	}
 }

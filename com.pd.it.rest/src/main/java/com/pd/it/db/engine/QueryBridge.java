@@ -1,4 +1,4 @@
-package com.pd.common.util;
+package com.pd.it.db.engine;
 
 import static com.pd.common.util.StaticTool.emptyList;
 import static com.pd.common.util.StaticTool.toObj;
@@ -6,11 +6,11 @@ import static com.pd.common.util.StaticTool.toObj;
 import java.util.HashMap;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pd.base.exception.BusinessException;
 import com.pd.businessobject.MapVO;
 import com.pd.businessobject.PageVO;
+import com.pd.common.util.StringFactory;
 import com.pd.it.base.vo.ComboVO;
 import com.pd.springboot.service.ServiceAdapter;
 import com.pd.standard.itf.IQueryComboOperation;
@@ -27,12 +27,10 @@ public class QueryBridge {
 		}
 		if (field instanceof BaseMapper) {
 			BaseMapper op = (BaseMapper) field;
-			String jsonStr = StringFactory.from(fo);
-			return (VO) op.selectById(JSON.parseObject(jsonStr, HashMap.class));
+			return (VO) op.selectById(toObj(fo, HashMap.class));
 		}
 		if (field instanceof IQueryInfoOperation) {
 			IQueryInfoOperation op = (IQueryInfoOperation) field;
-			String jsonStr = StringFactory.from(fo);
 			return (VO) op.queryInfo(fo);
 		}
 		return null;
