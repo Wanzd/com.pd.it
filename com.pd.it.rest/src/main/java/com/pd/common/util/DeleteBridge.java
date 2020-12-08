@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pd.base.exception.BusinessException;
-import com.pd.springboot.service.ServiceAdapter;
-import com.pd.standard.itf.IDeleteListOperation;
-import com.pd.standard.itf.IDeleteOperation;
-import com.pd.standard.itf.IIdentity;
-import com.pd.standard.itf.IUpdateListOperation;
+import com.pd.it.common.exception.BusinessException;
+import com.pd.it.common.itf.IDeleteListOperation;
+import com.pd.it.common.itf.IDeleteOperation;
+import com.pd.it.common.itf.IIdentity;
+import com.pd.it.common.itf.IUpdateListOperation;
+import com.pd.it.common.util.ServiceAdapter;
 
 public class DeleteBridge {
 

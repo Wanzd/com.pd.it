@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import com.pd.businessobject.SysInfoFO;
 import com.pd.businessobject.SysInfoVO;
+import com.pd.it.common.util.ServiceAdapter;
 import com.pd.springboot.dao.ISysInfoDao;
 
 @Named

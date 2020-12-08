@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.pd.standard.itf.IIdentity;
+import com.pd.it.common.itf.IIdentity;
 
 import lombok.Data;
 import lombok.ToString;

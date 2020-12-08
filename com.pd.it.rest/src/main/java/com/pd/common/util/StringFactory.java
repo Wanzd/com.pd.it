@@ -1,6 +1,6 @@
 package com.pd.common.util;
 
-import static com.pd.common.util.StaticTool.BLANK;
+import static com.pd.it.common.util.StaticTool.BLANK;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,7 +12,8 @@ import java.sql.Clob;
 import java.sql.SQLException;
 
 import com.alibaba.fastjson.JSON;
-import com.pd.businessobject.MapVO;
+import com.pd.it.common.businessobject.MapVO;
+import com.pd.it.common.util.FileUtil;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

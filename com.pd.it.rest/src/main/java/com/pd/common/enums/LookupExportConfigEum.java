@@ -1,7 +1,7 @@
 package com.pd.common.enums;
 
-import com.pd.common.annotations.Export;
-import com.pd.standard.itf.IExportConfigEnum;
+import com.pd.it.common.annotations.Export;
+import com.pd.it.common.itf.IExportConfigEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

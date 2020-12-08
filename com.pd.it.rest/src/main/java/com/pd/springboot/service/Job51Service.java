@@ -1,6 +1,7 @@
 package com.pd.springboot.service;
 
-import static com.pd.common.util.StaticTool.strToList;
+import static com.pd.it.common.util.StaticTool.strToList;
+import static com.pd.it.common.util.StaticTool.toDouble;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +15,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.pd.base.exception.BusinessException;
-import com.pd.businessobject.MapVO;
-import com.pd.common.util.DoubleX;
 import com.pd.common.util.MapVOX;
 import com.pd.common.util.StringFactory;
 import com.pd.common.util.WebUtil;
+import com.pd.it.common.businessobject.MapVO;
+import com.pd.it.common.exception.BusinessException;
+import com.pd.it.common.itf.IBuilder;
+import com.pd.it.common.util.ServiceAdapter;
 import com.pd.springboot.dao.IAppJobDao;
-import com.pd.standard.itf.IBuilder;
 
 @Named
 public class Job51Service extends ServiceAdapter<MapVO, MapVO, IAppJobDao> {
@@ -64,7 +65,7 @@ class SalaryFromBuilder implements IBuilder<String, String> {
                 base = 833;
             }
             String from = salaryStr.substring(0, salaryStr.indexOf("-"));
-            return DoubleX.str(from) * base + "";
+            return toDouble(from) * base + "";
         } catch (Exception e) {
             return "0";
         }
@@ -86,7 +87,7 @@ class SalaryToBuilder implements IBuilder<String, String> {
                 base = 833;
             }
             String to = salaryStr.substring(salaryStr.indexOf("-") + 1, salaryStr.indexOf("/") - 1);
-            return DoubleX.str(to) * base + "";
+            return toDouble(to) * base + "";
         } catch (Exception e) {
             return "0";
         }

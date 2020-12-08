@@ -15,7 +15,7 @@ where 1=1
 			<when test='fo!=null and fo.pid!=null and fo.pid!=""'> and pid =#{fo.pid,jdbcType=VARCHAR}</when>
 			<otherwise>and pid is null </otherwise>
 		</choose> 	
-order by sort_id,id
+order by sort_id+0,id
 	</select>
 	
 	<select id="queryPagedList" resultType="SysMenuBO">

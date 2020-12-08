@@ -1,6 +1,6 @@
 package com.pd.common.util;
 
-import static com.pd.common.util.StaticTool.isNull;
+import static com.pd.it.common.util.StaticTool.isNull;
 
 public class StringCal {
 

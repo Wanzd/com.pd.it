@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.pd.businessobject.MapVO;
-import com.pd.standard.itf.IBuilder;
+import com.pd.it.common.businessobject.MapVO;
+import com.pd.it.common.itf.IBuilder;
 
 public class TreeListBuilder implements IBuilder<List<MapVO>, List<MapVO>> {
 

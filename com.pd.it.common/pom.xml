@@ -8,4 +8,14 @@
 	</parent>
 	<groupId>com.pd.it</groupId>
 	<artifactId>com.pd.it.common</artifactId>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.pd.it</groupId>
+			<artifactId>com.pd.it.base</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

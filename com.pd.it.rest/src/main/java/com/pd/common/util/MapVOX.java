@@ -3,8 +3,8 @@ package com.pd.common.util;
 import java.util.List;
 
 import com.pd.businessobject.MapKV;
-import com.pd.businessobject.MapVO;
 import com.pd.common.calobject.TreeListBuilder;
+import com.pd.it.common.businessobject.MapVO;
 
 public class MapVOX {
 

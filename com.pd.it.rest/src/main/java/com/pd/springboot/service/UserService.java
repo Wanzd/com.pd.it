@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import com.pd.businessobject.UserFO;
 import com.pd.businessobject.UserVO;
+import com.pd.it.common.util.ServiceAdapter;
 import com.pd.springboot.dao.IUserDao;
 
 @Named

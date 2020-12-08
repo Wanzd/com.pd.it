@@ -1,31 +1,32 @@
 package com.pd.springboot.task;
 
-import static com.pd.common.util.StaticTool.str;
+
+import static com.pd.it.common.util.StaticTool.str;
 
 import java.util.Date;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.pd.businessobject.MapVO;
 import com.pd.common.calobject.TimerCO;
+import com.pd.it.common.businessobject.MapVO;
+import com.pd.it.common.itf.ITask;
 import com.pd.springboot.business.JobBusiness;
-import com.pd.standard.itf.ITask;
 import com.pd.standard.itf.TaskEnum;
 
 @Named
 public class JobInfoParseTodayTask implements ITask {
-	@Inject
-	private JobBusiness business;
+    @Inject
+    private JobBusiness business;
 
-	@Override
-	public Object process() {
-		TimerCO timer = new TimerCO(TaskEnum.JOB_INFO_PARSE_TODAY_TASK.getName());
-		MapVO fo = new MapVO();
-		fo.put("creationDate", new Date());
-		business.init(fo);
-		business.process(fo);
-		timer.end();
-		return str(timer);
-	}
+    @Override
+    public Object process() {
+        TimerCO timer = new TimerCO(TaskEnum.JOB_INFO_PARSE_TODAY_TASK.getName());
+        MapVO fo = new MapVO();
+        fo.put("creationDate", new Date());
+        business.init(fo);
+        business.process(fo);
+        timer.end();
+        return str(timer);
+    }
 }

@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import com.pd.businessobject.SysChartBO;
 import com.pd.businessobject.SysChartFO;
+import com.pd.it.common.util.ServiceAdapter;
 import com.pd.springboot.dao.ISysChartDao;
 
 @Named

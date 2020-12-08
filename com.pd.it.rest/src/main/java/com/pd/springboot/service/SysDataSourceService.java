@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import com.pd.businessobject.SysDataSourceBO;
 import com.pd.businessobject.SysDataSourceFO;
+import com.pd.it.common.util.ServiceAdapter;
 import com.pd.springboot.dao.ISysDataSourceDao;
 
 @Named

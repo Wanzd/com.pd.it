@@ -4,7 +4,7 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.pd.businessobject.MapVO;
+import com.pd.it.common.businessobject.MapVO;
 import com.pd.springboot.service.Job51Service;
 
 @Named

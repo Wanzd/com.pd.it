@@ -3,10 +3,10 @@ package com.pd.common.util;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pd.base.exception.BusinessException;
-import com.pd.springboot.service.ServiceAdapter;
-import com.pd.standard.itf.IInsertInfoOperation;
-import com.pd.standard.itf.IInsertListOperation;
+import com.pd.it.common.exception.BusinessException;
+import com.pd.it.common.itf.IInsertInfoOperation;
+import com.pd.it.common.itf.IInsertListOperation;
+import com.pd.it.common.util.ServiceAdapter;
 
 public class CreateBridge {
 

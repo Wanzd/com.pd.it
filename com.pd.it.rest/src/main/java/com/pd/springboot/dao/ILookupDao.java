@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pd.businessobject.LookupVO;
-import com.pd.standard.itf.IQueryComboOperation;
+import com.pd.it.common.itf.IQueryComboOperation;
 
 @Mapper
 public interface ILookupDao extends BaseMapper<LookupVO>, IQueryComboOperation {

@@ -2,7 +2,8 @@ package com.pd.springboot.service;
 
 import javax.inject.Named;
 
-import com.pd.businessobject.MapVO;
+import com.pd.it.common.businessobject.MapVO;
+import com.pd.it.common.util.ServiceAdapter;
 import com.pd.springboot.dao.IBaseNewsDao;
 
 @Named

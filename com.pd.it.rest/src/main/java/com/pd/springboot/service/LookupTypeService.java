@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import com.pd.businessobject.LookupTypeFO;
 import com.pd.businessobject.LookupTypeVO;
+import com.pd.it.common.util.ServiceAdapter;
 import com.pd.springboot.dao.ILookupTypeDao;
 
 @Named

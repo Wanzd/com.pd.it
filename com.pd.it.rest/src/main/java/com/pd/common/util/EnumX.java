@@ -1,6 +1,6 @@
 package com.pd.common.util;
 
-import static com.pd.common.util.StaticTool.strCap;
+import static com.pd.it.common.util.StaticTool.strCap;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.pd.base.exception.BusinessException;
-import com.pd.springboot.service.ServiceAdapter;
-import com.pd.standard.itf.IUpdateInfoOperation;
-import com.pd.standard.itf.IUpdateListOperation;
+import com.pd.it.common.exception.BusinessException;
+import com.pd.it.common.itf.IUpdateInfoOperation;
+import com.pd.it.common.itf.IUpdateListOperation;
+import com.pd.it.common.util.ServiceAdapter;
 
 public class UpdateBridge {
 

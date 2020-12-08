@@ -13,7 +13,7 @@ create table base_news_t(
 delete from base_news_t
 	</update>
 	
-	<select id="queryList" resultType="MapVO">
+	<select id="queryList" resultType="com.pd.it.common.businessobject.MapVO">
 select creation_date "creationDate",
 	value "value",
 	parse_bean "parseBean"

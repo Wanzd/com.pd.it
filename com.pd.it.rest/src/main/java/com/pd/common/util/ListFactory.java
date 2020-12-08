@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.pd.businessobject.MapKV;
-import com.pd.businessobject.MapVO;
+import com.pd.it.common.businessobject.MapVO;
 
 public class ListFactory {
 

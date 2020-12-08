@@ -1,6 +1,6 @@
 package com.pd.springboot.business;
 
-import static com.pd.common.util.StaticTool.assertNull;
+import static com.pd.it.common.util.StaticTool.assertNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,15 +8,15 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.pd.base.exception.BusinessException;
-import com.pd.businessobject.MapVO;
 import com.pd.businessobject.SysDataSourceBO;
 import com.pd.businessobject.SysDataSourceFO;
 import com.pd.common.util.MapVOX;
+import com.pd.it.common.businessobject.MapVO;
+import com.pd.it.common.exception.BusinessException;
+import com.pd.it.common.itf.IBuilder;
 import com.pd.springboot.dao.ISysObjDao;
 import com.pd.springboot.dao.IViewDao;
 import com.pd.springboot.service.SysDataSourceService;
-import com.pd.standard.itf.IBuilder;
 
 @Named
 public class DataSourceBusiness {
@@ -31,7 +31,7 @@ public class DataSourceBusiness {
     public Object query(SysDataSourceFO fo) throws BusinessException {
         SysDataSourceBO vo = service.queryInfo(fo);
         assertNull(vo, "SysDataSourceService.queryInfo return null!");
-        
+
         IBuilder<SysDataSourceBO, Object> opBuilder = builderMap.get(vo.getType());
         assertNull(opBuilder, "vo.getType() not support!");
         return opBuilder.build(vo);

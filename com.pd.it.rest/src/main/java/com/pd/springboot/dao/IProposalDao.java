@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pd.businessobject.ProposalVO;
-import com.pd.standard.itf.IQueryComboOperation;
+import com.pd.it.common.itf.IQueryComboOperation;
 
 @Mapper
 public interface IProposalDao extends BaseMapper<ProposalVO>, IQueryComboOperation {

@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pd.springboot.dao.ITestDao">
-	<select id="queryInfo" resultType="MapVO">
+	<select id="queryInfo" resultType="com.pd.it.common.businessobject.MapVO">
 select 'a' as "a.b",
 	'b' as "b.c",
 	'c' as "c.d.e",
@@ -11,7 +11,7 @@ select 'a' as "a.b",
 	sysdate as "e"
 	</select>
 	
-	<select id="queryList" resultType="MapVO">
+	<select id="queryList" resultType="com.pd.it.common.businessobject.MapVO">
 select 'a' as "a.b",
 	'b' as "b.c",
 	'c' as "c.d.e",

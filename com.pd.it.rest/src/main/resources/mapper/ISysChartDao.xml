@@ -7,7 +7,7 @@ from sys_chart_t
 where id=#{fo.id,jdbcType=VARCHAR}
 	</select>
 	
-	<select id="queryInfo" resultType="MapVO">
+	<select id="queryInfo" resultType="com.pd.it.common.businessobject.MapVO">
 select id "id",
 	datasource_id "dataSourceId",
 	chart_type "chartType",
@@ -21,7 +21,7 @@ select id "id",
 from sys_chart_t
 where id=#{fo.id,jdbcType=VARCHAR}
 	</select>
-	<select id="queryList" resultType="MapVO">
+	<select id="queryList" resultType="com.pd.it.common.businessobject.MapVO">
 select id "id",
 	datasource_id "dataSourceId",
 	chart_type "chartType",
