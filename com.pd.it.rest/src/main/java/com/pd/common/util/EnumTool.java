@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EnumX {
+public class EnumTool {
 
     /**
      * 通用查询枚举

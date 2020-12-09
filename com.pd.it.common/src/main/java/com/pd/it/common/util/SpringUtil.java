@@ -32,7 +32,9 @@ public class SpringUtil implements ApplicationContextAware {
 			return null;
 		}
 	}
-
+	public static void setContext(ApplicationContext applicationContext) {
+        ctx = applicationContext;
+    }
 	public static HttpServletResponse getResponse() {
 		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes();

@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.springframework.cglib.core.internal.Function;
 import org.springframework.validation.ObjectError;
 
 import com.alibaba.fastjson.JSON;
@@ -188,5 +189,30 @@ public class StaticTool {
         }).collect(toList());
         rsVO.setData(list);
         return rsVO;
+    }
+
+    public static <OUT> OUT getBean(String beanName, Class<OUT> outClass) {
+        return SpringUtil.getBean(beanName, outClass);
+    }
+
+    public static <IN, OUT> OUT build(IN in, Function<IN, OUT> func) {
+        if (in == null) {
+            return null;
+        }
+        return func.apply(in);
+    }
+
+    public static <IN, OUT> OUT builds(IN in, Class<OUT> outClass, Function... func) {
+        if (in == null) {
+            return null;
+        }
+        Object tmp = in;
+        for (Function eachFunc : func) {
+            tmp = eachFunc.apply(tmp);
+            if (tmp == null) {
+                return null;
+            }
+        }
+        return (OUT) tmp;
     }
 }

@@ -2,11 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pd.springboot.dao.ILookupDao">
 	<select id="queryCombo" resultType="com.pd.it.common.businessobject.ComboVO">
-select t.lookup_code as "id",
-	t.lookup_text as "text"
+select t.code as "id",
+	t.name as "text"
 from lookup_t t
-where t.lookup_type=#{fo.lookupType,jdbcType=VARCHAR}
-order by t.sort_id,t.lookup_text
+where t.type=#{fo.type,jdbcType=VARCHAR}
+order by t.sort_id,t.name
+	</select>
+	
+	<select id="queryInfo" resultType="com.pd.businessobject.LookupVO">
+select code,
+	name
+from lookup_t t
+where t.type=#{fo.type,jdbcType=VARCHAR}
+	and t.code=#{fo.code}
+order by t.sort_id,t.name
 	</select>
 	
 </mapper>  

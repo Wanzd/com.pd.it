@@ -23,13 +23,13 @@ public class QueryBridge {
             ServiceAdapter op = (ServiceAdapter) field;
             return (VO) op.queryInfo(fo);
         }
-        if (field instanceof BaseMapper) {
-            BaseMapper op = (BaseMapper) field;
-            return (VO) op.selectById(toObj(fo, HashMap.class));
-        }
         if (field instanceof IQueryInfoOperation) {
             IQueryInfoOperation op = (IQueryInfoOperation) field;
             return (VO) op.queryInfo(fo);
+        }
+        if (field instanceof BaseMapper) {
+            BaseMapper op = (BaseMapper) field;
+            return (VO) op.selectById(toObj(fo, HashMap.class));
         }
         return null;
     }

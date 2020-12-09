@@ -1,5 +1,7 @@
 package com.pd.common.util;
 
+import static com.pd.it.common.util.StaticTool.list;
+
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -63,7 +65,7 @@ public class ExportUtil {
             rsVO.setSheetName(exportAnnotation.sheetName());
         }
         T[] enumConstants = exportOp.getEnumConstants();
-        List<T> asList = ListFactory.asList(enumConstants);
+        List<T> asList = list(enumConstants);
         rsVO.setCfgList(asList);
         return rsVO;
     }

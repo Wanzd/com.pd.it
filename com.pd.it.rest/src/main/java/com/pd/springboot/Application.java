@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -11,13 +12,15 @@ import org.springframework.web.client.RestTemplate;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator;
+import com.pd.it.common.util.SpringUtil;
 import com.pd.springboot.filter.VirtualFilter;
 
 @SpringBootApplication
 @ServletComponentScan
 public class Application {
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+		SpringUtil.setContext(context);
 	}
 
 	@Bean // 必须new 一个RestTemplate并放入spring容器当中,否则启动时报错
