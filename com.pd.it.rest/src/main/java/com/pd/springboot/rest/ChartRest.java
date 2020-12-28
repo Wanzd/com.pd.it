@@ -1,6 +1,5 @@
 package com.pd.springboot.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +8,7 @@ import com.pd.businessobject.SysChartFO;
 import com.pd.businessobject.SysChartVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.springboot.service.SysChartService;
-import com.pd.standard.web.IStandardRest;
+import com.pd.standard.web.BaseRest;
 
 /**
  * AI系统
@@ -19,9 +18,7 @@ import com.pd.standard.web.IStandardRest;
  */
 @RestController
 @RequestMapping("chartRest")
-public class ChartRest implements IStandardRest<SysChartFO, SysChartVO> {
-    @Autowired
-    private SysChartService service;
+public class ChartRest extends BaseRest<SysChartFO, SysChartVO, SysChartService> {
 
     @RequestMapping(value = "/refresh", produces = { "application/json;charset=UTF-8" })
     @ResponseBody

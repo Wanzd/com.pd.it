@@ -18,11 +18,11 @@ import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.springboot.dao.ILookupDao;
 import com.pd.springboot.dao.IUserDao;
-import com.pd.standard.web.IStandardRest;
+import com.pd.standard.web.BaseRest;
 
 @RestController
 @RequestMapping("/comboRest")
-public class ComboRest implements IStandardRest<LookupFO, LookupVO> {
+public class ComboRest extends BaseRest<LookupFO, LookupVO, ILookupDao> {
     @Autowired
     private ILookupDao lookupDao;
     @Autowired

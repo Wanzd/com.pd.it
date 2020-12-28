@@ -13,24 +13,21 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pd.common.util.MapVOX;
 import com.pd.common.util.StringFactory;
 import com.pd.common.util.WebUtil;
 import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.exception.BusinessException;
+import com.pd.it.common.itf.BaseService;
 import com.pd.it.common.itf.IBuilder;
-import com.pd.it.common.util.ServiceAdapter;
 import com.pd.springboot.dao.IAppJobDao;
 
 @Named
-public class Job51Service extends ServiceAdapter<MapVO, MapVO, IAppJobDao> {
-    @Autowired
-    private IAppJobDao dao;
+public class Job51Service extends BaseService<MapVO, MapVO, IAppJobDao> {
 
     public void init(MapVO fo) {
-        dao.delete(fo);
+//        dao.delete(fo);
     }
 
     public void process(MapVO fo) {
@@ -40,11 +37,11 @@ public class Job51Service extends ServiceAdapter<MapVO, MapVO, IAppJobDao> {
                     + ".html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare=";
             String httpStr = WebUtil.post(url, null, "GB2312");
 
-            try {
-                dao.insertList(new Strategy20200802().build(httpStr));
-            } catch (BusinessException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                dao.insertList(new Strategy20200802().build(httpStr));
+//            } catch (BusinessException e) {
+//                e.printStackTrace();
+//            }
         }
 
     }

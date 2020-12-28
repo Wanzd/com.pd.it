@@ -1,13 +1,11 @@
 package com.pd.springboot.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pd.it.common.businessobject.MapVO;
 import com.pd.springboot.dao.ISysPerspectiveDao;
-import com.pd.standard.web.IQueryComboRest;
-import com.pd.standard.web.IStandardRest;
+import com.pd.standard.web.BaseRest;
 
 /**
  * AI系统
@@ -17,7 +15,4 @@ import com.pd.standard.web.IStandardRest;
  */
 @RestController
 @RequestMapping("perspectiveRest")
-public class PerspectiveRest implements IStandardRest<MapVO, MapVO>, IQueryComboRest<MapVO, MapVO> {
-    @Autowired
-    private ISysPerspectiveDao dao;
-}
+public class PerspectiveRest extends BaseRest<MapVO, MapVO, ISysPerspectiveDao> {}

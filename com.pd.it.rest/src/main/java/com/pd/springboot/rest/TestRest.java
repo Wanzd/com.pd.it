@@ -34,7 +34,7 @@ public class TestRest {
         LookupFO fo = new LookupFO();
         fo.setType("country");
         fo.setCode("CN");
-        return str(LookupTool.queryInfo(fo));
+        return str(LookupTool.getInfo(fo));
     }
 
     @RequestMapping("/queryRedis")

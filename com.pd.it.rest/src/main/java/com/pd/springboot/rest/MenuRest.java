@@ -1,8 +1,8 @@
 package com.pd.springboot.rest;
 
+import static com.pd.it.common.util.StaticTool.queryList;
 import static com.pd.it.common.util.StaticTool.str;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,17 +10,15 @@ import com.pd.businessobject.SysMenuBO;
 import com.pd.businessobject.SysMenuFO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.springboot.service.MenuService;
-import com.pd.standard.web.IStandardRest;
+import com.pd.standard.web.BaseRest;
 
 @RestController
 @RequestMapping("menuRest")
-public class MenuRest implements IStandardRest<SysMenuFO, SysMenuBO> {
-    @Autowired
-    private MenuService service;
+public class MenuRest extends BaseRest<SysMenuFO, SysMenuBO, MenuService> {
 
     @RequestMapping("/root")
     public String root() throws BusinessException {
-        return str(queryList(new SysMenuFO()));
+        return str(queryList(bridge, new SysMenuFO()));
     }
 
 }

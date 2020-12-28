@@ -2,10 +2,9 @@ package com.pd.springboot.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pd.businessobject.LookupItemFO;
 import com.pd.businessobject.LookupItemVO;
-import com.pd.it.common.itf.IQueryComboOperation;
+import com.pd.it.common.itf.IBaseDao;
 
 @Mapper
-public interface ILookupItemDao extends BaseMapper<LookupItemVO>, IQueryComboOperation {
-}
+public interface ILookupItemDao extends IBaseDao<LookupItemFO, LookupItemVO> {}

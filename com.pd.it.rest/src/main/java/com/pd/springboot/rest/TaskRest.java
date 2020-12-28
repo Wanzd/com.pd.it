@@ -1,12 +1,13 @@
 package com.pd.springboot.rest;
 
+import static com.pd.it.common.util.StaticTool.getBean;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pd.it.common.itf.ITask;
-import com.pd.springboot.SpringUtil;
 
 /**
  * 集成系统
@@ -23,7 +24,7 @@ public class TaskRest {
         // if (TaskEnum.valueOf(taskName) == null) {
         // return "Not api task:" + taskName;
         // }
-        ITask task = SpringUtil.getBean(taskName, ITask.class);
+        ITask task = getBean(taskName, ITask.class);
         if (task == null) {
             return "Not impl task:" + taskName;
         }

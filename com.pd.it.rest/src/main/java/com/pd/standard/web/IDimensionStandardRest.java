@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pd.common.util.CreateBridge;
 import com.pd.common.util.DeleteBridge;
 import com.pd.common.util.ReflectUtil;
 import com.pd.it.common.businessobject.PageVO;
 import com.pd.it.common.exception.BusinessException;
-import com.pd.it.common.util.QueryBridge;
 
 public interface IDimensionStandardRest {
     default Object getDefaultField(String dimension) throws BusinessException {
@@ -25,20 +23,23 @@ public interface IDimensionStandardRest {
     @RequestMapping("{dimension}/queryCombo")
     default Object queryCombo(@PathVariable("dimension") String dimension,
             @RequestBody(required = false) @Validated String fo) throws BusinessException {
-        return QueryBridge.queryCombo(getDefaultField(dimension), fo);
+        // return DbTool.queryCombo(getDefaultField(dimension), fo);
+        return null;
     }
 
     @RequestMapping(value = "{dimension}/queryPagedList/{pageSize}/{curPage}", method = { RequestMethod.POST })
     @ResponseBody
     default <FO> Object queryPagedList(@PathVariable("dimension") String dimension,
             @RequestParam(required = false) FO fo, @PathParam(value = "") PageVO page) throws BusinessException {
-        return QueryBridge.queryPagedList(getDefaultField(dimension), fo, page);
+        // return QueryBridge.queryPagedList(getDefaultField(dimension), fo, page);
+        return null;
     }
 
     @RequestMapping("{dimension}/insertInfo")
     default <VO> int insertInfo(@PathVariable("dimension") String dimension, @RequestBody(required = false) VO vo)
             throws BusinessException {
-        return CreateBridge.insertInfo(getDefaultField(dimension), vo);
+        // return CreateBridge.insertInfo(getDefaultField(dimension), vo);
+        return 1;
     }
 
     @RequestMapping("{dimension}/deleteInfo")
