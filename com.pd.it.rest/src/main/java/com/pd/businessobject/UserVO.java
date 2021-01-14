@@ -1,14 +1,13 @@
 package com.pd.businessobject;
 
-import static com.pd.it.common.util.StaticTool.build;
+import static com.pd.it.common.util.StaticTool.apply;
+import static com.pd.it.common.util.StaticTool.isEmpty;
 
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.pd.common.util.EnumTool;
 import com.pd.common.util.IntegerX;
 import com.pd.standard.itf.SexEnum;
 
@@ -40,10 +39,10 @@ public class UserVO extends UserBO {
 
     public String getSexLabel() {
         String tmpSex = getSex();
-        if (StringUtils.isEmpty(tmpSex)) {
+        if (isEmpty(tmpSex)) {
             return null;
         }
         SexEnum sexEnum = SexEnum.valueOf(tmpSex);
-        return build(sexEnum, SexEnum::getValue);
+        return apply(sexEnum, SexEnum::getValue);
     }
 }

@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.springframework.cglib.core.internal.Function;
@@ -23,6 +24,7 @@ import com.pd.it.common.businessobject.ResultVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.BaseService;
 import com.pd.it.common.itf.IQueryInfoOperation;
+import com.pd.it.common.itf.IQueryListOperation;
 
 public class StaticTool {
 
@@ -165,10 +167,18 @@ public class StaticTool {
         return Reflects.field(target, outClass, attrName);
     }
 
+    public static <FO, VO> String queryJson(Object bean, FO fo) throws BusinessException {
+        if (bean instanceof IQueryInfoOperation) {
+            IQueryInfoOperation op = (IQueryInfoOperation) bean;
+            return op.queryJson(fo);
+        }
+        return null;
+    }
+
     public static <FO, VO> VO queryInfo(Object bean, FO fo) throws BusinessException {
         if (bean instanceof BaseService) {
             BaseService baseService = (BaseService) bean;
-            return (VO) queryInfo(baseService.getBridge(), fo);
+            return (VO) queryInfo(baseService.getDao(), fo);
         }
         if (bean instanceof IQueryInfoOperation) {
             IQueryInfoOperation operation = (IQueryInfoOperation) bean;
@@ -177,7 +187,15 @@ public class StaticTool {
         return null;
     }
 
-    public static <FO, VO> List<VO> queryList(Object field, FO fo) throws BusinessException {
+    public static <FO, VO> List<VO> queryList(Object bean, FO fo) throws BusinessException {
+        if (bean instanceof BaseService) {
+            BaseService baseService = (BaseService) bean;
+            return queryList(baseService.getDao(), fo);
+        }
+        if (bean instanceof IQueryInfoOperation) {
+            IQueryListOperation operation = (IQueryListOperation) bean;
+            return operation.queryList(fo);
+        }
         return null;
     }
 
@@ -200,14 +218,14 @@ public class StaticTool {
         return SpringUtil.getBean(beanName, outClass);
     }
 
-    public static <IN, OUT> OUT build(IN in, Function<IN, OUT> func) {
+    public static <IN, OUT> OUT apply(IN in, Function<IN, OUT> func) {
         if (in == null) {
             return null;
         }
         return func.apply(in);
     }
 
-    public static <IN, OUT> OUT builds(IN in, Class<OUT> outClass, Function... func) {
+    public static <IN, OUT> OUT applys(IN in, Class<OUT> outClass, Function... func) {
         if (in == null) {
             return null;
         }
@@ -219,5 +237,12 @@ public class StaticTool {
             }
         }
         return (OUT) tmp;
+    }
+
+    public static <T> T supply(Supplier<T> supplier) {
+        if (supplier == null) {
+            return null;
+        }
+        return supplier.get();
     }
 }

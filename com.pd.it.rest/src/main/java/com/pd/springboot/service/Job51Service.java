@@ -27,7 +27,7 @@ import com.pd.springboot.dao.IAppJobDao;
 public class Job51Service extends BaseService<MapVO, MapVO, IAppJobDao> {
 
     public void init(MapVO fo) {
-//        dao.delete(fo);
+        dao.delete(fo);
     }
 
     public void process(MapVO fo) {
@@ -37,11 +37,11 @@ public class Job51Service extends BaseService<MapVO, MapVO, IAppJobDao> {
                     + ".html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare=";
             String httpStr = WebUtil.post(url, null, "GB2312");
 
-//            try {
-//                dao.insertList(new Strategy20200802().build(httpStr));
-//            } catch (BusinessException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                dao.insertList(new Strategy20200802().build(httpStr));
+            } catch (BusinessException e) {
+                e.printStackTrace();
+            }
         }
 
     }

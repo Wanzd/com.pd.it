@@ -8,6 +8,6 @@ public class BaseService<FO, VO, Bridge> {
 
     @Inject
     @Getter
-    protected Bridge bridge;
+    protected Bridge dao;
 
 }

@@ -1,5 +1,8 @@
 package com.pd.springboot.rest;
 
+import static com.pd.it.common.util.StaticTool.assertNull;
+import static com.pd.it.common.util.StaticTool.queryJson;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,7 +18,9 @@ import com.pd.businessobject.LookupFO;
 import com.pd.businessobject.ProposalFO;
 import com.pd.businessobject.ProposalVO;
 import com.pd.businessobject.SysChartFO;
+import com.pd.businessobject.SysDataSourceFO;
 import com.pd.it.common.businessobject.ComboVO;
+import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.springboot.business.DataSourceBusiness;
 import com.pd.springboot.dao.ISysChartDao;
@@ -46,15 +51,14 @@ public class ShortCutRest {
     @RequestMapping(value = "/CHART:{id}", produces = { "application/json;charset=UTF-8" })
     @ResponseBody
     public Object queryChart(@PathParam("") SysChartFO fo) throws BusinessException {
-        // /* 查询chart配置 */ String jsonData = queryJson(dao, fo);
-        // /* 校验chart配置非空 */ assertNull(jsonData, "queryJson return null");
-        // MapVO rs = new MapVO(jsonData);
-        // SysDataSourceFO sysDataSourceFO = new SysDataSourceFO();
-        // sysDataSourceFO.setId(rs.str("dataSourceId"));
-        // Object list = dataSourceBusiness.query(sysDataSourceFO);
-        // rs.put("list", list);
-        // return rs;
-        return null;
+        /* 查询chart配置 */ String jsonData = queryJson(dao, fo);
+        /* 校验chart配置非空 */ assertNull(jsonData, "queryJson return null");
+        MapVO rs = new MapVO(jsonData);
+        SysDataSourceFO sysDataSourceFO = new SysDataSourceFO();
+        sysDataSourceFO.setId(rs.str("dataSourceId"));
+        Object list = dataSourceBusiness.query(sysDataSourceFO);
+        rs.put("list", list);
+        return rs;
     }
 
     @RequestMapping(value = "/LOOKUP:{lookupType}", method = { RequestMethod.POST, RequestMethod.GET })
