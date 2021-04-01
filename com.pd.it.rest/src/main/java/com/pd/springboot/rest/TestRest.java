@@ -1,8 +1,11 @@
 package com.pd.springboot.rest;
 
 import static com.pd.it.common.util.StaticTool.str;
+import static com.pd.it.common.util.StaticTool.toStr;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pd.businessobject.LookupFO;
 import com.pd.businessobject.MailVO;
+import com.pd.businessobject.TestVO;
 import com.pd.common.util.LookupTool;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.springboot.adaptor.IRedisAdaptor;
@@ -50,6 +54,24 @@ public class TestRest {
         mailVO.setSubject("testSubject");
         mailVO.setMailContent("testContent");
         mailService.sendMail(mailVO);
+        return "200";
+    }
+
+    @RequestMapping("/queryTestInfo")
+    public String queryTestInfo() throws BusinessException {
+        return toStr(dao.queryInfo(null));
+    }
+
+    @RequestMapping("/insertTestData")
+    public String insertTestData() throws BusinessException {
+        List<TestVO> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            TestVO vo = new TestVO();
+            vo.setId("id" + i);
+            vo.setName("name" + i);
+            list.add(vo);
+        }
+        dao.insertList(list);
         return "200";
     }
 }
