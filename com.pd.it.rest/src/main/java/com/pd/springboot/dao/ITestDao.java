@@ -7,7 +7,6 @@ import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.itf.IBaseDao;
 
 @Mapper
-public interface ITestDao extends IBaseDao<MapVO, MapVO> {
+public interface ITestDao extends IBaseDao<TestVO, TestVO> {
 
-    int insert(TestVO testVO);
 }

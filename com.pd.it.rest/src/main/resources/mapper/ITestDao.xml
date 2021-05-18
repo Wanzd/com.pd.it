@@ -20,19 +20,21 @@ select 'a' as "a.b",
 from dual
 	</select>
 	
-	<insert id="insert" >
-		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="fid">
-SELECT test_s.NEXTVAL FROM DUAL
-		</selectKey>
-insert into test_t(
-	fid,
-	code,
+	<insert id="insertInfo" >
+insert into ${fo.table}(
+	id,
 	name
 )
 values(
-		#{fid},
-		#{code},
-		#{name}
+	#{fo.id},
+	#{fo.name}
 )
 	</insert>
+	
+	<update id="insertList" >
+insert into test_t_0(id,name) values 
+		<foreach collection="list" item="fo" separator=",">
+(#{fo.id},#{fo.name})
+		</foreach>
+	</update>
 </mapper>
