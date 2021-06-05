@@ -5,16 +5,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.poi.ss.formula.functions.T;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.pd.common.util.TaskTool;
 import com.pd.it.common.businessobject.ResultVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.model.Task.ITaskService;
-import com.pd.model.Task.TaskVO;
+import com.pd.model.task.vo.TaskVO;
 
-@EnableScheduling
 public class TaskTableScanTask {
 
     @Inject

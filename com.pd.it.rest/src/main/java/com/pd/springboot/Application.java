@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
@@ -17,6 +18,7 @@ import com.pd.springboot.filter.VirtualFilter;
 
 @SpringBootApplication
 @ServletComponentScan
+@EnableScheduling
 public class Application {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);

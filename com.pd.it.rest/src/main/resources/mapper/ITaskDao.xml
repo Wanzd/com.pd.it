@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.ITaskDao">
+	<select id="queryInfo" resultType="com.pd.model.task.vo.TaskVO">
+select *
+from task_t
+where type=#{fo.type,jdbcType=VARCHAR}
+	and task_key=#{fo.taskKey}
+order by creation_date desc
+limit 1
+	</select>
+	
+	<insert id="insertInfo" >
+insert into task_t(
+	type,
+	sub_type,
+	task_key,
+	req_param,
+	res_param,
+	fail_cnt,
+	chance_cnt,
+	created_by,
+	creation_date,
+	last_update_by,
+	last_update_date
+)values(
+	#{fo.type},
+	#{fo.subType},
+	#{fo.taskKey},
+	#{fo.reqParam},
+	#{fo.resParam},
+	#{fo.failCnt},
+	#{fo.chanceCnt},
+	#{fo.createdBy},
+	now(),
+	#{fo.lastUpdateBy},
+	now()
+)
+	</insert>
+	
+</mapper>  
