@@ -1,9 +1,9 @@
 package com.pd.model;
 
 import com.pd.businessobject.BaseResourceBO;
+import com.pd.it.common.itf.BaseService;
 import com.pd.it.common.itf.IBaseDao;
 import com.pd.it.common.itf.IInsertInfoOperation;
-import com.pd.standard.web.StandardService;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,5 +33,5 @@ public interface Log {
 
     public static interface ILogService extends IInsertInfoOperation<LogVO> {}
 
-    public static class LogService extends StandardService<LogFO, LogVO, ILogDao> implements ILogService {}
+    public static class LogService extends BaseService<LogFO, LogVO, ILogDao> {}
 }

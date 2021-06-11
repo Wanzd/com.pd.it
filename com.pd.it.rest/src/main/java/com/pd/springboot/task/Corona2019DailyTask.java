@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.model.task.vo.TaskFO;
 import com.pd.model.task.vo.TaskVO;
+import com.pd.springboot.service.TaskService;
 
 /**
  * 每三分钟一次，扫描任务表，如果没有今天的新冠数据扫描任务，则新建一个任务
@@ -25,12 +26,12 @@ public class Corona2019DailyTask {
     private final static String TYPE = "corona2019Daily";
 
     @Inject
-    private com.pd.springboot.service.TaskService taskService;
+    private TaskService taskService;
 
     private Calculator cal = new Calculator();
 
     @Scheduled(cron = "0 0/3 * * * ?")
-    public void process() throws BusinessException {
+    public void create() throws BusinessException {
         if (!cal.haveTodayTask()) {
             cal.createTodayTask();
         }

@@ -27,7 +27,7 @@ import com.pd.springboot.dao.IAppJobDao;
 public class Job51Service extends BaseService<MapVO, MapVO, IAppJobDao> {
 
     public void init(MapVO fo) {
-        dao.delete(fo);
+        dao.deleteInfo(fo);
     }
 
     public void process(MapVO fo) {

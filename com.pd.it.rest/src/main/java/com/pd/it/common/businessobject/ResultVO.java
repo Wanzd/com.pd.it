@@ -8,8 +8,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResultVO<T> {
-	private String code;
-	private String msg;
-	private T data;
+    public static final String SUCCESS = "200";
 
+    private String code;
+    private String msg;
+    private T data;
+
+    public static <IN> ResultVO<IN> success(IN in) {
+        ResultVO<IN> res = new ResultVO();
+        res.setCode(SUCCESS);
+        res.setData(in);
+        return res;
+    }
 }

@@ -15,8 +15,11 @@ import com.pd.common.util.MapVOX;
 import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.IBuilder;
+import com.pd.model.datasource.vo.CopyTableVO;
+import com.pd.model.datasource.vo.DataSourceVO;
 import com.pd.springboot.dao.ISysObjDao;
 import com.pd.springboot.dao.IViewDao;
+import com.pd.springboot.service.DataSourceService;
 import com.pd.springboot.service.SysDataSourceService;
 
 @Named
@@ -28,6 +31,9 @@ public class DataSourceBusiness {
     private IViewDao viewDao;
     @Inject
     private ISysObjDao sysObjDao;
+
+    @Inject
+    DataSourceService dataSourceService;
 
     public Object query(SysDataSourceFO fo) throws BusinessException {
         SysDataSourceBO vo = queryInfo(service, fo);
