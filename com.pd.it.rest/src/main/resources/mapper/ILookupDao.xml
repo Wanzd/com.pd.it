@@ -10,11 +10,17 @@ order by t.sort_id,t.name
 	</select>
 	
 	<select id="queryInfo" resultType="com.pd.businessobject.LookupVO">
-select code,
-	name
+select *
 from lookup_t t
 where t.type=#{fo.type,jdbcType=VARCHAR}
 	and t.code=#{fo.code}
+order by t.sort_id,t.name
+	</select>
+	
+	<select id="queryList" resultType="com.pd.businessobject.LookupVO">
+select *
+from lookup_t t
+where t.type=#{fo.type,jdbcType=VARCHAR}
 order by t.sort_id,t.name
 	</select>
 	

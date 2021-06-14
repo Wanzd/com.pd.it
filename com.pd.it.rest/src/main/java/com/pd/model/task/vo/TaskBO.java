@@ -9,6 +9,7 @@ public class TaskBO extends BaseResourceBO {
     private String type;/* 任务类型 */
     private String subType;/* 任务子类型 */
     private String taskKey;/* 任务主键 */
+    private String status;/* 任务状态 */
     private String reqParam;/* 入参 */
     private String resParam;/* 出参 */
     private int failCnt;/* 已经失败次数 */

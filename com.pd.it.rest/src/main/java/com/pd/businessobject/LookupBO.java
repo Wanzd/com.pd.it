@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class LookupBO {
     private String type;
+    private String parentCode;
     private String code;
     private String name;
+    private Float sortId;
 }

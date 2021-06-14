@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,7 @@ import com.pd.springboot.adaptor.IRedisAdaptor;
 import com.pd.springboot.dao.ITestDao;
 import com.pd.springboot.service.MailService;
 import com.pd.springboot.service.MenuService;
+import com.pd.springboot.service.WeatherService;
 
 @RestController
 @RequestMapping("testRest")
@@ -32,6 +35,8 @@ public class TestRest {
     MailService mailService;
     @Autowired
     MenuService menuService;
+    @Inject
+    private WeatherService weatherService;
 
     @RequestMapping("/test1")
     public String root() throws BusinessException {
@@ -55,6 +60,11 @@ public class TestRest {
         mailVO.setMailContent("testContent");
         mailService.sendMail(mailVO);
         return "200";
+    }
+
+    @RequestMapping("/testWeather")
+    public String testWeather() throws BusinessException {
+        return toStr(weatherService.getListByCityName("黄冈市"));
     }
 
     @RequestMapping("/queryTestInfo")

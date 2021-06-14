@@ -30,6 +30,7 @@ import com.pd.it.common.itf.IQueryListOperation;
 public class StaticTool {
 
     public final static String BLANK = "";
+    public final static String ZERO_STR = "0";
 
     public static boolean isNull(Object obj) {
         return obj == null;
@@ -157,6 +158,17 @@ public class StaticTool {
         return JSON.parseObject(jsonString, outClass);
     }
 
+    public static Integer toInt(Object in) {
+        if (in == null) {
+            return null;
+        }
+        String jsonString = null;
+        if (in instanceof String) {
+            return Integer.parseInt((String) in);
+        }
+        return null;
+    }
+
     public static Integer toInteger(String in) {
         if (in == null) {
             return null;
@@ -175,7 +187,7 @@ public class StaticTool {
         if (in instanceof String) {
             return (String) in;
         }
-        return in.toString();
+        return toJsonStr(in);
     }
 
     public static String toJsonStr(Object in) {
@@ -195,6 +207,10 @@ public class StaticTool {
 
     public static String formatDate(Date date, String tpl) {
         return new SimpleDateFormat(tpl).format(date);
+    }
+
+    public static Date addDate(Date date, int dayCnt) {
+        return new Date(date.getTime() + dayCnt * 86400000);
     }
 
     public static <T> List<T> list(T[] in) {

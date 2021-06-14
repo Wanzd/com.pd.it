@@ -37,8 +37,9 @@ public class DbTool {
             ResultSet executeQuery = stmt.executeQuery(sql);
             executeQuery.next();
             String createTableSql = executeQuery.getString(2);
+            String rsSql=createTableSql.replaceAll("COLLATE=utf8mb4_0900_ai_ci","").replaceAll("COLLATE utf8mb4_0900_ai_ci", "");//utf8mb4_0900_ai_ci
             conn.close();
-            return createTableSql;
+            return rsSql;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
