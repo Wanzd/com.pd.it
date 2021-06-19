@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.ITask;
 
 /**
@@ -21,13 +22,15 @@ public class TaskRest {
     @RequestMapping(value = "/{taskName}")
     @ResponseBody
     public Object intergration(@PathVariable String taskName) {
-        // if (TaskEnum.valueOf(taskName) == null) {
-        // return "Not api task:" + taskName;
-        // }
         ITask task = getBean(taskName, ITask.class);
         if (task == null) {
             return "Not impl task:" + taskName;
         }
-        return task.process();
+        try {
+            return task.process();
+        } catch (BusinessException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
     }
 }

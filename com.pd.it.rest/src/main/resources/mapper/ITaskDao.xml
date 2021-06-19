@@ -40,4 +40,12 @@ insert into task_t(
 )
 	</insert>
 	
+	<update id="updateInfo" >
+update task_t
+		<set>
+			<if test='vo.status!=null'>status=#{vo.status},</if>
+			last_update_date=now()
+		</set>
+where flow_id=#{vo.flowId}
+	</update>
 </mapper>  

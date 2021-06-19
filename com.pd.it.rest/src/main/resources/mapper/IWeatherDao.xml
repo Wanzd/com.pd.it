@@ -14,4 +14,26 @@ where id=#{id}
 limit 1
 	</select>
 	
+	<update id="insertList" >
+replace into weather_t(
+	province,
+	city,
+	weather_date,
+	dig_date,
+	high,
+	low
+)values
+		<foreach item="it" collection="list"   separator=",">
+(		
+	#{it.province},
+	#{it.city},
+	#{it.weatherDate},
+	#{it.digDate},
+	#{it.high},
+	#{it.low}
+)
+		</foreach>
+
+	</update>
+	
 </mapper>  

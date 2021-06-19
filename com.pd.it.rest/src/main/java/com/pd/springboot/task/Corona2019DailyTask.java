@@ -2,6 +2,7 @@ package com.pd.springboot.task;
 
 import static com.pd.it.common.util.StaticTool.formatDate;
 import static com.pd.it.common.util.StaticTool.notEmpty;
+import static com.pd.standard.itf.TaskConst.STATUS_INIT;
 
 import java.util.Date;
 
@@ -52,6 +53,7 @@ public class Corona2019DailyTask {
             TaskVO taskVO = new TaskVO();
             taskVO.setType(TYPE);
             taskVO.setTaskKey(formatDate(new Date(), "yyyyMMdd"));
+            taskVO.setStatus(STATUS_INIT);
             taskService.insertInfo(taskVO);
         }
 

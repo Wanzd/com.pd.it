@@ -3,6 +3,7 @@ package com.pd.springboot.adapter;
 import static com.pd.it.common.util.StaticTool.addDate;
 import static com.pd.it.common.util.StaticTool.formatDate;
 import static com.pd.it.common.util.StaticTool.formatStr;
+import static com.pd.it.common.util.StaticTool.isEmpty;
 import static com.pd.it.common.util.StaticTool.toInt;
 import static com.pd.it.common.util.StaticTool.toObj;
 
@@ -39,14 +40,13 @@ public class WeatherAdapter {
 
     private class Calculator {
         private List<WeatherVO> parseWeatherList(String htmlStr) throws BusinessException {
-            List<LookupVO> cityList = lookupBusiness.getCityList();
-            Map<String, String> city2ProvinceMap = cityList.stream()
-                    .collect(Collectors.toMap(vo -> vo.getCode().replaceAll("市", ""),
-                            vo -> vo.getParentCode().replaceAll("省", ""), (k1, k2) -> k1));
             JSONObject parseObject = JSON.parseObject(htmlStr);
             JSONObject data = parseObject.getJSONObject("data");
             String city = data.getString("city").replaceAll("市", "");
-            String province = city2ProvinceMap.get(city);
+            String province = lookupBusiness.getProvinceByCity(city);
+            if (isEmpty(province)) {
+                throw new BusinessException(formatStr("Not found province of [%s]", city));
+            }
             String digDate = formatDate(new Date(), "yyyyMMdd");
             JSONArray forecast = data.getJSONArray("forecast");
 
