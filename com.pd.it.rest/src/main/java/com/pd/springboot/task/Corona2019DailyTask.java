@@ -31,7 +31,7 @@ public class Corona2019DailyTask {
 
     private Calculator cal = new Calculator();
 
-    @Scheduled(cron = "0 0/3 * * * ?")
+    //@Scheduled(cron = "0 0/3 * * * ?")
     public void create() throws BusinessException {
         if (!cal.haveTodayTask()) {
             cal.createTodayTask();

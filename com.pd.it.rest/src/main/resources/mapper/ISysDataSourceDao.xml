@@ -17,6 +17,7 @@ select id "id",
 from sys_datasource_t
 where id= #{fo.id,jdbcType=VARCHAR}
 	</select>
+	
 	<select id="queryPagedList" resultType="SysDataSourceBO">
 select id "id",
 	name "name",

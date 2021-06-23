@@ -8,8 +8,6 @@ import requests as req
 plt.rcParams['font.sans-serif'] = ['Kaiti']
 plt.rcParams['axes.unicode_minus'] = False
 
-weatherServer = 'http://192.168.0.240:10080/weatherRest'
-
 def avg(*inList):
     inLen = len(inList)
     sum = 0
@@ -18,22 +16,20 @@ def avg(*inList):
     return sum / inLen
 
 def getWeatherList(location):
-    url = weatherServer + '/queryList' 
-    postData = {"city":location}
-    
-    print(url)
-    print(postData)
-    rb = req.post(url , data=json.dumps(postData), headers={'content-type': 'application/json'})
+    rb = req.get('http://wthrcdn.etouch.cn/weather_mini?city=' + location)
     rb.encoding = 'utf-8'
-    queryList = json.loads(rb.text)
-    print(queryList)
+    data = json.loads(rb.text)
+    list = data['data']['forecast']
     weatherList = []
-    for each in queryList:
+    for each in list:
         weather = WeatherVO()
         weather.location = location
-        weather.date = each['weatherDate']
-        weather.low = int(each['low'])
-        weather.high = int(each['high'])
+        weather.date = each['date']
+        weather.type = each['type']
+        weather.low = int(each['low'].replace('低温 ', '').replace('℃', ''))
+        weather.high = int(each['high'].replace('高温 ', '').replace('℃', ''))
+        weather.windDirect = each['fengxiang']
+        weather.windPower = each['fengli'].replace('<![CDATA[', '').replace(']]>', '')
         weatherList.append(weather)
     return weatherList
   
@@ -85,8 +81,8 @@ def show(location, type):
     showMap[type](location, weatherList)
         
 def main():
-    locations = ['上海']
+    locations = ['黄冈', '武汉']
     for eachLocation in locations:
-        show(eachLocation, 'text')
+        show(eachLocation, 'plt')
         
 main()

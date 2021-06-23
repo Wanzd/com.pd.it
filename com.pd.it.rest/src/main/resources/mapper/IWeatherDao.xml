@@ -14,6 +14,21 @@ where id=#{id}
 limit 1
 	</select>
 	
+	<select id="queryList" resultType="com.pd.model.weather.vo.WeatherVO">
+select province,
+	city,
+	weather_date,
+	dig_date,
+	high,
+	low,
+	(high+low)/2 avg
+from weather_t
+		<where>
+			<if test='fo.city!=null'> and city=#{fo.city}</if>
+			<if test='fo.digDate!=null'> and dig_date=#{fo.digDate}</if>
+		</where>
+	</select>
+	
 	<update id="insertList" >
 replace into weather_t(
 	province,
