@@ -6,6 +6,10 @@ var treeGridCols = [[{
 				return 'background-color:lightyellow;color:blue;'
 			}
 		}, {
+			field : 'weatherDate',
+			title : '日期',
+			width : 120
+		}, {
 			field : 'high',
 			title : '最高气温',
 			width : 120,

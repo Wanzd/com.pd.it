@@ -1,6 +1,7 @@
 package com.pd.springboot.rest;
 
 import static com.pd.it.common.util.StaticTool.assertNull;
+import static com.pd.it.common.util.StaticTool.notEmpty;
 import static com.pd.it.common.util.StaticTool.queryJson;
 
 import java.util.List;
@@ -38,7 +39,7 @@ import com.pd.springboot.service.ProposalService;
 @RequestMapping("")
 public class ShortCutRest {
 	@Inject
-	private ISysChartDao dao;
+	private ISysChartDao sysChartDao;
 	@Inject
 	private DataSourceBusiness dataSourceBusiness;
 	@Autowired
@@ -52,13 +53,16 @@ public class ShortCutRest {
 	@ResponseBody
 	public Object queryChart(@PathParam("") SysChartFO fo) throws BusinessException {
 		/* 查询chart配置 */
-		String jsonData = dao.queryJson(fo);
+		String jsonData = sysChartDao.queryJson(fo);
 		/* 校验chart配置非空 */ assertNull(jsonData, "queryJson return null");
 		MapVO rs = new MapVO(jsonData);
 		SysDataSourceFO sysDataSourceFO = new SysDataSourceFO();
-		sysDataSourceFO.setId(rs.str("dataSourceId"));
-		Object list = dataSourceBusiness.query(sysDataSourceFO);
-		rs.put("list", list);
+		String dataSourceId = rs.str("dataSourceId");
+		if (notEmpty(dataSourceId)) {
+			sysDataSourceFO.setId(dataSourceId);
+			Object list = dataSourceBusiness.query(sysDataSourceFO);
+			rs.put("list", list);
+		}
 		return rs;
 	}
 
