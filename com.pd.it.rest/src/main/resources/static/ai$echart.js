@@ -112,9 +112,20 @@ define(['ai$echart'], function() {
 					var list = data.list;
 					xDatas = [];
 					yDatas = [];
+					series = [];
+					$.each(data.yCol, function(idx2, it2) {
+								series.push({
+											data : [],
+											type : "line",
+											smooth : data.smooth
+										});
+							})
 					$.each(list, function(idx, it) {
 								xDatas.push(list[idx][data.xCol]);
-								yDatas.push(list[idx][data.yCol]);
+								$.each(data.yCol, function(idx2, it2) {
+											series[idx2].data
+													.push(list[idx][it2]);
+										})
 							})
 					var option = {
 						title : {
@@ -123,14 +134,14 @@ define(['ai$echart'], function() {
 						xAxis : {
 							type : 'category',
 							data : xDatas
+
 						},
 						yAxis : {
-							type : 'value'
+							type : 'value',
+							max : 'dataMax',
+							min : 'dataMin'
 						},
-						series : [{
-									data : yDatas,
-									type : 'line'
-								}]
+						series : series
 					};
 					return option;
 				},
