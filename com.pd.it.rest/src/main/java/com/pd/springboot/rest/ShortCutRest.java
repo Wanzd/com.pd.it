@@ -3,6 +3,7 @@ package com.pd.springboot.rest;
 import static com.pd.it.common.util.StaticTool.assertNull;
 import static com.pd.it.common.util.StaticTool.notEmpty;
 import static com.pd.it.common.util.StaticTool.queryJson;
+import static com.pd.it.common.util.StaticTool.toStr;
 
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class ShortCutRest {
 			Object list = dataSourceBusiness.query(sysDataSourceFO);
 			rs.put("list", list);
 		}
-		return rs;
+		return toStr(rs);
 	}
 
 	@RequestMapping(value = "/LOOKUP:{lookupType}", method = { RequestMethod.POST, RequestMethod.GET })

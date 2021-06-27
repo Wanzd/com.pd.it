@@ -54,7 +54,7 @@ public class TreeListBuilder implements IBuilder<List<MapVO>, List<MapVO>> {
         // cal.initFulChildrenCnt(vo);
         // cal.initLeafChildrenCnt(vo);
         // cal.initValidLeafChildrenCnt(vo);
-        cal.initSortChildren(vo);
+        // cal.initSortChildren(vo);
     }
 
     public static class Calculator {
