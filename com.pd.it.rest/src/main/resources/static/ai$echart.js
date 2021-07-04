@@ -81,27 +81,34 @@ define(['ai$echart'], function() {
 				},
 				x$option$scatter3D : function(data) {
 					var symbolSize = 2.5;
+					var xCol = data.xCol;
+					var yCol = data.yCol;
+					var zCol = data.zCol;
+					var dataSet = [];
+					dataSet.push([xCol, yCol, zCol]);
+					$.each(data.list, function(idx, it) {
+								dataSet.push([it[xCol], it[yCol], it[zCol]]);
+							})
 					var option = {
 						grid3D : {},
 						xAxis3D : {
 							type : 'category'
 						},
-						yAxis3D : {},
+						yAxis3D : {
+							type : 'category'
+						},
 						zAxis3D : {},
 						dataset : {
-							dimensions : ['qty', 'city', {
-										name : 'creationDate',
-										type : 'ordinal'
-									}],
-							source : data
+							dimensions : [xCol,yCol, zCol],
+							source : dataSet
 						},
 						series : [{
 									type : 'scatter3D',
 									symbolSize : symbolSize,
 									encode : {
-										x : 'city',
-										y : 'creationDate',
-										z : 'qty',
+										x : xCol,
+										y : yCol,
+										z : zCol,
 										tooltip : [0, 1, 2]
 									}
 								}]
@@ -209,6 +216,33 @@ define(['ai$echart'], function() {
 									animationDuration : 550,
 									animationDurationUpdate : 750
 
+								}]
+					};
+					return option;
+				},
+				x$option$bar : function(data) {
+					var list = data.list;
+					var datas = {
+						name : "root",
+						children : [data.list[1]]
+					};
+					var xDatas = [];
+					var yDatas = [];
+					$.each(list, function(idx, it) {
+								xDatas.push(it[data.xCol]);
+								yDatas.push(it[data.yCol]);
+							})
+					var option = {
+						xAxis : {
+							type : 'category',
+							data : xDatas
+						},
+						yAxis : {
+							type : 'value'
+						},
+						series : [{
+									data : yDatas,
+									type : 'bar'
 								}]
 					};
 					return option;
@@ -976,7 +1010,8 @@ define(['ai$echart'], function() {
 					"treeMap" : impl.x$option$treeMap,
 					"bMap" : impl.x$option$bMap2,
 					"timeLine" : impl.x$option$timeLine,
-					"verticalTree" : impl.x$option$verticalTree
+					"verticalTree" : impl.x$option$verticalTree,
+					"bar" : impl.x$option$bar
 				}
 				f = fMap[data.chartType]
 				return f != null ? f(data) : null;
