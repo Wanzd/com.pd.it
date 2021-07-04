@@ -33,7 +33,7 @@ require(['jquery', 'easyui', 'common', 'echarts', 'echartsgl', 'ai$echart'],
 							}
 						});
 				$.each(jsonData, function(i, val) {
-							//$('#taskTree').treegrid('collapseAll', val.id);
+							$('#taskTree').treegrid('collapseAll', val.id);
 						});
 			}
 			this.refresh();

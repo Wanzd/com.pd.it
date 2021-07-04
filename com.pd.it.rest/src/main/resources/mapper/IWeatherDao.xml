@@ -35,6 +35,7 @@ replace into weather_t(
 	city,
 	weather_date,
 	dig_date,
+	type,
 	high,
 	low
 )values
@@ -44,6 +45,7 @@ replace into weather_t(
 	#{it.city},
 	#{it.weatherDate},
 	#{it.digDate},
+	#{it.type},
 	#{it.high},
 	#{it.low}
 )

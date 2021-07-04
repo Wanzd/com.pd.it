@@ -38,7 +38,7 @@ public class TreeListBuilder implements IBuilder<List<MapVO>, List<MapVO>> {
         }
         for (MapVO eachVO : list) {
             String curPid = eachVO.str(pidStr);
-            if (curPid.length() == 0 && eachVO.get("children") != null) {
+            if (curPid.length() == 0 ) {
                 rsList.add(eachVO);
             }
         }

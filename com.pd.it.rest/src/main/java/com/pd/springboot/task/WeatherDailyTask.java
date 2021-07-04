@@ -37,79 +37,79 @@ import com.pd.standard.itf.TaskEnum;
  */
 @Named
 public class WeatherDailyTask implements ITask {
-    private final static String TYPE = TaskConst.WEATHER_DAILY;
+	private final static String TYPE = TaskConst.WEATHER_DAILY;
 
-    @Inject
-    private TaskService taskService;
-    @Inject
-    private WeatherService weatherService;
+	@Inject
+	private TaskService taskService;
+	@Inject
+	private WeatherService weatherService;
 
-    @Inject
-    private LookupBusiness lookupBusiness;
+	@Inject
+	private LookupBusiness lookupBusiness;
 
-    private Calculator cal = new Calculator();
+	private Calculator cal = new Calculator();
 
-    @Override
-    public Object process() throws BusinessException {
-        TimerCO timer = new TimerCO(TaskEnum.JOB_INFO_PARSE_TODAY_TASK.getName());
-        TaskVO todayTask = cal.getTodayTask();
-        if (isEmpty(todayTask)) {
-            cal.createTodayTask();
-        }
-        todayTask = cal.getTodayTask();
-        if (notEmpty(todayTask)) {
-            cal.executeTodayTask(todayTask);
-        }
-        timer.end();
-        return str(timer);
-    }
+	@Override
+	public Object process() throws BusinessException {
+		TimerCO timer = new TimerCO(TaskEnum.JOB_INFO_PARSE_TODAY_TASK.getName());
+		TaskVO todayTask = cal.getTodayTask();
+		if (isEmpty(todayTask)) {
+			cal.createTodayTask();
+		}
+		todayTask = cal.getTodayTask();
+		if (notEmpty(todayTask)) {
+			cal.executeTodayTask(todayTask);
+		}
+		timer.end();
+		return str(timer);
+	}
 
-    private class Calculator {
+	private class Calculator {
 
-        private TaskVO getTodayTask() throws BusinessException {
-            TaskFO taskFO = new TaskFO();
-            taskFO.setType(TYPE);
-            taskFO.setTaskKey(formatDate(new Date(), "yyyyMMdd"));
+		private TaskVO getTodayTask() throws BusinessException {
+			TaskFO taskFO = new TaskFO();
+			taskFO.setType(TYPE);
+			taskFO.setTaskKey(formatDate(new Date(), "yyyyMMdd"));
 
-            return taskService.queryInfo(taskFO);
-        }
+			return taskService.queryInfo(taskFO);
+		}
 
-        private void createTodayTask() throws BusinessException {
-            TaskVO taskVO = new TaskVO();
-            taskVO.setType(TYPE);
-            taskVO.setTaskKey(formatDate(new Date(), "yyyyMMdd"));
-            taskVO.setStatus(STATUS_INIT);
-            taskService.insertInfo(taskVO);
-        }
+		private void createTodayTask() throws BusinessException {
+			TaskVO taskVO = new TaskVO();
+			taskVO.setType(TYPE);
+			taskVO.setTaskKey(formatDate(new Date(), "yyyyMMdd"));
+			taskVO.setStatus(STATUS_INIT);
+			taskService.insertInfo(taskVO);
+		}
 
-        private void executeTodayTask(TaskVO taskVO) throws BusinessException {
-            if (ne(taskVO.getStatus(), ZERO_STR)) {
-                return;
-            }
-            List<LookupVO> cityList = lookupBusiness.getCityList();
-            List<WeatherVO> tmpList = new ArrayList<>();
-            for (LookupVO cityVO : cityList) {
-                try {
-                    List<WeatherVO> weatherList = weatherService.getListByCityName(cityVO.getName());
-                    if (isEmpty(weatherList)) {
-                        continue;
-                    }
-                    tmpList.addAll(weatherList);
-                    if (tmpList.size() > 500) {
-                        weatherService.insertList(tmpList);
-                        tmpList.clear();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            if (tmpList.size() > 0) {
-                weatherService.insertList(tmpList);
-            }
-            taskVO.setStatus(STATUS_SUCCESS);
-            taskService.updateInfo(taskVO);
-        }
+		private void executeTodayTask(TaskVO taskVO) throws BusinessException {
+			if (ne(taskVO.getStatus(), ZERO_STR)) {
+				return;
+			}
+			List<LookupVO> cityList = lookupBusiness.getCityList();
+			List<WeatherVO> tmpList = new ArrayList<>();
+			for (LookupVO cityVO : cityList) {
+				try {
+					List<WeatherVO> weatherList = weatherService.getListByCityName(cityVO.getName());
+					if (isEmpty(weatherList)) {
+						continue;
+					}
+					tmpList.addAll(weatherList);
+					if (tmpList.size() > 500) {
+						weatherService.insertList(tmpList);
+						tmpList.clear();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (tmpList.size() > 0) {
+				weatherService.insertList(tmpList);
+			}
+			taskVO.setStatus(STATUS_SUCCESS);
+			taskService.updateInfo(taskVO);
+		}
 
-    }
+	}
 
 }
