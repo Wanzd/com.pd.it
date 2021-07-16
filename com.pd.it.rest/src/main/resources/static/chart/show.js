@@ -26,4 +26,5 @@ require(['jquery', 'easyui', 'common', 'echarts', 'echartsgl', 'ai$echart'],
 					});
 			option = ai$echart.x$option(chartJson);
 			myChart.setOption(option);
+			myChart.on('click', option.onclick);
 		});

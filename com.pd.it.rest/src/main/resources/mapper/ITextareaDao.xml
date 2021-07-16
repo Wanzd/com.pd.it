@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.ITextareaDao">
+	
+	<select id="queryInfo" resultType="com.pd.businessobject.TextareaVO">
+select *
+from textarea_t t
+where t.type=#{fo.type,jdbcType=VARCHAR}
+	and t.key=#{fo.key}
+	</select>
+	
+</mapper>  

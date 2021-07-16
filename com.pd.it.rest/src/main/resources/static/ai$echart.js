@@ -69,6 +69,7 @@ define(['ai$echart'], function() {
 							}
 						},
 						onclick : function(e) {
+							debugger;
 							window.open(e.data[2]['url']);
 						},
 						series : [{
@@ -99,7 +100,7 @@ define(['ai$echart'], function() {
 						},
 						zAxis3D : {},
 						dataset : {
-							dimensions : [xCol,yCol, zCol],
+							dimensions : [xCol, yCol, zCol],
 							source : dataSet
 						},
 						series : [{
@@ -233,6 +234,12 @@ define(['ai$echart'], function() {
 								yDatas.push(it[data.yCol]);
 							})
 					var option = {
+						tooltip : {
+							trigger : 'axis',
+							axisPointer : { // 坐标轴指示器，坐标轴触发有效
+								type : 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+							}
+						},
 						xAxis : {
 							type : 'category',
 							data : xDatas
@@ -241,6 +248,7 @@ define(['ai$echart'], function() {
 							type : 'value'
 						},
 						series : [{
+									name : 'testName',
 									data : yDatas,
 									type : 'bar'
 								}]
