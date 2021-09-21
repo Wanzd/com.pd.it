@@ -138,10 +138,6 @@ public class StaticTool {
         }
     }
 
-    public static <FO, DTO> DTO queryInfo(IQueryInfoOperation<FO, DTO> op, FO fo) throws BusinessException {
-        return DbTool.queryInfo(op, fo);
-    }
-
     public static List emptyList() {
         return Collections.EMPTY_LIST;
     }
@@ -255,34 +251,6 @@ public class StaticTool {
             IQueryInfoOperation op = (IQueryInfoOperation) bean;
             return op.queryJson(fo);
         }
-        return null;
-    }
-
-    public static <FO, VO> VO queryInfo(Object bean, FO fo) throws BusinessException {
-        if (bean instanceof BaseService) {
-            BaseService baseService = (BaseService) bean;
-            return (VO) queryInfo(baseService.getDao(), fo);
-        }
-        if (bean instanceof IQueryInfoOperation) {
-            IQueryInfoOperation operation = (IQueryInfoOperation) bean;
-            return (VO) operation.queryInfo(fo);
-        }
-        return null;
-    }
-
-    public static <FO, VO> List<VO> queryList(Object bean, FO fo) throws BusinessException {
-        if (bean instanceof BaseService) {
-            BaseService baseService = (BaseService) bean;
-            return queryList(baseService.getDao(), fo);
-        }
-        if (bean instanceof IQueryInfoOperation) {
-            IQueryListOperation operation = (IQueryListOperation) bean;
-            return operation.queryList(fo);
-        }
-        return null;
-    }
-
-    public static <FO, VO> List<VO> queryPagedList(Object field, FO fo, PageVO pageVO) throws BusinessException {
         return null;
     }
 

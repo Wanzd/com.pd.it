@@ -1,7 +1,5 @@
 package com.pd.springboot.struct;
 
-import static com.pd.it.common.util.StaticTool.queryInfo;
-
 import javax.inject.Named;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.BaseService;
 import com.pd.it.common.itf.IBaseDao;
+import com.pd.it.common.util.DbTool;
 import com.pd.it.common.util.Tools;
 import com.pd.springboot.adaptor.IRedisAdaptor;
 import com.pd.springboot.dao.ITestDao;
@@ -55,7 +54,7 @@ public class CountryStruct {
         @RequestMapping("/test1")
         public String root() throws BusinessException {
             CountryService countryTool = Tools.getCountryTool();
-            Object queryInfo2 = queryInfo(countryTool, null);
+            Object queryInfo2 = DbTool.queryInfo(countryTool, null);
             return "null";
         }
 

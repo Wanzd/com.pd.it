@@ -9,6 +9,4 @@ import com.pd.standard.web.BaseRest;
 
 @RestController
 @RequestMapping("jobRest")
-public class JobRest extends BaseRest<AppJobBO, AppJobBO, JobService> {
-
-}
+public class JobRest extends BaseRest<AppJobBO, AppJobBO, JobService> {}

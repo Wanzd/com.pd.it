@@ -1,51 +1,44 @@
 package com.pd.it.common.util;
 
-import static com.pd.it.common.util.StaticTool.formatStr;
-import static com.pd.it.common.util.StaticTool.toObj;
+import static com.pd.it.common.util.StaticTool.isNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
+import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pd.it.common.businessobject.PageVO;
 import com.pd.it.common.exception.BusinessException;
-import com.pd.it.common.itf.IQueryInfoOperation;
+import com.pd.it.common.itf.BaseService;
+import com.pd.it.common.itf.MybatisPlusService;
 import com.pd.model.datasource.vo.DataSourceVO;
 
 public class DbTool {
-    public static <FO, VO> VO queryInfo(Object field, FO fo) throws BusinessException {
-        if (field instanceof IQueryInfoOperation) {
-            IQueryInfoOperation op = (IQueryInfoOperation) field;
-            return (VO) op.queryInfo(fo);
+
+    public static <FO, VO> VO queryInfo(Object bean, FO fo) throws BusinessException {
+        IDbAdapter<FO, VO> dbAdapter = getDbAdapter(bean);
+        if (isNull(dbAdapter)) {
+            return null;
         }
-        if (field instanceof BaseMapper) {
-            BaseMapper op = (BaseMapper) field;
-            return (VO) op.selectById(toObj(fo, HashMap.class));
-        }
-        return null;
+        return dbAdapter.queryInfo(fo);
     }
 
-    public static String getCreateTableSql(DataSourceVO dsVO, String fromTable) {
-        try {
-            Class.forName(dsVO.getDriver());
-            Connection conn = DriverManager.getConnection(dsVO.getUrl(), dsVO.getUsername(), dsVO.getPassword());
-            Statement stmt = conn.createStatement();
-            String sql = formatStr("show create table %s", fromTable);
-            ResultSet executeQuery = stmt.executeQuery(sql);
-            executeQuery.next();
-            String createTableSql = executeQuery.getString(2);
-            String rsSql=createTableSql.replaceAll("COLLATE=utf8mb4_0900_ai_ci","").replaceAll("COLLATE utf8mb4_0900_ai_ci", "");//utf8mb4_0900_ai_ci
-            conn.close();
-            return rsSql;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static <FO, VO> List<VO> queryList(Object bean, FO fo) throws BusinessException {
+        IDbAdapter<FO, VO> dbAdapter = getDbAdapter(bean);
+        if (isNull(dbAdapter)) {
+            return null;
         }
-        return null;
+        return dbAdapter.queryList(fo);
+    }
+
+    public static <FO, VO> List<VO> queryPagedList(Object bean, FO fo, PageVO page) throws BusinessException {
+        IDbAdapter<FO, VO> dbAdapter = getDbAdapter(bean);
+        if (isNull(dbAdapter)) {
+            return null;
+        }
+        return dbAdapter.queryPagedList(fo, page);
     }
 
     public static void execute(DataSourceVO dsVO, String sql) {
@@ -62,4 +55,13 @@ public class DbTool {
         }
     }
 
+    private static <FO, VO> IDbAdapter<FO, VO> getDbAdapter(Object bean) {
+        if (bean instanceof BaseService) {
+            return new BaseServiceDbAdapter((BaseService) bean);
+        }
+        if (bean instanceof MybatisPlusService) {
+            return new BaseServiceDbAdapter((BaseService) bean);
+        }
+        return null;
+    }
 }

@@ -26,23 +26,23 @@ public class BaseService<FO, VO, Dao extends IBaseDao<FO, VO>> implements IBaseD
     }
 
     @Override
-    public VO queryDetailInfo(FO in) throws BusinessException {
-        return dao.queryDetailInfo(in);
+    public VO queryDetailInfo(FO fo) throws BusinessException {
+        return dao.queryDetailInfo(fo);
     }
 
     @Override
-    public String queryJson(FO in) throws BusinessException {
-        return dao.queryJson(in);
+    public String queryJson(FO fo) throws BusinessException {
+        return dao.queryJson(fo);
     }
 
     @Override
-    public List<VO> queryList(FO in) throws BusinessException {
-        return dao.queryList(in);
+    public List<VO> queryList(FO fo) throws BusinessException {
+        return dao.queryList(fo);
     }
 
     @Override
-    public List<VO> queryPagedList(FO in, PageVO page) throws BusinessException {
-        return dao.queryPagedList(in, page);
+    public List<VO> queryPagedList(FO fo, PageVO page) throws BusinessException {
+        return dao.queryPagedList(fo, page);
     }
 
     @Override

@@ -1,8 +1,5 @@
 package com.pd.standard.web;
 
-import static com.pd.it.common.util.StaticTool.queryInfo;
-import static com.pd.it.common.util.StaticTool.queryList;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,7 +17,7 @@ import com.pd.common.util.ReflectUtil;
 import com.pd.it.common.businessobject.PageVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.IExportOperation;
-import com.pd.it.common.util.StaticTool;
+import com.pd.it.common.util.DbTool;
 
 public abstract class BaseRest<FO, VO, Bridge> {
     @Inject
@@ -28,20 +25,20 @@ public abstract class BaseRest<FO, VO, Bridge> {
 
     @RequestMapping("/queryInfo")
     public Object queryInfoRest(@RequestBody(required = false) FO fo) throws BusinessException {
-        return queryInfo(bridge, fo);
+        return DbTool.queryInfo(bridge, fo);
     }
 
     @RequestMapping(value = "/queryList", method = { RequestMethod.POST, RequestMethod.GET })
     @ResponseBody
     public List queryListRest(@RequestBody(required = false) FO fo) throws BusinessException {
-        return queryList(bridge, fo);
+        return DbTool.queryList(bridge, fo);
     }
 
     @RequestMapping(value = "/queryPagedList/{pageSize}/{curPage}", method = { RequestMethod.POST })
     @ResponseBody
     public Object queryPagedList(@RequestParam(required = false) FO fo, @PathParam(value = "") PageVO page)
             throws BusinessException {
-        return StaticTool.queryPagedList(bridge, fo, page);
+        return DbTool.queryPagedList(bridge, fo, page);
     }
 
     @RequestMapping("/updateInfo")
