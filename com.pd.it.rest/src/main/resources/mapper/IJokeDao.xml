@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.dao.IJokeDao">
+	
+	<select id="queryInfoById" resultType="com.pd.model.joke.vo.JokeVO">
+select source,
+	id,
+	url,
+	text,
+	color_value,
+	discuss_value
+from joke_t
+where id=#{id}
+limit 1
+	</select>
+	
+	<select id="queryList" resultType="com.pd.model.joke.vo.JokeVO">
+select source,
+	id,
+	url,
+	text,
+	color_value,
+	discuss_value
+from joke_t
+	</select>
+	
+	<update id="insertList" >
+replace into joke_t(
+	source,
+	id,
+	url,
+	text,
+	color_value,
+	discuss_value
+)values
+		<foreach item="it" collection="list"   separator=",">
+(		
+	#{it.source},
+	#{it.id},
+	#{it.url},
+	#{it.text},
+	#{it.colorValue},
+	#{it.discussValue}
+)
+		</foreach>
+
+	</update>
+	
+</mapper>  
