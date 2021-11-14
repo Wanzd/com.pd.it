@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.postgredao.ITestPgDao">
+	<select id="queryTest" resultType="com.pd.it.common.businessobject.MapVO">
+select id,name as "name",detail
+from dev.test_t
+	</select>
+</mapper>

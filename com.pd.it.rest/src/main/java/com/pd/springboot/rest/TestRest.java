@@ -20,6 +20,7 @@ import com.pd.common.util.LookupTool;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.springboot.adaptor.IRedisAdaptor;
 import com.pd.springboot.dao.ITestDao;
+import com.pd.springboot.postgredao.ITestPgDao;
 import com.pd.springboot.service.MailService;
 import com.pd.springboot.service.MenuService;
 import com.pd.springboot.service.WeatherService;
@@ -29,6 +30,8 @@ import com.pd.springboot.service.WeatherService;
 public class TestRest {
     @Autowired
     ITestDao dao;
+    @Autowired
+    ITestPgDao testPgDao;
     @Autowired
     private IRedisAdaptor redisAdaptor;
     @Autowired
@@ -84,4 +87,10 @@ public class TestRest {
         dao.insertList(list);
         return "200";
     }
+
+    @RequestMapping("/testPostgre")
+    public String testPostgre() throws BusinessException {
+        return toStr(testPgDao.queryTest(null));
+    }
+
 }

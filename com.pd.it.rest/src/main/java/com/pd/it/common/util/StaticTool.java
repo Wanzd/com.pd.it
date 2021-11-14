@@ -90,7 +90,7 @@ public class StaticTool {
         if (in instanceof Clob) {
             return StringFactory.clobToStr((Clob) in);
         }
-        return JSON.toJSONString(in);
+        return JSON.toJSONStringWithDateFormat(in,"yyyy-MM-dd HH:mm:ss");
     }
 
     public static String strCap(String str) {
