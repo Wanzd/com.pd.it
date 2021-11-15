@@ -8,6 +8,7 @@ import java.sql.Clob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import org.mvel2.MVEL;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.validation.ObjectError;
 
@@ -352,18 +354,29 @@ public class StaticTool {
         return rs;
     }
 
-    public static Integer[][] toIntegerArray2(String in) {
-        String[] split = in.split(",");
-        Integer[][] rs = new Integer[split.length][];
-        for (int i = 0, total = split.length; i < total; i++) {
-            List<Integer> tmpList = new ArrayList<>();
-            String tmpStr = split[i];
-            for (int j = 0, total2 = tmpStr.length(); j < total2; j++) {
-                String tarStr = tmpStr.substring(j, j + 1);
-                tmpList.add(toInteger(tarStr));
-            }
-            rs[i] = tmpList.toArray(new Integer[tmpList.size()]);
-        }
-        return rs;
-    }
+	public static Integer[][] toIntegerArray2(String in) {
+		String[] split = in.split(",");
+		Integer[][] rs = new Integer[split.length][];
+		for (int i = 0, total = split.length; i < total; i++) {
+			List<Integer> tmpList = new ArrayList<>();
+			String tmpStr = split[i];
+			for (int j = 0, total2 = tmpStr.length(); j < total2; j++) {
+				String tarStr = tmpStr.substring(j, j + 1);
+				tmpList.add(toInteger(tarStr));
+			}
+			rs[i] = tmpList.toArray(new Integer[tmpList.size()]);
+		}
+		return rs;
+	}
+
+	public static <T> List<T> asList(T... inArray) {
+		if (inArray == null) {
+			return null;
+		}
+		return Arrays.asList(inArray);
+	}
+
+	public static <OUT> OUT mvel(String expression, Map<String, Object> paramMap, Class<OUT> outClass) {
+		return toObj(MVEL.eval(expression, paramMap), outClass);
+	}
 }
