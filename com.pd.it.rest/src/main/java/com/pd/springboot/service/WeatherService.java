@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.BaseService;
 import com.pd.model.weather.vo.WeatherFO;
@@ -17,6 +19,7 @@ public class WeatherService extends BaseService<WeatherFO, WeatherVO, IWeatherDa
     @Inject
     private WeatherAdapter weatherAdapter;
 
+    @Cacheable(cacheNames = "weather", key = "#cityName")
     public List<WeatherVO> getListByCityName(String cityName) throws BusinessException {
         return weatherAdapter.getListByCityName(cityName);
     }

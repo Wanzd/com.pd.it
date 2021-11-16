@@ -67,7 +67,7 @@ public class TestRest {
 
     @RequestMapping("/testWeather")
     public String testWeather() throws BusinessException {
-        return toStr(weatherService.getListByCityName("黄冈市"));
+        return toStr(weatherService.getListByCityName("武汉市"));
     }
 
     @RequestMapping("/queryTestInfo")
