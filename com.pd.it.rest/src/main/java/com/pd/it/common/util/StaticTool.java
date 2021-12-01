@@ -23,17 +23,15 @@ import org.springframework.cglib.core.internal.Function;
 import org.springframework.validation.ObjectError;
 
 import com.alibaba.fastjson.JSON;
-import com.pd.it.common.businessobject.PageVO;
 import com.pd.it.common.businessobject.ResultVO;
 import com.pd.it.common.exception.BusinessException;
-import com.pd.it.common.itf.BaseService;
 import com.pd.it.common.itf.IQueryInfoOperation;
-import com.pd.it.common.itf.IQueryListOperation;
 
 public class StaticTool {
 
     public final static String BLANK = "";
     public final static String ZERO_STR = "0";
+    public final static String SUCCESS = "success";
     public final static BigDecimal ZERO = BigDecimal.ZERO;
 
     public final static String ENCODE_UTF8 = "UTF8";
@@ -92,7 +90,7 @@ public class StaticTool {
         if (in instanceof Clob) {
             return StringFactory.clobToStr((Clob) in);
         }
-        return JSON.toJSONStringWithDateFormat(in,"yyyy-MM-dd HH:mm:ss");
+        return JSON.toJSONStringWithDateFormat(in, "yyyy-MM-dd HH:mm:ss");
     }
 
     public static String strCap(String str) {
@@ -354,29 +352,36 @@ public class StaticTool {
         return rs;
     }
 
-	public static Integer[][] toIntegerArray2(String in) {
-		String[] split = in.split(",");
-		Integer[][] rs = new Integer[split.length][];
-		for (int i = 0, total = split.length; i < total; i++) {
-			List<Integer> tmpList = new ArrayList<>();
-			String tmpStr = split[i];
-			for (int j = 0, total2 = tmpStr.length(); j < total2; j++) {
-				String tarStr = tmpStr.substring(j, j + 1);
-				tmpList.add(toInteger(tarStr));
-			}
-			rs[i] = tmpList.toArray(new Integer[tmpList.size()]);
-		}
-		return rs;
-	}
+    public static Integer[][] toIntegerArray2(String in) {
+        String[] split = in.split(",");
+        Integer[][] rs = new Integer[split.length][];
+        for (int i = 0, total = split.length; i < total; i++) {
+            List<Integer> tmpList = new ArrayList<>();
+            String tmpStr = split[i];
+            for (int j = 0, total2 = tmpStr.length(); j < total2; j++) {
+                String tarStr = tmpStr.substring(j, j + 1);
+                tmpList.add(toInteger(tarStr));
+            }
+            rs[i] = tmpList.toArray(new Integer[tmpList.size()]);
+        }
+        return rs;
+    }
 
-	public static <T> List<T> asList(T... inArray) {
-		if (inArray == null) {
-			return null;
-		}
-		return Arrays.asList(inArray);
-	}
+    public static <T> List<T> asList(T... inArray) {
+        if (inArray == null) {
+            return null;
+        }
+        return Arrays.asList(inArray);
+    }
 
-	public static <OUT> OUT mvel(String expression, Map<String, Object> paramMap, Class<OUT> outClass) {
-		return toObj(MVEL.eval(expression, paramMap), outClass);
-	}
+    public static <OUT> OUT mvel(String expression, Map<String, Object> paramMap, Class<OUT> outClass) {
+        return toObj(MVEL.eval(expression, paramMap), outClass);
+    }
+
+    public static <IN> ResultVO<IN> success(IN in) {
+        ResultVO<IN> res = new ResultVO();
+        res.setCode("S");
+        res.setData(in);
+        return res;
+    }
 }

@@ -100,7 +100,7 @@ public class WeatherDailyTask implements ITask {
                         tmpList.clear();
                     }
                 } catch (Exception e) {
-                    // e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
             if (tmpList.size() > 0) {
