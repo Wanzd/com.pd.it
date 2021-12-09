@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import com.pd.aspect.LogAspect;
 import com.pd.aspect.TestAspect;
 
 /**
@@ -15,6 +16,6 @@ import com.pd.aspect.TestAspect;
  */
 @Named
 @Configuration
-@ComponentScan(basePackageClasses = { TestAspect.class })
+@ComponentScan(basePackageClasses = { TestAspect.class, LogAspect.class })
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AspectConfig {}
