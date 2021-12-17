@@ -8,6 +8,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.pd.aspect.LogAspect;
 import com.pd.aspect.TestAspect;
+import com.pd.aspect.TimeoutAspect;
 
 /**
  * @Auther: hugeo.wang
@@ -16,6 +17,6 @@ import com.pd.aspect.TestAspect;
  */
 @Named
 @Configuration
-@ComponentScan(basePackageClasses = { TestAspect.class, LogAspect.class })
+@ComponentScan(basePackageClasses = { TestAspect.class, LogAspect.class, TimeoutAspect.class })
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AspectConfig {}

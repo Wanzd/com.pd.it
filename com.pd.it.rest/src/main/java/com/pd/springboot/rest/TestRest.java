@@ -23,6 +23,7 @@ import com.pd.springboot.dao.ITestDao;
 import com.pd.springboot.postgredao.ITestPgDao;
 import com.pd.springboot.service.MailService;
 import com.pd.springboot.service.MenuService;
+import com.pd.springboot.service.TestService;
 import com.pd.springboot.service.WeatherService;
 
 @RestController
@@ -38,6 +39,8 @@ public class TestRest {
     MailService mailService;
     @Autowired
     MenuService menuService;
+    @Inject
+    TestService testService;
     @Inject
     private WeatherService weatherService;
 
@@ -93,4 +96,12 @@ public class TestRest {
         return toStr(testPgDao.queryTest(null));
     }
 
+    @RequestMapping("/testTimeout")
+    public Object testTimeout() throws BusinessException {
+        try {
+            return testService.testTimeout();
+        } catch (Exception e) {
+            return e;
+        }
+    }
 }
