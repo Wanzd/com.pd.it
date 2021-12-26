@@ -12,7 +12,7 @@ public class TestService {
     @Timeout(300)
     public int testTimeout() {
         try {
-            TimeUnit.MILLISECONDS.sleep(400);
+            TimeUnit.MILLISECONDS.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

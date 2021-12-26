@@ -21,6 +21,14 @@ select id "id",
 from sys_chart_t
 where id=#{fo.id,jdbcType=VARCHAR}
 	</select>
+	
+	<select id="queryCombo" resultType="com.pd.it.common.businessobject.ComboVO">
+select id "id",
+	name "text"
+from sys_chart_t
+order by name
+	</select>
+	
 	<select id="queryList" resultType="com.pd.it.common.businessobject.MapVO">
 select id "id",
 	datasource_id "dataSourceId",

@@ -3,12 +3,15 @@ package com.pd.it.common.util;
 import static com.pd.it.base.constant.BaseConst.HTTP_CODE_ERROR;
 import static java.util.stream.Collectors.toList;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.Clob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -269,6 +272,20 @@ public class StaticTool {
         return SpringUtil.getBean(beanName, outClass);
     }
 
+    public static Object getBean(String beanName) {
+        return SpringUtil.getBean(beanName);
+    }
+
+    public static Object invoke(Object target, String methodName, Object... args) {
+        Method method = Reflects.getMethod(target, methodName);
+        try {
+            return method.invoke(target,args);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
     public static <IN, OUT> OUT apply(IN in, Function<IN, OUT> func) {
         if (in == null) {
             return null;
@@ -383,5 +400,12 @@ public class StaticTool {
         res.setCode("S");
         res.setData(in);
         return res;
+    }
+
+    public static <T> T first(Collection<T> collection) {
+        if (isEmpty(collection)) {
+            return null;
+        }
+        return collection.iterator().next();
     }
 }

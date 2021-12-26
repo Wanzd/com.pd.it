@@ -11,33 +11,46 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 public class SpringUtil implements ApplicationContextAware {
 
-	private static ApplicationContext ctx;
+    private static ApplicationContext ctx;
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) {
-		ctx = applicationContext;
-	}
-
-	public static ApplicationContext getContext() {
-		return ctx;
-	}
-
-	public static <T> T getBean(String beanName, Class<T> className) {
-		if (ctx == null) {
-			return null;
-		}
-		try {
-			return ctx.getBean(beanName, className);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	public static void setContext(ApplicationContext applicationContext) {
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
         ctx = applicationContext;
     }
-	public static HttpServletResponse getResponse() {
-		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder
-				.getRequestAttributes();
-		return servletRequestAttributes.getResponse();
-	}
+
+    public static ApplicationContext getContext() {
+        return ctx;
+    }
+
+    public static <T> T getBean(String beanName, Class<T> className) {
+        if (ctx == null) {
+            return null;
+        }
+        try {
+            return ctx.getBean(beanName, className);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Object getBean(String beanName) {
+        if (ctx == null) {
+            return null;
+        }
+        try {
+            return ctx.getBean(beanName);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void setContext(ApplicationContext applicationContext) {
+        ctx = applicationContext;
+    }
+
+    public static HttpServletResponse getResponse() {
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder
+                .getRequestAttributes();
+        return servletRequestAttributes.getResponse();
+    }
 }

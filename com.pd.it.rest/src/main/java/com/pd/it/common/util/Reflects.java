@@ -1,6 +1,7 @@
 package com.pd.it.common.util;
 
 import static com.pd.it.common.util.StaticTool.eq;
+import static com.pd.it.common.util.StaticTool.first;
 import static com.pd.it.common.util.StaticTool.list;
 import static com.pd.it.common.util.StaticTool.strCap;
 
@@ -13,6 +14,14 @@ import java.util.stream.Collectors;
 import com.pd.it.common.itf.IIdentity;
 
 public class Reflects {
+    public static Method getMethod(Object in, String methodName) {
+        if (in == null) {
+            return null;
+        }
+        List<Method> methods = methods(in, methodName);
+        return first(methods);
+    }
+
     public static List<Method> methods(Object in) {
         if (in == null) {
             return null;
@@ -26,6 +35,8 @@ public class Reflects {
             return null;
         }
         List<Method> rsList = list(in.getClass().getMethods());
+        rsList.addAll(list(in.getClass().getDeclaredMethods()));
+        List<String> nameList = rsList.stream().map(vo->vo.getName()).collect(Collectors.toList());
         rsList = rsList.stream().filter(b -> b.getName().equals(methodName)).collect(Collectors.toList());
         return rsList;
     }

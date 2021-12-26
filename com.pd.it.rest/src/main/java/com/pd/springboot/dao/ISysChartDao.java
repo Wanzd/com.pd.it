@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pd.businessobject.SysChartBO;
 import com.pd.businessobject.SysChartFO;
 import com.pd.it.common.itf.IBaseDao;
-import com.pd.it.common.itf.IQueryComboOperation;
+import com.pd.it.common.itf.IQueryComboDao;
 
 @Mapper
-public interface ISysChartDao extends IBaseDao<SysChartFO, SysChartBO>, IQueryComboOperation {}
+public interface ISysChartDao extends IBaseDao<SysChartFO, SysChartBO>, IQueryComboDao {}

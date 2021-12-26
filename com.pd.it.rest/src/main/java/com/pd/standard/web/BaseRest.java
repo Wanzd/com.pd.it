@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.websocket.server.PathParam;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,14 +15,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.pd.common.util.DeleteBridge;
 import com.pd.common.util.ExcelBridge;
 import com.pd.common.util.ReflectUtil;
+import com.pd.it.common.businessobject.ComboVO;
+import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.businessobject.PageVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.IExportOperation;
 import com.pd.it.common.util.DbTool;
 
+import lombok.Getter;
+
 public abstract class BaseRest<FO, VO, Bridge> {
     @Inject
+    @Getter
     protected Bridge bridge;
+
+    @RequestMapping("/queryCombo")
+    public List<ComboVO> queryComboRest(@Param("fo") MapVO fo) throws BusinessException {
+        return DbTool.queryCombo(bridge, fo);
+    }
 
     @RequestMapping("/queryInfo")
     public Object queryInfoRest(@RequestBody(required = false) FO fo) throws BusinessException {

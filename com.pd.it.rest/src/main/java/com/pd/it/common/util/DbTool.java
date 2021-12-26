@@ -8,10 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pd.it.common.businessobject.ComboVO;
+import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.businessobject.PageVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.BaseService;
+import com.pd.it.common.itf.IBaseDao;
+import com.pd.it.common.itf.IQueryComboDao;
 import com.pd.it.common.itf.MybatisPlusService;
 import com.pd.model.datasource.vo.DataSourceVO;
 
@@ -56,6 +59,9 @@ public class DbTool {
     }
 
     private static <FO, VO> IDbAdapter<FO, VO> getDbAdapter(Object bean) {
+        if (bean instanceof IBaseDao) {
+            return new BaseDaoDbAdapter((IBaseDao) bean);
+        }
         if (bean instanceof BaseService) {
             return new BaseServiceDbAdapter((BaseService) bean);
         }
@@ -63,5 +69,13 @@ public class DbTool {
             return new BaseServiceDbAdapter((BaseService) bean);
         }
         return null;
+    }
+
+    public static List<ComboVO> queryCombo(Object bean, MapVO fo) throws BusinessException {
+        if (bean instanceof IQueryComboDao) {
+            IQueryComboDao queryComboDao = (IQueryComboDao) bean;
+            return queryComboDao.queryCombo(fo);
+        }
+        throw new BusinessException("Not impl IQueryComboDao");
     }
 }
