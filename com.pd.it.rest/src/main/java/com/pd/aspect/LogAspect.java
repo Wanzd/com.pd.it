@@ -12,6 +12,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
+import com.pd.common.calobject.TimerCO;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -23,21 +25,23 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class LogAspect {
-    @Around("@annotation(com.pd.it.common.annotations.Log)")
-    public Object beforeLog(ProceedingJoinPoint jp) throws Throwable {
-        Signature signature = jp.getSignature();
-        if (signature instanceof MethodSignature) {
-            MethodSignature methodSignature = (MethodSignature) signature;
-            Method method = methodSignature.getMethod();
-            String classPath = method.getDeclaringClass().getTypeName();
-            String methodName = method.getName();
-            String paramStr = toStr(jp.getArgs());
-            log.info(formatStr("%s.%s in:%s", classPath, methodName, paramStr));
-            Object result = jp.proceed();
-            String resultStr = toStr(result);
-            log.info(formatStr("%s.%s out:%s", classPath, methodName, resultStr));
-            return result;
-        }
-        return jp.proceed();
-    }
+	@Around("@annotation(com.pd.it.common.annotations.Log)")
+	public Object beforeLog(ProceedingJoinPoint jp) throws Throwable {
+		Signature signature = jp.getSignature();
+		if (signature instanceof MethodSignature) {
+			MethodSignature methodSignature = (MethodSignature) signature;
+			Method method = methodSignature.getMethod();
+			String classPath = method.getDeclaringClass().getTypeName();
+			String methodName = method.getName();
+			String paramStr = toStr(jp.getArgs());
+			log.info(formatStr("%s.%s in:%s", classPath, methodName, paramStr));
+			TimerCO timer = new TimerCO(formatStr("%s.%s", classPath, methodName));
+			Object result = jp.proceed();
+			String resultStr = toStr(result);
+			timer.end();
+			log.info(formatStr("%s.%s out:%s,use time: %d", classPath, methodName, resultStr, timer.getUsedTime()));
+			return result;
+		}
+		return jp.proceed();
+	}
 }
