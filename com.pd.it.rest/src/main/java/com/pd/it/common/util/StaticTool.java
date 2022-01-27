@@ -3,8 +3,6 @@ package com.pd.it.common.util;
 import static com.pd.it.base.constant.BaseConst.HTTP_CODE_ERROR;
 import static java.util.stream.Collectors.toList;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -23,7 +21,6 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import org.mvel2.MVEL;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.validation.ObjectError;
 
@@ -31,10 +28,6 @@ import com.alibaba.fastjson.JSON;
 import com.pd.it.common.businessobject.ResultVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.IQueryInfoOperation;
-
-import freemarker.cache.StringTemplateLoader;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 
 public class StaticTool {
 
@@ -395,10 +388,6 @@ public class StaticTool {
 			return null;
 		}
 		return Arrays.asList(inArray);
-	}
-
-	public static <OUT> OUT mvel(String expression, Object vo, Class<OUT> outClass) {
-		return toObj(MVEL.eval(expression, toObj(vo, Map.class)), outClass);
 	}
 
 	public static <IN> ResultVO<IN> success(IN in) {

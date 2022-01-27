@@ -1,27 +1,10 @@
 package com.pd.it.common.util;
 
-import static com.pd.it.common.util.StaticTool.mvel;
-
 import org.junit.jupiter.api.Test;
 
 import lombok.Data;
 
 public class StaticToolTest {
-
-	@Test
-	void testMvel() {
-		TestVO vo = new TestVO();
-		vo.setName("testName");
-		vo.setA(1);
-		vo.setB(2);
-		System.out.println(mvel("a+b", vo, Integer.class));
-		try {
-			Thread.sleep(5000L);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	@Test
 	void test1() {
