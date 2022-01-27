@@ -53,6 +53,9 @@ spring:
                starttls:
                   enable: true
                   required: true
+mybatis:
+   configuration:
+      map-underscore-to-camel-case: true
 mybatis-plus:
    global-config:
       db-config:
