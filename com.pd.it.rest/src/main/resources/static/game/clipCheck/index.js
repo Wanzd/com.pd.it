@@ -26,7 +26,7 @@ require(['jquery', 'easyui', 'common'], function(jquery, easyui, common) {
 			for (var trIdx = 0, trTotal = 8; trIdx < trTotal; trIdx++) {
 				var tmpTr = $("<tr height=30></tr>");
 				for (var tdIdx = 0, tdTotal = 8; tdIdx < tdTotal; tdIdx++) {
-					$impl.checkValue[(trIdx-1)*8+tdIdx]=-1;
+					$impl.checkValue[trIdx*8+tdIdx]=-1;
 					var tdId = trIdx * 8 + tdIdx;
 					var tmpTd = $("<td id='td" + tdId + "'  width='19px' style='word-wrap:break-word;font-size:14pt' align='center' value='"+tdId+"'></td>");
 					tmpTr.append(tmpTd);
@@ -72,7 +72,7 @@ require(['jquery', 'easyui', 'common'], function(jquery, easyui, common) {
 				
 				var nextX=tmpX+pathX;
 				var nextY=tmpY+pathY;
-				if(nextX>8||nextX<0||nextY>8||nextY<0){
+				if(nextX>=8||nextX<0||nextY>=8||nextY<0){
 					continueFlag=false;
 					break;
 				}
@@ -98,6 +98,7 @@ require(['jquery', 'easyui', 'common'], function(jquery, easyui, common) {
 				/*下一个棋子为敌色，则加入缓存*/
 				tmpX=nextX;
 				tmpY=nextY;
+				debugger;
 				eatIds[eatIndex++]=nextId;
 			}
 			
