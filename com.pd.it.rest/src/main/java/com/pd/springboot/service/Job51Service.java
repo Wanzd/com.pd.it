@@ -1,6 +1,8 @@
 package com.pd.springboot.service;
 
 import static com.pd.it.common.util.StaticTool.ZERO;
+import static com.pd.it.common.util.StaticTool.formatStr;
+import static com.pd.it.common.util.StaticTool.isEmpty;
 import static com.pd.it.common.util.StaticTool.mul;
 import static com.pd.it.common.util.StaticTool.strToList;
 import static com.pd.it.common.util.StaticTool.toDecimal;
@@ -28,6 +30,7 @@ import com.pd.springboot.dao.IAppJobDao;
 
 @Named
 public class Job51Service extends BaseService<MapVO, MapVO, IAppJobDao> {
+    private static final String URL = "https://search.51job.com/list/180200,000000,0000,00,9,99,%s,2,%d.html?lang=c&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&ord_field=0&dibiaoid=0&line=&welfare=";
 
     public void init(MapVO fo) {
         dao.deleteInfo(fo);
@@ -37,13 +40,13 @@ public class Job51Service extends BaseService<MapVO, MapVO, IAppJobDao> {
         String keyword = "java";
         List<MapVO> tmpList = new ArrayList<>();
         for (int i = 1, total = 50; i <= total; i++) {
-            String url = "https://search.51job.com/list/180200,000000,0000,00,9,99," + keyword + ",2," + i
-                    + ".html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare=";
-            url="https://search.51job.com/list/180200,000000,0000,00,9,99,java,2,1.html?lang=c&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&ord_field=0&dibiaoid=0&line=&welfare=";
+            String url = formatStr(URL, keyword, i);
             String httpStr = WebUtil.post(url, null, "gbk");
-            System.out.println(httpStr);
             try {
                 List<MapVO> list = new Strategy20200802().build(httpStr);
+                if (isEmpty(list)) {
+                    break;
+                }
                 dao.insertList(list);
             } catch (BusinessException e) {
                 e.printStackTrace();
@@ -136,10 +139,17 @@ class Strategy20200802 implements IBuilder<String, List<MapVO>> {
 
     @Override
     public List<MapVO> build(String in) throws BusinessException {
-        String str = StringFactory.between(in, "\"engine_search_result\":", ",\"jobid_count\"");
+        System.out.println(in);
+        String str = StringFactory.between(in, "\"engine_jds\":", ",\"jobid_count\"");
         System.out.println(str);
+        if (isEmpty(str)) {
+            return null;
+        }
         List<MapVO> mapList = strToList(str, MapVO.class);
         List<MapVO> rsList = new ArrayList<>();
+        if (isEmpty(mapList)) {
+            return null;
+        }
         mapList.forEach(vo -> {
 
             MapVO bridgeVO = MapVOX.bridge(vo,

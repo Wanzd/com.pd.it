@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(Include.NON_NULL)
 public class ResultVO<T> {
+    public static final String SUCCESS="200";
+    public static final String ERROR="500";
+    
 	private String code;
 	private String msg;
 	private T data;

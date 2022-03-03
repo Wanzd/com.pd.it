@@ -1,6 +1,6 @@
 package com.pd.springboot.task;
 
-
+import static com.pd.it.common.util.StaticTool.error;
 import static com.pd.it.common.util.StaticTool.str;
 
 import java.util.Date;
@@ -21,12 +21,17 @@ public class JobInfoParseTodayTask implements ITask {
 
     @Override
     public Object process() {
-        TimerCO timer = new TimerCO(TaskEnum.JOB_INFO_PARSE_TODAY_TASK.getName());
-        MapVO fo = new MapVO();
-        fo.put("creationDate", new Date());
-        business.init(fo);
-        business.process(fo);
-        timer.end();
-        return str(timer);
+        try {
+            TimerCO timer = new TimerCO(TaskEnum.JOB_INFO_PARSE_TODAY_TASK.getName());
+            MapVO fo = new MapVO();
+            fo.put("creationDate", new Date());
+            business.init(fo);
+            business.process(fo);
+            timer.end();
+            return str(timer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return error(e.getMessage(), null);
+        }
     }
 }
