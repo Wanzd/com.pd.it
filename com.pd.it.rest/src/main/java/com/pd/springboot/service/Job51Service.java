@@ -32,8 +32,10 @@ import com.pd.springboot.dao.IAppJobDao;
 public class Job51Service extends BaseService<MapVO, MapVO, IAppJobDao> {
     private static final String URL = "https://search.51job.com/list/180200,000000,0000,00,9,99,%s,2,%d.html?lang=c&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&ord_field=0&dibiaoid=0&line=&welfare=";
 
+    Calculator cal = new Calculator();
+
     public void init(MapVO fo) {
-        dao.deleteInfo(fo);
+        // dao.deleteInfo(fo);
     }
 
     public void process(MapVO fo) {
@@ -43,7 +45,7 @@ public class Job51Service extends BaseService<MapVO, MapVO, IAppJobDao> {
             String url = formatStr(URL, keyword, i);
             String httpStr = WebUtil.post(url, null, "gbk");
             try {
-                List<MapVO> list = new Strategy20200802().build(httpStr);
+                List<MapVO> list = cal.buildStrategy20200802(httpStr);
                 if (isEmpty(list)) {
                     break;
                 }
@@ -55,112 +57,65 @@ public class Job51Service extends BaseService<MapVO, MapVO, IAppJobDao> {
 
     }
 
-}
-
-class SalaryFromBuilder implements IBuilder<String, BigDecimal> {
-    @Override
-    public BigDecimal build(String in) {
-        try {
-            String salaryStr = in;
-            int base = 1;
-            if (salaryStr.endsWith("万/月")) {
-                base = 10000;
-            } else if (salaryStr.endsWith("千/月")) {
-                base = 1000;
-            } else if (salaryStr.endsWith("万/年")) {
-                base = 833;
+    class Calculator {
+        private List<MapVO> buildStrategy20200802(String in) throws BusinessException {
+            String str = StringFactory.between(in, "\"engine_jds\":", ",\"jobid_count\"");
+            if (isEmpty(str)) {
+                return null;
             }
-            String from = salaryStr.substring(0, salaryStr.indexOf("-"));
-            return mul(toDecimal(from), base);
-        } catch (Exception e) {
-            return ZERO;
-        }
-    }
-
-}
-
-class SalaryToBuilder implements IBuilder<String, BigDecimal> {
-    @Override
-    public BigDecimal build(String in) {
-        try {
-            String salaryStr = in;
-            int base = 1;
-            if (salaryStr.endsWith("万/月")) {
-                base = 10000;
-            } else if (salaryStr.endsWith("千/月")) {
-                base = 1000;
-            } else if (salaryStr.endsWith("万/年")) {
-                base = 833;
+            List<MapVO> mapList = strToList(str, MapVO.class);
+            List<MapVO> rsList = new ArrayList<>();
+            if (isEmpty(mapList)) {
+                return null;
             }
-            String to = salaryStr.substring(salaryStr.indexOf("-") + 1, salaryStr.indexOf("/") - 1);
-            return mul(toDecimal(to), base);
-        } catch (Exception e) {
-            return ZERO;
+            mapList.forEach(vo -> {
+
+                MapVO bridgeVO = MapVOX.bridge(vo,
+                        "company_name:company,jobid:id,workarea_text:location,job_name:jobName,providesalary_text:salary,issuedate:creationDate,job_href:url");
+                String salary = bridgeVO.str("salary");
+                bridgeVO.put("salaryFrom", cal.buildSalaryFrom(salary));
+                bridgeVO.put("salaryTo", cal.buildSalaryTo(salary));
+
+                rsList.add(bridgeVO);
+            });
+            return rsList;
         }
-    }
-}
 
-class VoBuilder implements IBuilder<Element, MapVO> {
-    @Override
-    public MapVO build(Element in) {
-        MapVO rsVO = new MapVO();
-        rsVO.put("id", in.getElementsByClass("t1").first().getElementsByClass("checkbox").first().attr("value"));
-        rsVO.put("location", in.getElementsByClass("t3").first().text());
-        rsVO.put("company", in.getElementsByClass("t2").first().getElementsByTag("a").first().attr("title"));
-        rsVO.put("jobName", in.getElementsByClass("t1").first().getElementsByTag("span").first().getElementsByTag("a")
-                .first().attr("title"));
-        String salary = in.getElementsByClass("t4").first().text();
-        rsVO.put("salary", in.getElementsByClass("t4").first().text());
-        rsVO.put("salaryFrom", new SalaryFromBuilder().build(salary));
-        rsVO.put("salaryTo", new SalaryToBuilder().build(salary));
-        rsVO.put("creationDate", in.getElementsByClass("t5").first().text());
-        rsVO.put("url", in.getElementsByClass("t1").first().getElementsByTag("span").first().getElementsByTag("a")
-                .first().attr("href"));
-        return rsVO;
-    }
-
-}
-
-class StrategyOld implements IBuilder<String, List<MapVO>> {
-
-    @Override
-    public List<MapVO> build(String in) throws BusinessException {
-        Document doc = Jsoup.parse(in);
-        Element resultList = doc.getElementById("resultList");
-        Elements divs = resultList.getElementsByClass("el");
-        divs.remove(0);
-        List<MapVO> list = divs.stream().map(vo -> new VoBuilder().build(vo)).collect(Collectors.toList());
-        return list;
-    }
-
-}
-
-class Strategy20200802 implements IBuilder<String, List<MapVO>> {
-
-    @Override
-    public List<MapVO> build(String in) throws BusinessException {
-        System.out.println(in);
-        String str = StringFactory.between(in, "\"engine_jds\":", ",\"jobid_count\"");
-        System.out.println(str);
-        if (isEmpty(str)) {
-            return null;
+        private BigDecimal buildSalaryFrom(String in) {
+            try {
+                String salaryStr = in;
+                int base = 1;
+                if (salaryStr.endsWith("万/月")) {
+                    base = 10000;
+                } else if (salaryStr.endsWith("千/月")) {
+                    base = 1000;
+                } else if (salaryStr.endsWith("万/年")) {
+                    base = 833;
+                }
+                String from = salaryStr.substring(0, salaryStr.indexOf("-"));
+                return mul(toDecimal(from), base);
+            } catch (Exception e) {
+                return ZERO;
+            }
         }
-        List<MapVO> mapList = strToList(str, MapVO.class);
-        List<MapVO> rsList = new ArrayList<>();
-        if (isEmpty(mapList)) {
-            return null;
+
+        private BigDecimal buildSalaryTo(String in) {
+            try {
+                String salaryStr = in;
+                int base = 1;
+                if (salaryStr.endsWith("万/月")) {
+                    base = 10000;
+                } else if (salaryStr.endsWith("千/月")) {
+                    base = 1000;
+                } else if (salaryStr.endsWith("万/年")) {
+                    base = 833;
+                }
+                String to = salaryStr.substring(salaryStr.indexOf("-") + 1, salaryStr.indexOf("/") - 1);
+                return mul(toDecimal(to), base);
+            } catch (Exception e) {
+                return ZERO;
+            }
         }
-        mapList.forEach(vo -> {
-
-            MapVO bridgeVO = MapVOX.bridge(vo,
-                    "company_name:company,jobid:id,workarea_text:location,job_name:jobName,providesalary_text:salary,issuedate:creationDate,job_href:url");
-            String salary = bridgeVO.str("salary");
-            bridgeVO.put("salaryFrom", new SalaryFromBuilder().build(salary));
-            bridgeVO.put("salaryTo", new SalaryToBuilder().build(salary));
-
-            rsList.add(bridgeVO);
-        });
-        return rsList;
     }
 
 }

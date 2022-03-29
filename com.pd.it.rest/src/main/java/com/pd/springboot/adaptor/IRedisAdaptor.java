@@ -7,6 +7,7 @@ package com.pd.springboot.adaptor;
  *
  */
 public interface IRedisAdaptor {
+    
 	/**
 	 * 简单查询：通过key查询value
 	 * 

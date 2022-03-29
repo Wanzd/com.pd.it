@@ -10,4 +10,11 @@ from lookup_item_t
 		</where>
 order by sort_id,name
 	</select>
+	
+	<select id="queryValue" resultType="String">
+select name
+from lookup_item_t
+where type_code = #{fo.typeCode}
+	and code=#{fo.itemCode}
+	</select>
 </mapper>  

@@ -1,10 +1,8 @@
 package com.pd.businessobject;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class LookupBO {
     private String type;
     private String parentCode;
