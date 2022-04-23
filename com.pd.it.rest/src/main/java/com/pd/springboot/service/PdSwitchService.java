@@ -1,6 +1,7 @@
 package com.pd.springboot.service;
 
 import com.pd.businessobject.LookupItemFO;
+import com.pd.it.common.annotations.Timeout;
 import com.pd.it.common.util.ValidTool;
 import com.pd.springboot.adaptor.IRedisAdaptor;
 import com.pd.springboot.dao.ILookupItemDao;
@@ -34,6 +35,7 @@ public class PdSwitchService implements IPdSwitchService {
     }
 
     @Override
+    @Timeout(300)
     public void refreshLookupSwitch() {
         redis.delete(RedisConst.LOOKUP_SWITCH);
     }

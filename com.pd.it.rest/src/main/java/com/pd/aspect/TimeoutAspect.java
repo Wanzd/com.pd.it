@@ -1,12 +1,7 @@
 package com.pd.aspect;
 
-import java.lang.reflect.Method;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-
+import com.pd.it.common.annotations.Timeout;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -14,9 +9,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import com.pd.it.common.annotations.Timeout;
+import java.lang.reflect.Method;
+import java.util.concurrent.*;
 
-import lombok.extern.slf4j.Slf4j;
+import static com.pd.it.common.util.StaticTool.formatStr;
 
 /**
  * @Auther: hugeo.wang
@@ -53,7 +49,7 @@ public class TimeoutAspect {
             long startTime = System.currentTimeMillis();
             while (!future.isDone()) {
                 if (System.currentTimeMillis() > startTime + timeoutValue) {
-                    throw new Exception("timeout");
+                    throw new TimeoutException(formatStr("Used time is over %d",timeoutValue));
                 }
                 TimeUnit.MILLISECONDS.sleep(SLEEP_MINISECONDS);
             }

@@ -1,27 +1,23 @@
 package com.pd.common.calobject;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 
 @Data
 public class TimerCO {
-    private Date start;
-    private Date end;
+    private Long start;
+    private Long end;
     private String name;
 
     public TimerCO(String name) {
         this.name = name;
-        this.start = new Date();
+        this.start = System.currentTimeMillis();
     }
 
     public void end() {
-        end = new Date();
+        end = System.currentTimeMillis();
     }
 
     public long getUsedTime() {
-        return end.getTime() - start.getTime();
+        return end - start;
     }
 }

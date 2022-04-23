@@ -1,23 +1,5 @@
 package com.pd.springboot.rest;
 
-import static com.pd.it.common.util.StaticTool.str;
-import static com.pd.it.common.util.StaticTool.toStr;
-
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-
 import com.pd.businessobject.LookupFO;
 import com.pd.businessobject.MailVO;
 import com.pd.businessobject.TestVO;
@@ -25,15 +7,25 @@ import com.pd.common.util.LookupTool;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.factory.ResultVOFactory;
 import com.pd.springboot.adaptor.IRedisAdaptor;
+import com.pd.springboot.business.TestBusiness;
 import com.pd.springboot.dao.ITestDao;
 import com.pd.springboot.postgredao.ITestPgDao;
 import com.pd.springboot.service.MailService;
 import com.pd.springboot.service.MenuService;
-import com.pd.springboot.service.TestService;
 import com.pd.springboot.service.WeatherService;
-
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+
+import javax.inject.Inject;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.*;
+
+import static com.pd.it.common.util.StaticTool.*;
 
 @RestController
 @RequestMapping("testRest")
@@ -49,7 +41,7 @@ public class TestRest {
 	@Autowired
 	MenuService menuService;
 	@Inject
-	TestService testService;
+	TestBusiness testBusiness;
 	@Inject
 	private WeatherService weatherService;
 	@Inject
@@ -110,9 +102,9 @@ public class TestRest {
 	@RequestMapping("/testTimeout")
 	public Object testTimeout() throws BusinessException {
 		try {
-			return testService.testTimeout();
+			return testBusiness.testTimeout(null);
 		} catch (Exception e) {
-			return e;
+			return error(e.getMessage(),e);
 		}
 	}
 

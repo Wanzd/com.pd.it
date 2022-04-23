@@ -1,10 +1,9 @@
 package com.pd.springboot.service;
 
-import java.util.concurrent.TimeUnit;
+import com.pd.it.common.annotations.Timeout;
 
 import javax.inject.Named;
-
-import com.pd.it.common.annotations.Timeout;
+import java.util.concurrent.TimeUnit;
 
 @Named
 public class TestService {
@@ -12,7 +11,7 @@ public class TestService {
     @Timeout(300)
     public int testTimeout() {
         try {
-            TimeUnit.MILLISECONDS.sleep(100);
+            TimeUnit.MILLISECONDS.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

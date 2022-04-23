@@ -1,33 +1,25 @@
 package com.pd.it.common.util;
 
-import static com.pd.it.base.constant.BaseConst.HTTP_CODE_ERROR;
-import static java.util.stream.Collectors.toList;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.sql.Clob;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
-import org.springframework.cglib.core.internal.Function;
-import org.springframework.validation.ObjectError;
-
 import com.alibaba.fastjson.JSON;
 import com.pd.it.common.businessobject.ResultVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.IQueryInfoOperation;
+import org.springframework.cglib.core.internal.Function;
+import org.springframework.validation.ObjectError;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.UndeclaredThrowableException;
+import java.math.BigDecimal;
+import java.sql.Clob;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
+import static com.pd.it.base.constant.BaseConst.HTTP_CODE_ERROR;
+import static java.util.stream.Collectors.toList;
 
 public class StaticTool {
 
@@ -390,12 +382,6 @@ public class StaticTool {
         return Arrays.asList(inArray);
     }
 
-    public static <IN> ResultVO<IN> success(IN in) {
-        ResultVO<IN> res = new ResultVO();
-        res.setCode("S");
-        res.setData(in);
-        return res;
-    }
 
     public static <T> T first(Collection<T> collection) {
         if (isEmpty(collection)) {
@@ -404,11 +390,28 @@ public class StaticTool {
         return collection.iterator().next();
     }
 
-    public static <T> ResultVO<T> error(String msg, T e) {
+    public static <IN> ResultVO<IN> success(IN in) {
+        ResultVO<IN> res = new ResultVO();
+        res.setCode("S");
+        res.setData(in);
+        return res;
+    }
+    public static <T> ResultVO<T> error(String msg, Exception e) {
         ResultVO resVO = new ResultVO();
         resVO.setCode(ResultVO.ERROR);
+        if(e instanceof UndeclaredThrowableException){
+            UndeclaredThrowableException ute =(UndeclaredThrowableException)e;
+            resVO.setCode(ResultVO.TIMEOUT);
+            resVO.setMsg(ute.getUndeclaredThrowable().getMessage());
+        }else{
+            resVO.setMsg(msg);
+        }
+        return resVO;
+    }
+    public static <T> ResultVO<T> timeout(String msg) {
+        ResultVO resVO = new ResultVO();
+        resVO.setCode(ResultVO.TIMEOUT);
         resVO.setMsg(msg);
-        resVO.setData(e);
         return resVO;
     }
 }

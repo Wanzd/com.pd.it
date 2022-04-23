@@ -1,10 +1,8 @@
 package com.pd.aspect;
 
-import static com.pd.it.common.util.StaticTool.formatStr;
-import static com.pd.it.common.util.StaticTool.toStr;
-
-import java.lang.reflect.Method;
-
+import com.pd.common.calobject.TimerCO;
+import com.pd.it.common.businessobject.ResultVO;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -12,9 +10,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import com.pd.common.calobject.TimerCO;
+import java.lang.reflect.Method;
 
-import lombok.extern.slf4j.Slf4j;
+import static com.pd.it.common.util.StaticTool.formatStr;
+import static com.pd.it.common.util.StaticTool.toStr;
 
 /**
  * @Auther: hugeo.wang
@@ -33,12 +32,20 @@ public class LogAspect {
 			Method method = methodSignature.getMethod();
 			String classPath = method.getDeclaringClass().getTypeName();
 			String methodName = method.getName();
+			jp.getArgs();
 			String paramStr = toStr(jp.getArgs());
 			log.info(formatStr("%s.%s in:%s", classPath, methodName, paramStr));
 			TimerCO timer = new TimerCO(formatStr("%s.%s", classPath, methodName));
 			Object result = jp.proceed();
-			String resultStr = toStr(result);
 			timer.end();
+			String resultStr = toStr(result);
+			Long endTime=System.currentTimeMillis();
+			if(result instanceof ResultVO){
+				ResultVO rsVO=(ResultVO)result;
+				rsVO.setStartTime(timer.getStart());
+				rsVO.setEndTime(endTime);
+				rsVO.setUseTime(timer.getUsedTime());
+			}
 			log.info(formatStr("%s.%s out:%s,use time: %d", classPath, methodName, resultStr, timer.getUsedTime()));
 			return result;
 		}

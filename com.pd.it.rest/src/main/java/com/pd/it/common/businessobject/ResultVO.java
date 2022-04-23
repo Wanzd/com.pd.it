@@ -14,8 +14,12 @@ import lombok.NoArgsConstructor;
 public class ResultVO<T> {
     public static final String SUCCESS="200";
     public static final String ERROR="500";
+	public static final String TIMEOUT="408";
     
 	private String code;
 	private String msg;
 	private T data;
+	private long useTime;
+	private long startTime;
+	private long endTime;
 }
