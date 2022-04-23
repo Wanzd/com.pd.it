@@ -23,7 +23,6 @@ public class TestBusiness {
         try{
             return success(testService.testTimeout());
         }catch(Exception e){
-            log.error(e.getMessage(),e);
             return error(e.getLocalizedMessage(),e);
         }
     }
