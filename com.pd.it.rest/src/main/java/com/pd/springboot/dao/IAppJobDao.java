@@ -1,9 +1,9 @@
 package com.pd.springboot.dao;
 
+import com.pd.it.common.itf.IBaseDao;
+import com.pd.model.job.vo.JobFO;
+import com.pd.model.job.vo.JobVO;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.pd.it.common.businessobject.MapVO;
-import com.pd.it.common.itf.IBaseDao;
-
 @Mapper
-public interface IAppJobDao extends IBaseDao<MapVO, MapVO> {}
+public interface IAppJobDao extends IBaseDao<JobFO, JobVO> {}

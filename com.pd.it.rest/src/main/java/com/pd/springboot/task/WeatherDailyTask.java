@@ -5,8 +5,8 @@ import static com.pd.it.common.util.StaticTool.formatDate;
 import static com.pd.it.common.util.StaticTool.isEmpty;
 import static com.pd.it.common.util.StaticTool.ne;
 import static com.pd.it.common.util.StaticTool.notEmpty;
-import static com.pd.standard.itf.TaskConst.STATUS_INIT;
-import static com.pd.standard.itf.TaskConst.STATUS_SUCCESS;
+import static com.pd.standard.constants.TaskConst.STATUS_INIT;
+import static com.pd.standard.constants.TaskConst.STATUS_SUCCESS;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +28,7 @@ import com.pd.model.weather.vo.WeatherVO;
 import com.pd.springboot.business.LookupBusiness;
 import com.pd.springboot.service.TaskService;
 import com.pd.springboot.service.WeatherService;
-import com.pd.standard.itf.TaskConst;
+import com.pd.standard.constants.TaskConst;
 
 import lombok.AllArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.pd.standard.itf;
+package com.pd.standard.constants;
 
 public interface TaskConst {
     String STATUS_INIT = "0";

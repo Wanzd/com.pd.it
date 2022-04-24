@@ -13,7 +13,7 @@ import com.pd.it.common.businessobject.ComboVO;
 import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.itf.IQueryComboOperation;
 import com.pd.it.common.util.Reflects;
-import com.pd.standard.itf.RestPathConst;
+import com.pd.standard.constants.RestPathConst;
 
 public interface IQueryComboRest<FO, DTO> {
 

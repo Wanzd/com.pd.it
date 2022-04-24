@@ -11,7 +11,7 @@ import com.pd.it.common.util.DbTool;
 import com.pd.model.weather.vo.WeatherFO;
 import com.pd.model.weather.vo.WeatherVO;
 import com.pd.springboot.dao.IWeatherDao;
-import com.pd.standard.itf.RestConst;
+import com.pd.standard.constants.RestConst;
 import com.pd.standard.web.BaseRest;
 
 @RestController

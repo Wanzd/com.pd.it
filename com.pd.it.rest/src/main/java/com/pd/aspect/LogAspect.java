@@ -12,8 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
-import static com.pd.it.common.util.StaticTool.formatStr;
-import static com.pd.it.common.util.StaticTool.toStr;
+import static com.pd.it.common.util.StaticTool.*;
 
 /**
  * @Auther: hugeo.wang
@@ -36,18 +35,22 @@ public class LogAspect {
 			String paramStr = toStr(jp.getArgs());
 			log.info(formatStr("%s.%s in:%s", classPath, methodName, paramStr));
 			TimerCO timer = new TimerCO(formatStr("%s.%s", classPath, methodName));
-			Object result = jp.proceed();
-			timer.end();
-			String resultStr = toStr(result);
-			Long endTime=System.currentTimeMillis();
-			if(result instanceof ResultVO){
-				ResultVO rsVO=(ResultVO)result;
-				rsVO.setStartTime(timer.getStart());
-				rsVO.setEndTime(endTime);
-				rsVO.setUseTime(timer.getUsedTime());
+			try {
+				Object result = jp.proceed();
+				timer.end();
+				String resultStr = toStr(result);
+				Long endTime = System.currentTimeMillis();
+				if (result instanceof ResultVO) {
+					ResultVO rsVO = (ResultVO) result;
+					rsVO.setStartTime(timer.getStart());
+					rsVO.setEndTime(endTime);
+					rsVO.setUseTime(timer.getUsedTime());
+				}
+				log.info(formatStr("%s.%s out:%s,use time: %d", classPath, methodName, resultStr, timer.getUsedTime()));
+				return result;
+			}catch(Exception e){
+				error(timer.getName(),e);
 			}
-			log.info(formatStr("%s.%s out:%s,use time: %d", classPath, methodName, resultStr, timer.getUsedTime()));
-			return result;
 		}
 		return jp.proceed();
 	}

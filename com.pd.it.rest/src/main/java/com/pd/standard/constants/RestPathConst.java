@@ -1,4 +1,4 @@
-package com.pd.standard.itf;
+package com.pd.standard.constants;
 
 public interface RestPathConst {
 	String QUERY_INFO = "/queryInfo";// 查询单行数据

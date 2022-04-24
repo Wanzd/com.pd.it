@@ -1,37 +1,29 @@
 package com.pd.springboot.task;
 
-import static com.pd.it.common.util.StaticTool.error;
-import static com.pd.it.common.util.StaticTool.str;
-
-import java.util.Date;
+import com.pd.it.common.annotations.Log;
+import com.pd.it.common.businessobject.MapVO;
+import com.pd.it.common.businessobject.ResultVO;
+import com.pd.it.common.itf.ITask;
+import com.pd.job.business.JobBusiness;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Date;
 
-import com.pd.common.calobject.TimerCO;
-import com.pd.it.common.businessobject.MapVO;
-import com.pd.it.common.itf.ITask;
-import com.pd.springboot.business.JobBusiness;
-import com.pd.standard.itf.TaskEnum;
+import static com.pd.it.common.util.StaticTool.success;
 
 @Named
 public class JobInfoParseTodayTask implements ITask {
     @Inject
-    private JobBusiness business;
+    private JobBusiness jobBusiness;
 
+    @Log
     @Override
-    public Object process() {
-        try {
-            TimerCO timer = new TimerCO(TaskEnum.JOB_INFO_PARSE_TODAY_TASK.getName());
-            MapVO fo = new MapVO();
-            fo.put("creationDate", new Date());
-            business.init(fo);
-            business.process(fo);
-            timer.end();
-            return str(timer);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return error(e.getMessage(), null);
-        }
+    public ResultVO process() {
+        MapVO fo = new MapVO();
+        fo.put("creationDate", new Date());
+        jobBusiness.init(fo);
+        jobBusiness.process(fo);
+        return success("JobInfoParseTodayTask success");
     }
 }

@@ -1,5 +1,10 @@
 package com.pd.springboot;
 
+import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+import com.baomidou.mybatisplus.core.injector.ISqlInjector;
+import com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator;
+import com.pd.it.common.util.SpringUtil;
+import com.pd.springboot.filter.VirtualFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -7,20 +12,16 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
-
-import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
-import com.baomidou.mybatisplus.core.injector.ISqlInjector;
-import com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator;
-import com.pd.it.common.util.SpringUtil;
-import com.pd.springboot.filter.VirtualFilter;
 
 @SpringBootApplication
 @ServletComponentScan
 @EnableScheduling
 @EnableCaching
+@ComponentScan(basePackages = { "com.pd" })
 public class Application {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);

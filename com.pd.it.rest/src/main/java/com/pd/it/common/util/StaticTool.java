@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.pd.it.common.businessobject.ResultVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.IQueryInfoOperation;
+import com.pd.standard.itf.ICalculator;
+import com.pd.standard.itf.IProcessor;
+import com.pd.standard.itf.IValidator;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.validation.ObjectError;
 
@@ -413,5 +416,46 @@ public class StaticTool {
         resVO.setCode(ResultVO.TIMEOUT);
         resVO.setMsg(msg);
         return resVO;
+    }
+
+    /**
+     * 通过入参和指定算子计算得到结果
+     *
+     * @param in 主入参对象
+     * @param calculator 算子
+     * @param <IN> IN
+     * @param <OUT> OUT
+     * @return 计算结果
+     */
+    public static<IN,OUT> OUT cal(IN in, ICalculator<IN,OUT> calculator){
+        if(calculator==null){
+            return null;
+        }
+        return calculator.cal(in);
+    }
+
+    /**
+     * 通过入参和指定算子计算得到校验结果
+     * @param in 主入参对象
+     * @param validator 算子
+     * @param <IN> IN
+     * @return 校验结果
+     */
+    public static<IN> boolean valid(IN in, IValidator<IN> validator){
+        if(validator==null){
+            return false;
+        }
+        return validator.valid(in);
+    }
+
+    /**
+     * 通过入参和指定算子执行流程处理
+     *
+     * @param in 主入参对象
+     * @param processor 算子
+     * @param <IN> IN
+     */
+    public static<IN> void process(IN in ,IProcessor<IN> processor){
+        processor.process(in);
     }
 }

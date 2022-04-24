@@ -1,15 +1,16 @@
 package com.pd.springboot.service;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.pd.businessobject.LookupItemFO;
 import com.pd.it.common.annotations.Timeout;
 import com.pd.it.common.util.ValidTool;
 import com.pd.springboot.adaptor.IRedisAdaptor;
 import com.pd.springboot.dao.ILookupItemDao;
-import com.pd.standard.itf.RedisConst;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import com.pd.standard.constants.RedisConst;
 
 @Named
 public class PdSwitchService implements IPdSwitchService {

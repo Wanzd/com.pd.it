@@ -2,13 +2,12 @@ package com.pd.springboot.task;
 
 import static com.pd.it.common.util.StaticTool.formatDate;
 import static com.pd.it.common.util.StaticTool.notEmpty;
-import static com.pd.standard.itf.TaskConst.STATUS_INIT;
+import static com.pd.standard.constants.TaskConst.STATUS_INIT;
 
 import java.util.Date;
 
 import javax.inject.Inject;
 
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.pd.it.common.exception.BusinessException;

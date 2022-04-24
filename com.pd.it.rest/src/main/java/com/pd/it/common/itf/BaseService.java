@@ -1,17 +1,15 @@
 package com.pd.it.common.itf;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.pd.it.common.businessobject.PageVO;
 import com.pd.it.common.exception.BusinessException;
-
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public class BaseService<FO, VO, Dao extends IBaseDao<FO, VO>> implements IBaseDao<FO, VO> {
 
-    @Inject
+    @Autowired
     @Getter
     protected Dao dao;
 
