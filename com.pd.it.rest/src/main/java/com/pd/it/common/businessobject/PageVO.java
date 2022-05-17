@@ -25,4 +25,7 @@ public class PageVO {
         return pageSize * curPage;
     }
 
+    public int getMysqlStartIdx() {
+        return pageSize * (curPage - 1);
+    }
 }

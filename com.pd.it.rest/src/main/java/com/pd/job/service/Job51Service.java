@@ -3,6 +3,7 @@ package com.pd.job.service;
 import com.pd.common.util.WebUtil;
 import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.itf.BaseService;
+import com.pd.it.common.util.DbTool;
 import com.pd.job.calculator.JobListCalculator;
 import com.pd.model.job.vo.JobFO;
 import com.pd.model.job.vo.JobVO;
@@ -32,7 +33,7 @@ public class Job51Service extends BaseService<JobFO, JobVO, IAppJobDao> {
             if (isEmpty(list)) {
                 break;
             }
-            dao.insertList(list);
+            DbTool.insertList(dao,list);
         }
 
     }

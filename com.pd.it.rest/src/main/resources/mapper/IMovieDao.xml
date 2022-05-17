@@ -21,4 +21,10 @@
 	)
 		</foreach>
 	</update>
+	
+	<select id="queryPagedList" resultType="com.pd.model.movie.vo.MovieVO">
+select * 
+from movie_t
+limit #{page.startIdx},#{page.pageSize}
+	</select>
 </mapper>  

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pd.springboot.dao.IUserDao">
-	<select id="queryDetailInfo" resultType="UserVO">
+<mapper namespace="com.pd.springboot.dao.IPersonDao">
+	<select id="queryDetailInfo" resultType="PersonVO">
 select t.id,
 	t.name,
 	t.sex,
@@ -24,7 +24,13 @@ where t.id=#{fo.id}
 order by t.sort_id,t.birthday
 	</select>
 	
-	<select id="queryPagedList" resultType="UserVO">
+	<select id="queryPagedList" resultType="PersonVO">
+select *
+from person_t t
+limit #{page.mysqlStartIdx},#{page.pageSize}
+	</select>
+	
+	<select id="queryPagedList2" resultType="PersonVO">
 select *
 from (
 	select rs.*,rownum rn 
@@ -59,7 +65,7 @@ where #{page.endIdx}>=rn
 	and rn>=#{page.startIdx} 
 	</select>
 	
-	<select id="queryList" resultType="UserVO">
+	<select id="queryList" resultType="PersonVO">
 select t.id,
 	t.name,
 	t.sex,

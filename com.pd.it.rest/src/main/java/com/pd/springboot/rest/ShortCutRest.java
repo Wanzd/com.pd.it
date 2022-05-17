@@ -2,7 +2,6 @@ package com.pd.springboot.rest;
 
 import static com.pd.it.common.util.StaticTool.assertNull;
 import static com.pd.it.common.util.StaticTool.notEmpty;
-import static com.pd.it.common.util.StaticTool.queryJson;
 import static com.pd.it.common.util.StaticTool.toStr;
 
 import java.util.List;
@@ -25,8 +24,8 @@ import com.pd.it.common.businessobject.ComboVO;
 import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.springboot.business.DataSourceBusiness;
+import com.pd.springboot.dao.IPersonDao;
 import com.pd.springboot.dao.ISysChartDao;
-import com.pd.springboot.dao.IUserDao;
 import com.pd.springboot.service.LookupItemService;
 import com.pd.springboot.service.ProposalService;
 
@@ -39,52 +38,52 @@ import com.pd.springboot.service.ProposalService;
 @RestController
 @RequestMapping("")
 public class ShortCutRest {
-    @Inject
-    private ISysChartDao sysChartDao;
-    @Inject
-    private DataSourceBusiness dataSourceBusiness;
-    @Autowired
-    private LookupItemService lookupItemService;
-    @Inject
-    private ProposalService proposalService;
-    @Autowired
-    private IUserDao userDao;
+	@Inject
+	private ISysChartDao sysChartDao;
+	@Inject
+	private DataSourceBusiness dataSourceBusiness;
+	@Autowired
+	private LookupItemService lookupItemService;
+	@Inject
+	private ProposalService proposalService;
+	@Autowired
+	private IPersonDao personDao;
 
-    @ResponseBody
-    @RequestMapping(value = "/CHART:{id}", produces = { "application/json;charset=UTF-8" })
-    public Object queryChart(@PathParam("") SysChartFO fo) throws BusinessException {
-        /* 查询chart配置 */
-        String jsonData = sysChartDao.queryJson(fo);
-        /* 校验chart配置非空 */ assertNull(jsonData, "queryJson return null");
-        MapVO rs = new MapVO(jsonData);
-        SysDataSourceFO sysDataSourceFO = new SysDataSourceFO();
-        String dataSourceId = rs.str("dataSourceId");
-        if (notEmpty(dataSourceId)) {
-            sysDataSourceFO.setId(dataSourceId);
-            Object list = dataSourceBusiness.query(sysDataSourceFO);
-            rs.put("list", list);
-        }
-        return toStr(rs);
-    }
+	@ResponseBody
+	@RequestMapping(value = "/CHART:{id}", produces = { "application/json;charset=UTF-8" })
+	public Object queryChart(@PathParam("") SysChartFO fo) throws BusinessException {
+		/* 查询chart配置 */
+		String jsonData = sysChartDao.queryJson(fo);
+		/* 校验chart配置非空 */ assertNull(jsonData, "queryJson return null");
+		MapVO rs = new MapVO(jsonData);
+		SysDataSourceFO sysDataSourceFO = new SysDataSourceFO();
+		String dataSourceId = rs.str("dataSourceId");
+		if (notEmpty(dataSourceId)) {
+			sysDataSourceFO.setId(dataSourceId);
+			Object list = dataSourceBusiness.query(sysDataSourceFO);
+			rs.put("list", list);
+		}
+		return toStr(rs);
+	}
 
-    @RequestMapping(value = "/LOOKUP:{lookupType}", method = { RequestMethod.POST, RequestMethod.GET })
-    @ResponseBody
-    public List<ComboVO> queryLookup(@PathParam("") LookupFO fo) throws BusinessException {
-        // return QueryBridge.queryCombo(lookupItemService, fo);
-        return null;
-    }
+	@RequestMapping(value = "/LOOKUP:{lookupType}", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public List<ComboVO> queryLookup(@PathParam("") LookupFO fo) throws BusinessException {
+		// return QueryBridge.queryCombo(lookupItemService, fo);
+		return null;
+	}
 
-    @RequestMapping(value = "/USER:{userName}", method = { RequestMethod.POST, RequestMethod.GET })
-    @ResponseBody
-    public List<ComboVO> queryUser(@PathParam("") LookupFO fo) throws BusinessException {
-        // return QueryBridge.queryCombo(userDao, fo);
-        return null;
-    }
+	@RequestMapping(value = "/USER:{userName}", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public List<ComboVO> queryUser(@PathParam("") LookupFO fo) throws BusinessException {
+		// return QueryBridge.queryCombo(userDao, fo);
+		return null;
+	}
 
-    @RequestMapping(value = "/PROPOSAL:{key}", method = { RequestMethod.POST, RequestMethod.GET })
-    @ResponseBody
-    public List<ProposalVO> queryProposal(@PathParam("") ProposalFO fo) throws BusinessException {
-        // return proposalService.queryList(fo);
-        return null;
-    }
+	@RequestMapping(value = "/PROPOSAL:{key}", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public List<ProposalVO> queryProposal(@PathParam("") ProposalFO fo) throws BusinessException {
+		// return proposalService.queryList(fo);
+		return null;
+	}
 }

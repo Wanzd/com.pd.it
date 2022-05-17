@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.pd.it.common.businessobject.ComboVO;
 import com.pd.it.common.businessobject.MapVO;
 import com.pd.it.common.itf.IQueryComboOperation;
-import com.pd.it.common.util.Reflects;
+import com.pd.it.common.util.ReflectUtil;
 import com.pd.standard.constants.RestPathConst;
 
 public interface IQueryComboRest<FO, DTO> {
@@ -20,7 +20,7 @@ public interface IQueryComboRest<FO, DTO> {
     @RequestMapping(value = RestPathConst.QUERY_COMBO)
     @ResponseBody
     default List<ComboVO> queryCombo(@RequestBody(required = false) JSONObject fo) {
-        IQueryComboOperation op = Reflects.firstExistField(this, IQueryComboOperation.class, "dao,service,business");
+        IQueryComboOperation op = ReflectUtil.firstExistField(this, IQueryComboOperation.class, "dao,service,business");
         return op.queryCombo(toObj(fo, MapVO.class));
     }
 

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import com.pd.it.common.itf.IIdentity;
 
-public class Reflects {
+public class ReflectUtil {
     public static Method getMethod(Object in, String methodName) {
         if (in == null) {
             return null;
