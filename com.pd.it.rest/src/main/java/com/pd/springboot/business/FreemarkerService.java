@@ -5,6 +5,7 @@ import static com.pd.it.common.util.StaticTool.toObj;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 
 import javax.inject.Named;
 
@@ -22,7 +23,7 @@ public class FreemarkerService {
 			Template template = new Template("test", new StringReader(freemarkerFO.getTemplate()));
 
 			Writer out = new StringWriter();
-			template.process(freemarkerFO.getSource(), out);
+			template.process(toObj(freemarkerFO.getSource(),HashMap.class), out);
 			return out.toString();
 		} catch (Exception e) {
 			return ResultVOFactory.error(e.getMessage());

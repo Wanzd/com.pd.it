@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Freemarker</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../jquery-easyui-1.4.1/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../jquery-easyui-1.4.1/themes/icon.css">
+<script data-main="index.js" src="../require.js" charset="utf-8"></script>
+</head>
+<form id="fMain" method="post" action="#">
+	<div>
+		<label for="month">开始生成:</label><input type="button" value="确定" onclick="$impl.generate()"/>
+	</div>
+
+	<div id="dFreemarksTabs" class="easyui-tabs">
+
+		<div id="dSource" title="Source" style="height: 100%;">
+			<textarea id="source" rows="30" cols="100%" name="source"
+				style="height: 100%;"></textarea>
+		</div>
+
+		<div id="dTemplate" title="Template" style="height: 100%;">
+			<textarea id="template" rows="30" cols="100%" name="template"
+				style="height: 100%;"></textarea>
+		</div>
+
+		<div id="dResult" title="Result" style="height: 100%;">
+			<textarea id="result" rows="30" cols="100%" name="result" disabled></textarea>
+		</div>
+	</div>
+</form>
+
+</html>
