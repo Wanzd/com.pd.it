@@ -3,6 +3,7 @@ package com.pd.springboot.rest;
 import static com.pd.it.common.util.StaticTool.eq;
 import static com.pd.it.common.util.StaticTool.getBean;
 import static com.pd.it.common.util.StaticTool.invoke;
+import static com.pd.it.common.util.StaticTool.toObj;
 import static com.pd.it.common.util.StaticTool.toStr;
 import static com.pd.it.common.util.StringTool.decap;
 
@@ -16,11 +17,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pd.businessobject.AiVO;
+import com.pd.it.common.annotations.IValid;
 import com.pd.it.common.businessobject.PageVO;
 
 @RestController
 @RequestMapping("aiRest")
 public class AiRest {
+
+	@PostMapping("")
+	public Object route(@RequestBody @IValid Object fo) {
+		AiVO aiVO=toObj(fo,AiVO.class);
+		Object domainBean = getBean(aiVO.getBeanName()+"Rest");
+		return invoke(domainBean, aiVO.getOperateName(), fo);
+	}
 
 	@PostMapping("/{domain}/{operate}")
 	public Object route(@RequestBody Object fo, @PathVariable("domain") String domain,

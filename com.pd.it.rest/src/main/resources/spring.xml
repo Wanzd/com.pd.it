@@ -13,9 +13,4 @@
 	<bean id="context" class="com.pd.common.util.SpringUtil" />
 	<!-- 定时器开关 -->
 	<task:annotation-driven />
-
-	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPath" value="/ftl" />
-		<property name="defaultEncoding" value="UTF-8" />
-	</bean>
 </beans>

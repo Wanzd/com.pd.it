@@ -1,11 +1,24 @@
 package com.pd.springboot.rest;
 
+import static com.pd.it.common.util.StaticTool.error;
+import static com.pd.it.common.util.StaticTool.str;
+import static com.pd.it.common.util.StaticTool.toStr;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.pd.businessobject.LookupFO;
 import com.pd.businessobject.MailVO;
 import com.pd.businessobject.TestVO;
 import com.pd.common.util.LookupTool;
 import com.pd.it.common.exception.BusinessException;
-import com.pd.it.common.factory.ResultVOFactory;
 import com.pd.springboot.adaptor.IRedisAdaptor;
 import com.pd.springboot.business.TestBusiness;
 import com.pd.springboot.dao.ITestDao;
@@ -13,19 +26,6 @@ import com.pd.springboot.postgredao.ITestPgDao;
 import com.pd.springboot.service.MailService;
 import com.pd.springboot.service.MenuService;
 import com.pd.springboot.service.WeatherService;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-
-import javax.inject.Inject;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.*;
-
-import static com.pd.it.common.util.StaticTool.*;
 
 @RestController
 @RequestMapping("testRest")
@@ -44,8 +44,6 @@ public class TestRest {
 	TestBusiness testBusiness;
 	@Inject
 	private WeatherService weatherService;
-	@Inject
-	private FreeMarkerConfigurer freemarkerConfig;
 
 	@RequestMapping("/test1")
 	public String root() throws BusinessException {
@@ -104,20 +102,8 @@ public class TestRest {
 		try {
 			return testBusiness.testTimeout(null);
 		} catch (Exception e) {
-			return error(e.getMessage(),e);
+			return error(e.getMessage(), e);
 		}
 	}
 
-	@RequestMapping("/testFreemark")
-	public Object testFreemark() throws BusinessException {
-		try {
-			Template template = freemarkerConfig.getConfiguration().getTemplate("test.ftl");
-			Map<String, String> vo = new HashMap<>();
-			StringWriter writer = new StringWriter();
-			template.process(vo, writer);
-			return writer.toString();
-		} catch (IOException | TemplateException e) {
-			return ResultVOFactory.error(e.getMessage());
-		}
-	}
 }

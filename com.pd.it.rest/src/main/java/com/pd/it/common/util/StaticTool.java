@@ -28,7 +28,9 @@ import org.springframework.validation.ObjectError;
 import com.alibaba.fastjson.JSON;
 import com.pd.it.common.businessobject.ResultVO;
 import com.pd.it.common.exception.BusinessException;
+import com.pd.it.common.factory.ResultVOFactory;
 import com.pd.it.common.itf.IQueryInfoOperation;
+import com.pd.it.common.itf.IValidable;
 import com.pd.standard.itf.ICalculator;
 import com.pd.standard.itf.IProcessor;
 import com.pd.standard.itf.IValidator;
@@ -478,5 +480,16 @@ public class StaticTool {
 	 */
 	public static <IN> void process(IN in, IProcessor<IN> processor) {
 		processor.process(in);
+	}
+
+	public static ResultVO<String> valid(Object obj) {
+		if(obj instanceof IValidable) {
+			String validResult = ((IValidable)obj).valid();
+			if(isNull(validResult)) {
+				return null;
+			}
+			return ResultVOFactory.error(validResult);
+		}
+		return null;
 	}
 }

@@ -16,7 +16,17 @@
 		<spring.version>2.2.2.RELEASE</spring.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<mybatis-plus.version>3.3.0</mybatis-plus.version>
+		<freemarker.version>2.3.23</freemarker.version>
 	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>${freemarker.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 
 	</dependencies>
