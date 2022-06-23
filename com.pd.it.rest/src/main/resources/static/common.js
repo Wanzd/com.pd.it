@@ -65,6 +65,22 @@ define(['common'], function() {
 			}
 			return rs.responseText;
 		},
+		get : function(url, data) {
+			// console.log("html:" + url);
+			// console.log(data);
+			var rs = $.ajax({
+						url : url,
+						contentType : 'application/json',
+						data : JSON.stringify(data),
+						dataType : "json",
+						async : false,
+						type : "GET"
+					});
+			if (rs.responseText.length == 0) {
+				return null;
+			}
+			return rs.responseText;
+		},
 		ajax : function(url, data) {
 			// console.log("ajax:" + url);
 			// console.log(data);

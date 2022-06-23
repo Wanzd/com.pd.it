@@ -17,10 +17,9 @@ require(
 		function(jquery, easyui, common) {
 			$impl = {
 				init$filter : function() {
-					common.init({
-						type : "grid",
-						id : "economicDateMonth"
-					});
+					var id=common.parseUrl(location.href).id;
+					$("#source").val(common.get('../testData/freemarker/'+id+'.json'));
+					$("#template").val(common.get('../testData/freemarker/'+id+'.tpl'));
 				},
 				generate : function() {
 					var result = common.html("../freemarkerRest/generate", {
@@ -45,6 +44,23 @@ require(
 					$("#highLight").html(
 							resultHighLight.replaceAll('\n', '<p/>'));
 					$("#dFreemarksTabs").tabs('select', 'HighLight');
+				},
+				copy2board:function(){
+					console.log("$impl copy2board");
+					var targetDiv=$("#highLight")[0];
+					if (document.body.createTextRange) {
+			            var range = document.body.createTextRange();
+			            range.moveToElementText(targetDiv);
+			            range.select();
+			        } else if (window.getSelection) {
+			            var selection = window.getSelection();
+			            var range = document.createRange();
+			            range.selectNodeContents(targetDiv);
+			            selection.removeAllRanges();
+			            selection.addRange(range);
+			        } 
+					document.execCommand("copy");
+					alert("Copy to board success !");
 				}
 			};
 			$api = $impl;
