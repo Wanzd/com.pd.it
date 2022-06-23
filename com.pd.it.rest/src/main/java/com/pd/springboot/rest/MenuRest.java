@@ -18,7 +18,7 @@ public class MenuRest extends BaseRest<SysMenuFO, SysMenuBO, MenuService> {
 
     @RequestMapping("/root")
     public String root() throws BusinessException {
-        return str(DbTool.queryList(bridge, new SysMenuFO()));
+        return str(bridge.queryList(new SysMenuFO()));
     }
 
 }
