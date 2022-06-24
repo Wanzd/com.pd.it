@@ -1,7 +1,6 @@
 package com.pd.springboot.service;
 
 import static com.pd.it.common.util.StaticTool.notEmpty;
-import static com.pd.it.common.util.StaticTool.toObj;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +28,7 @@ public class MenuService extends BaseService<SysMenuFO, SysMenuVO, ISysMenuDao> 
 	public List<SysMenuVO> queryList(SysMenuFO fo) throws BusinessException {
 		List<SysMenuVO> resultList = new ArrayList<>();
 		List<SysMenuVO> enumList = menuEnumMap.get(fo.getPid());
-		if(notEmpty(enumList)){
+		if (notEmpty(enumList)) {
 			return enumList;
 		}
 		try {
@@ -43,14 +42,13 @@ public class MenuService extends BaseService<SysMenuFO, SysMenuVO, ISysMenuDao> 
 
 	private static Map<String, List<SysMenuVO>> initMenuEnumMap() {
 		Map<String, List<SysMenuVO>> resultMap = Arrays.stream(MenuEnum.values()).map(vo -> {
-			SysMenuVO tmpVO=new SysMenuVO();
+			SysMenuVO tmpVO = new SysMenuVO();
 			tmpVO.setId(vo.getId());
 			tmpVO.setPid(vo.getPid());
 			tmpVO.setName(vo.getName());
 			tmpVO.setUrl(vo.getUrl());
 			return tmpVO;
-		})
-				.collect(Collectors.groupingBy(vo -> vo.getPid()));
+		}).collect(Collectors.groupingBy(vo -> vo.getPid()));
 		return resultMap;
 	}
 }
