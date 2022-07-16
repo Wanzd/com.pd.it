@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pd.springboot.dao.ISysMenuDao">
 
-	<select id="queryList" resultType="SysMenuBO">
+	<select id="queryList" resultType="SysMenuVO">
 select id as "id",
 	pid as "pid",
 	name as "name",
@@ -13,7 +13,7 @@ from sys_menu_t
 where 1=1
 		<choose>
 			<when test='fo!=null and fo.pid!=null and fo.pid!=""'> and pid =#{fo.pid,jdbcType=VARCHAR}</when>
-			<otherwise>and pid is null </otherwise>
+			<otherwise>and 1=1 </otherwise>
 		</choose> 	
 order by sort_id+0,id
 	</select>

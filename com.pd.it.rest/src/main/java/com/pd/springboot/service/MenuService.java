@@ -1,6 +1,10 @@
 package com.pd.springboot.service;
 
+import static com.pd.it.common.util.StaticTool.isEmpty;
 import static com.pd.it.common.util.StaticTool.notEmpty;
+import static com.pd.it.common.util.StaticTool.toObj;
+import static com.pd.it.common.util.StringTool.BLANK;
+import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,38 +21,44 @@ import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.BaseService;
 import com.pd.springboot.dao.ISysMenuDao;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Named
-@Slf4j
 public class MenuService extends BaseService<SysMenuFO, SysMenuVO, ISysMenuDao> {
-	private static Map<String, List<SysMenuVO>> menuEnumMap = initMenuEnumMap();
+	private static Map<String, List<SysMenuVO>> menuEnumMap = null;
 
 	@Override
 	public List<SysMenuVO> queryList(SysMenuFO fo) throws BusinessException {
-		List<SysMenuVO> resultList = new ArrayList<>();
-		List<SysMenuVO> enumList = menuEnumMap.get(fo.getPid());
-		if (notEmpty(enumList)) {
-			return enumList;
+		if (isEmpty(menuEnumMap)) {
+			menuEnumMap = initMenuEnumMap();
 		}
-		try {
-			List<SysMenuVO> superResultList = dao.queryList(fo);
-			resultList.addAll(superResultList);
-		} catch (Exception e) {
-			log.error(e.getMessage());
+		if (notEmpty(menuEnumMap)) {
+			List<SysMenuVO> enumList = menuEnumMap.get(fo.getPid());
+			if (notEmpty(enumList)) {
+				return enumList;
+			}
 		}
-		return resultList;
+		return null;
 	}
 
-	private static Map<String, List<SysMenuVO>> initMenuEnumMap() {
-		Map<String, List<SysMenuVO>> resultMap = Arrays.stream(MenuEnum.values()).map(vo -> {
-			SysMenuVO tmpVO = new SysMenuVO();
-			tmpVO.setId(vo.getId());
-			tmpVO.setPid(vo.getPid());
-			tmpVO.setName(vo.getName());
-			tmpVO.setUrl(vo.getUrl());
-			return tmpVO;
-		}).collect(Collectors.groupingBy(vo -> vo.getPid()));
+	private Map<String, List<SysMenuVO>> initMenuEnumMap() {
+		List<SysMenuVO> resultList = new ArrayList<>();
+		List<SysMenuVO> enumList = Arrays.stream(MenuEnum.values()).map(vo -> toObj(vo, SysMenuVO.class))
+				.collect(toList());
+		resultList.addAll(enumList);
+		try {
+			List<SysMenuVO> dbList = dao.queryList(null);
+			if (notEmpty(dbList)) {
+				resultList.addAll(dbList);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		resultList.stream().forEach(vo -> {
+			if (isEmpty(vo.getPid())) {
+				vo.setPid(BLANK);
+			}
+		});
+		Map<String, List<SysMenuVO>> resultMap = resultList.stream().distinct()
+				.collect(Collectors.groupingBy(vo -> vo.getPid()));
 		return resultMap;
 	}
 }

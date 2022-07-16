@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pd.businessobject.SysMenuBO;
 import com.pd.businessobject.SysMenuFO;
 import com.pd.it.common.exception.BusinessException;
-import com.pd.it.common.util.DbTool;
 import com.pd.springboot.service.MenuService;
 import com.pd.standard.web.BaseRest;
 
@@ -16,9 +15,9 @@ import com.pd.standard.web.BaseRest;
 @RequestMapping("menuRest")
 public class MenuRest extends BaseRest<SysMenuFO, SysMenuBO, MenuService> {
 
-    @RequestMapping("/root")
-    public String root() throws BusinessException {
-        return str(bridge.queryList(new SysMenuFO()));
-    }
+	@RequestMapping("/root")
+	public String root() throws BusinessException {
+		return str(bridge.queryList(new SysMenuFO()));
+	}
 
 }

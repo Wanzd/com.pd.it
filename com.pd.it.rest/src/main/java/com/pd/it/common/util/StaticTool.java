@@ -26,6 +26,8 @@ import org.springframework.cglib.core.internal.Function;
 import org.springframework.validation.ObjectError;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializeConfig;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.pd.it.common.businessobject.ResultVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.factory.ResultVOFactory;
@@ -37,7 +39,6 @@ import com.pd.standard.itf.IValidator;
 
 public class StaticTool {
 
-	public final static String BLANK = "";
 	public final static String ZERO_STR = "0";
 	public final static String SUCCESS = "success";
 	public final static BigDecimal ZERO = BigDecimal.ZERO;
@@ -160,6 +161,10 @@ public class StaticTool {
 		String jsonString = null;
 		if (in instanceof String) {
 			jsonString = (String) in;
+		} else if (in instanceof Enum) {
+			SerializeConfig config = new SerializeConfig();
+		    config.configEnumAsJavaBean((Class)in.getClass());
+			jsonString = JSON.toJSONString(in, config);
 		} else {
 			jsonString = JSON.toJSONString(in);
 		}
@@ -483,13 +488,20 @@ public class StaticTool {
 	}
 
 	public static ResultVO<String> valid(Object obj) {
-		if(obj instanceof IValidable) {
-			String validResult = ((IValidable)obj).valid();
-			if(isNull(validResult)) {
+		if (obj instanceof IValidable) {
+			String validResult = ((IValidable) obj).valid();
+			if (isNull(validResult)) {
 				return null;
 			}
 			return ResultVOFactory.error(validResult);
 		}
 		return null;
+	}
+	
+	public static<T> int compare(T param1,T param2) {
+		if(param1 instanceof Comparable) {
+			return ((Comparable)param1).compareTo(param2);
+		}
+		return 0;
 	}
 }
