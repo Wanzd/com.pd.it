@@ -1,6 +1,6 @@
 package com.pd.common.util;
 
-import static com.pd.it.common.util.StaticTool.BLANK;
+import static com.pd.it.common.util.StringTool.BLANK;
 
 import java.io.BufferedReader;
 import java.io.File;
