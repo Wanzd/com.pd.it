@@ -31,4 +31,15 @@ start with pid is null
 connect by prior id=pid
 order by "fullPath"
 	</select>
+	
+	<select id="queryInfo" resultType="SysMenuBO">
+select id,
+	pid,
+	name,
+	url
+from sys_menu_t
+		<where>
+			<if test="fo.id !=null"> and id=#{fo.id}</if>
+		</where>
+	</select>
 </mapper>

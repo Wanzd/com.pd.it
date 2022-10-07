@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pd.springboot.wiki.dao.IWikiDao">
+
+	<select id="queryList" resultType="com.pd.wiki.businessobject.WikiVO">
+select id,
+	group_id,
+	name,
+	content 
+from wiki_t
+		<where>
+			<if test="fo.id!=null"> and id=#{fo.id}</if>
+			<if test="fo.groupId!=null"> and id=#{fo.groupId}</if>
+		</where>
+	</select>
+
+	<select id="queryInfo" resultType="com.pd.wiki.businessobject.WikiVO">
+		select id,
+		group_id,
+		name,
+		content
+		from wiki_t
+		<where>
+			<if test="fo.id!=null"> and id=#{fo.id}</if>
+			<if test="fo.groupId!=null"> and id=#{fo.groupId}</if>
+		</where>
+	</select>
+	<select id="queryWikiInfo" resultType="com.pd.wiki.businessobject.WikiVO">
+		select id,
+		group_id,
+		name,
+		content
+		from wiki_t
+		<where>
+			<if test="fo.id!=null"> and id=#{fo.id}</if>
+			<if test="fo.groupId!=null"> and id=#{fo.groupId}</if>
+		</where>
+	</select>
+	
+</mapper>

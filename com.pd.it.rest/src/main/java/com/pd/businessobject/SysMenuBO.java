@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @Data
 @ToString(callSuper = true)
-public class SysMenuBO implements IIdentity<String> {
+public class SysMenuBO  {
     private String pid;
     @TableId(type = IdType.INPUT)
     private String id;

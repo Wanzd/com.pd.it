@@ -14,8 +14,8 @@ import lombok.ToString;
 public class SysMenuVO extends SysMenuBO {
 
 	public int equals(SysMenuVO vo) {
-		if (ne(this.getPid(), vo.getPid())) {
-			return compare(this.getPid(), vo.getPid());
+		if (ne(super.getPid(), vo.getPid())) {
+			return compare(getPid(), vo.getPid());
 		}
 		if (ne(this.getId(), vo.getId())) {
 			return compare(this.getId(), vo.getId());

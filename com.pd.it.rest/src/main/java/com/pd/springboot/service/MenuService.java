@@ -1,5 +1,6 @@
 package com.pd.springboot.service;
 
+import static com.pd.it.common.util.StaticTool.getBean;
 import static com.pd.it.common.util.StaticTool.isEmpty;
 import static com.pd.it.common.util.StaticTool.notEmpty;
 import static com.pd.it.common.util.StaticTool.toObj;
@@ -27,9 +28,9 @@ public class MenuService extends BaseService<SysMenuFO, SysMenuVO, ISysMenuDao> 
 
 	@Override
 	public List<SysMenuVO> queryList(SysMenuFO fo) throws BusinessException {
-		if (isEmpty(menuEnumMap)) {
-			menuEnumMap = initMenuEnumMap();
-		}
+		// if (isEmpty(menuEnumMap)) {
+		menuEnumMap = initMenuEnumMap();
+		// }
 		if (notEmpty(menuEnumMap)) {
 			List<SysMenuVO> enumList = menuEnumMap.get(fo.getPid());
 			if (notEmpty(enumList)) {
@@ -39,7 +40,8 @@ public class MenuService extends BaseService<SysMenuFO, SysMenuVO, ISysMenuDao> 
 		return null;
 	}
 
-	private Map<String, List<SysMenuVO>> initMenuEnumMap() {
+	public static Map<String, List<SysMenuVO>> initMenuEnumMap() {
+		ISysMenuDao dao = getBean("sysMenuDao", ISysMenuDao.class);
 		List<SysMenuVO> resultList = new ArrayList<>();
 		List<SysMenuVO> enumList = Arrays.stream(MenuEnum.values()).map(vo -> toObj(vo, SysMenuVO.class))
 				.collect(toList());

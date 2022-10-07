@@ -1,86 +1,74 @@
 package com.pd.it.common.itf;
 
-import com.pd.it.common.businessobject.PageVO;
-import com.pd.it.common.exception.BusinessException;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
-public class BaseService<FO, VO, Dao extends IBaseDao<FO, VO>> implements IBaseDao<FO, VO> {
+import org.springframework.beans.factory.annotation.Autowired;
 
-    @Autowired
-    @Getter
-    protected Dao dao;
+import com.pd.it.common.businessobject.PageVO;
+import com.pd.it.common.exception.BusinessException;
 
-    @Override
-    public VO queryInfo(FO in) throws BusinessException {
-        return dao.queryInfo(in);
-    }
+import lombok.Getter;
 
-    @Override
-    public VO queryInfoById(String id) throws BusinessException {
-        return dao.queryInfoById(id);
-    }
+public class BaseService<FO, VO, Dao extends IBaseDao<FO, VO>> {
 
-    @Override
-    public VO queryDetailInfo(FO fo) throws BusinessException {
-        return dao.queryDetailInfo(fo);
-    }
+	@Autowired
+	@Getter
+	protected Dao dao;
 
-    @Override
-    public String queryJson(FO fo) throws BusinessException {
-        return dao.queryJson(fo);
-    }
+	public VO queryInfo(FO in) throws BusinessException {
+		return dao.queryInfo(in);
+	}
 
-    @Override
-    public List<VO> queryList(FO fo) throws BusinessException {
-        return dao.queryList(fo);
-    }
+	public VO queryInfoById(String id) throws BusinessException {
+		return dao.queryInfoById(id);
+	}
 
-    @Override
-    public List<VO> queryPagedList(FO fo, PageVO page) throws BusinessException {
-        return dao.queryPagedList(fo, page);
-    }
+	public VO queryDetailInfo(FO fo) throws BusinessException {
+		return dao.queryDetailInfo(fo);
+	}
 
-    @Override
-    public int queryCount(FO fo) throws BusinessException {
-        return dao.queryCount(fo);
-    }
+	public String queryJson(FO fo) throws BusinessException {
+		return dao.queryJson(fo);
+	}
 
-    @Override
-    public int insertInfo(VO vo) throws BusinessException {
-        return dao.insertInfo(vo);
-    }
+	public List<VO> queryList(FO fo) throws BusinessException {
+		return dao.queryList(fo);
+	}
 
-    @Override
-    public int insertList(List<VO> list) {
-        return dao.insertList(list);
-    }
+	public List<VO> queryPagedList(FO fo, PageVO page) throws BusinessException {
+		return dao.queryPagedList(fo, page);
+	}
 
-    @Override
-    public int updateList(List<VO> list) {
-        return dao.updateList(list);
-    }
+	public int queryCount(FO fo) throws BusinessException {
+		return dao.queryCount(fo);
+	}
 
-    @Override
-    public int deleteList(List<VO> list) {
-        return dao.deleteList(list);
-    }
+	public int insertInfo(VO vo) throws BusinessException {
+		return dao.insertInfo(vo);
+	}
 
-    @Override
-    public int deleteInfo(FO fo) {
-        return dao.deleteInfo(fo);
-    }
+	public int insertList(List<VO> list) {
+		return dao.insertList(list);
+	}
 
-    @Override
-    public int deleteById(String id) {
-        return dao.deleteById(id);
-    }
+	public int updateList(List<VO> list) {
+		return dao.updateList(list);
+	}
 
-    @Override
-    public int updateInfo(VO vo) throws BusinessException {
-        return dao.updateInfo(vo);
-    }
+	public int deleteList(List<VO> list) {
+		return dao.deleteList(list);
+	}
+
+	public int deleteInfo(FO fo) {
+		return dao.deleteInfo(fo);
+	}
+
+	public int deleteById(String id) {
+		return dao.deleteById(id);
+	}
+
+	public int updateInfo(VO vo) throws BusinessException {
+		return dao.updateInfo(vo);
+	}
 
 }

@@ -15,7 +15,7 @@ import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.itf.BaseService;
 import com.pd.it.common.itf.IBaseDao;
 import com.pd.it.common.itf.IQueryComboDao;
-import com.pd.it.common.itf.MybatisPlusService;
+import com.pd.it.common.itf.PlusService;
 import com.pd.model.datasource.vo.DataSourceVO;
 
 public class ConfigUtil {
@@ -59,14 +59,14 @@ public class ConfigUtil {
 	}
 
 	private static <FO, VO> IDbAdapter<FO, VO> getDbAdapter(Object bean) {
-		if (bean instanceof IBaseDao) {
-			return new BaseDaoDbAdapter((IBaseDao) bean);
+		if (bean instanceof PlusService) {
+			return new BaseServiceDbAdapter((BaseService) bean);
 		}
 		if (bean instanceof BaseService) {
 			return new BaseServiceDbAdapter((BaseService) bean);
 		}
-		if (bean instanceof MybatisPlusService) {
-			return new BaseServiceDbAdapter((BaseService) bean);
+		if (bean instanceof IBaseDao) {
+			return new BaseDaoDbAdapter((IBaseDao) bean);
 		}
 		return null;
 	}
