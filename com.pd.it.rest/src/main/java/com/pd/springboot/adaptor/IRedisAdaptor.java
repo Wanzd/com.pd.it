@@ -1,5 +1,10 @@
 package com.pd.springboot.adaptor;
 
+import com.pd.redis.businessobject.RedisFO;
+import com.pd.redis.businessobject.RedisVO;
+
+import java.util.List;
+
 /**
  * redis适配器
  * 
@@ -34,4 +39,6 @@ public interface IRedisAdaptor {
 	 *            String
 	 */
 	void delete(String key);
+
+	List<RedisVO> keys(String keys);
 }
