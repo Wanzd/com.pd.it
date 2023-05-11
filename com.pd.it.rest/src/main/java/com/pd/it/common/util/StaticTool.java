@@ -1,6 +1,5 @@
 package com.pd.it.common.util;
 
-import static com.pd.it.base.constant.BaseConst.HTTP_CODE_ERROR;
 import static java.util.stream.Collectors.toList;
 
 import java.lang.reflect.InvocationTargetException;
@@ -28,6 +27,7 @@ import org.springframework.validation.ObjectError;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.pd.it.base.consts.BaseConst;
 import com.pd.it.common.businessobject.ResultVO;
 import com.pd.it.common.exception.BusinessException;
 import com.pd.it.common.factory.ResultVOFactory;
@@ -269,7 +269,7 @@ public class StaticTool {
 
 	public static Object validError(List<ObjectError> in) {
 		ResultVO<List<String>> rsVO = new ResultVO();
-		rsVO.setCode(HTTP_CODE_ERROR);
+		rsVO.setCode(BaseConst.HttpCode.ERROR);
 		rsVO.setMsg("valid fail");
 		List<String> list = in.stream().map(error -> {
 			return attr(error, "field", String.class) + error.getDefaultMessage();
@@ -281,7 +281,6 @@ public class StaticTool {
 	public static <OUT> OUT getBean(String beanName, Class<OUT> outClass) {
 		return SpringUtil.getBean(beanName, outClass);
 	}
-
 	public static Object getBean(String beanName) {
 		return SpringUtil.getBean(beanName);
 	}

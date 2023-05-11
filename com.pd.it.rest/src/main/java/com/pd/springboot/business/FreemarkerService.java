@@ -23,7 +23,7 @@ public class FreemarkerService {
 			Template template = new Template("test", new StringReader(freemarkerFO.getTemplate()));
 
 			Writer out = new StringWriter();
-			template.process(toObj(freemarkerFO.getSource(),HashMap.class), out);
+			//template.process(toObj(freemarkerFO.getSource(),HashMap.class), out);
 			return out.toString();
 		} catch (Exception e) {
 			return ResultVOFactory.error(e.getMessage());
